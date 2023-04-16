@@ -1,0 +1,26 @@
+<div class="nav">
+    <ul class="hnav">
+        <img src="../../assets/helivox.png" alt="" class="img img-responsive">
+        
+        <li routerLinkActive="current" [routerLinkActiveOptions]="{exact: true}" (click)="cancelDropdown()"><a data-hover="Home" routerLink="/">Home</a></li>
+        <li app-dropdown><a data-hover="Catalogs">Catalogs</a><span class="caret"></span></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Articles" routerLink="articles">Articles</a></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="About Us" routerLink="about-us">About Us</a></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Login" routerLink="login">Login</a></li>
+    </ul>
+    <a href="https://www.instagram.com/helivoxofficial/"><span class="glyphicon glyphicon-flash"></span></a>
+    <hr>
+</div>
+
+<div class="phone-view">
+    <phone-view></phone-view>
+</div>
+
+
+<div #dpdn class="dpdn">
+    <dropdown *ngIf="innerWidth >= 1000"></dropdown>
+    <phone-dropdown *ngIf="innerWidth < 1000" (close)="cancelDropdown()"></phone-dropdown>
+</div>
+
+
+

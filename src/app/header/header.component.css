@@ -1,0 +1,145 @@
+
+
+a { 
+    color: black !important; 
+    cursor: pointer;
+}
+img {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 1.5em;
+    overflow: hidden;
+    margin-right: 30%;
+    width: 5rem; 
+    margin-bottom: 0px;
+    
+}
+.hnav {
+  font-family: 'Raleway', Arial, sans-serif;
+  text-align: right;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-right: 32%;
+  
+
+}
+.hnav * {
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.hnav li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  overflow: hidden;
+  height: 22px;
+  line-height: 22px;
+  
+}
+.hnav a {
+  padding: 0.3em 0;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin: 0;
+  text-decoration: none;
+}
+.hnav a:before,
+.hnav a:after {
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.hnav a:before {
+  top: 100%;
+  display: block;
+  height: 3px;
+  width: 100%;
+  content: "";
+  background-color: black;
+}
+.hnav a:after {
+  padding: 0.3em 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  content: attr(data-hover);
+  color: black;
+  white-space: nowrap;
+}
+.hnav li:hover a,
+.hnav .current a {
+  transform: translateY(-100%);
+}
+
+body {
+  background-color: #212121;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  margin: 0;
+  height: 100%;
+}
+
+hr {
+    width: 90%;
+    background-color: rgba(0, 0, 0, .2);
+    height: 1px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+div.nav {
+  overflow: hidden;
+  background-color: #f8f9fe;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  z-index: 1;
+  margin: 0px;
+}
+
+span {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.glyphicon {
+  position: absolute;
+  top: 44px;
+  right: 10%;
+
+}
+
+.dpdn {
+  display: none;
+}
+
+.phone-view {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav {
+    display: none;
+  }
+  .phone-view {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
