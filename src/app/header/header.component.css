@@ -132,8 +132,9 @@ span {
   }
 }
 
-
-
+img {
+  cursor: pointer;
+}
 
 
 

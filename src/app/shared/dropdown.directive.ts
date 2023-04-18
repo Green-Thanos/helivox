@@ -10,6 +10,7 @@ export class DropdownDirective implements OnInit{
     ngOnInit(): void {
        this.ddService.buttonEmitterCancelled.subscribe(isOpen => {
         this.isOpen = isOpen;
+        this.ddService.buttonEmitter.emit(this.isOpen);
        })
     
     }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { DropdownService } from 'src/app/shared/dropdown.service';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -24,7 +25,9 @@ export class PhoneDropdownComponent implements OnInit{
   
   closeDropdown(){
     this.close.emit();
+    this.dpdnService.buttonEmitterCancelled.emit(false);
   }
 
-  constructor(private dta: DataService){}
+  constructor(private dta: DataService, private dpdnService: DropdownService){}
 }
+

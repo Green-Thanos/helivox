@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { PhoneViewComponent } from './header/phone-view/phone-view.component';
 import { PhoneDropdownComponent } from './header/dropdown/phone-dropdown/phone-dropdown.component';
+import { UpperBannerComponent } from './main-page/upper-banner/upper-banner.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PhoneDropdownComponent } from './header/dropdown/phone-dropdown/phone-d
     LoginPageComponent,
     DropdownDirective,
     PhoneViewComponent,
-    PhoneDropdownComponent
+    PhoneDropdownComponent,
+    UpperBannerComponent
   ],
   imports: [
     BrowserModule,
