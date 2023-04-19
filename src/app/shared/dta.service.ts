@@ -5,7 +5,8 @@ export class DataService {
 
     catalogs = ["Courses", "Clubs", "Extracurriculars"];
     schools = {
-        "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"]
+        "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
+        "Test": ["Test1", "Test2", "Test3", "Test1", "Test2", "Test3"]
     };
 
     getCatalogs(){
@@ -16,7 +17,7 @@ export class DataService {
         return Object.keys(this.schools)
     }
 
-    getSchools(state){
+    getSchools(state: any){
         return this.schools[state];
 
     }

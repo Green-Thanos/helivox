@@ -3,6 +3,7 @@
 a { 
     color: black !important; 
     cursor: pointer;
+
 }
 
 
@@ -35,7 +36,8 @@ a {
 
 .no-pad {
   padding: 0px; 
-  margin: 0px
+  margin: 0px;
+  overflow: scroll; overflow-x: hidden
 }
 
 .sort-text {
@@ -44,6 +46,7 @@ a {
   padding: 10px;
   padding-right: 0px;
   cursor: pointer;
+
   
 }
 

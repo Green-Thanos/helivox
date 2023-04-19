@@ -12,11 +12,19 @@ export class DropdownComponent implements OnInit {
   states = [];
   schools = [];
 
+  currentCatalog = 0;
+  currentState = 0;
+
+
   ngOnInit(): void {
-    // TEMPORARY UNTIL NGFORMS ARE IMPLEMENTED
     this.catalogs = this.dta.getCatalogs();
     this.states = this.dta.getStates();
-    this.schools = this.dta.getSchools(this.states[0]);
+    this.schools = this.dta.getSchools(this.states[this.currentState]);
+  }
+
+  changeSchool(){
+    this.schools = this.dta.getSchools(this.states[this.currentState]);
+
   }
 
   constructor(private dta: DataService){}

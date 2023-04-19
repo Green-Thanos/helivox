@@ -3,20 +3,17 @@
         <div class="row">
             <div class="col-md-4 no-pad">
                 <div class="inner-cont">
-                    <p class="sort-text act"><a>{{catalogs[0]}}</a></p>
-                    <p class="sort-text" *ngFor="let catalog of catalogs.slice(1)"><a>{{catalog}}</a></p>
+                    <p class="sort-text" *ngFor="let catalog of catalogs; let i = index" [ngClass]="currentCatalog === i ? 'act' : ''"><a (click)="currentCatalog = i">{{catalog}}</a></p>
                 </div>
             </div>
             <div class="col-md-4 no-pad">
                 <div class="inner-cont">
-                    <p class="sort-text act"><a>{{states[0]}}</a></p>
-                    <p class="sort-text" *ngFor="let state of states.slice(1)"><a>{{state}}</a></p>
+                    <p class="sort-text" *ngFor="let state of states; let i = index" [ngClass]="currentState === i ? 'act' : ''"><a (click)="currentState = i; changeSchool()">{{state}}</a></p>
                 </div>
             </div>
             <div class="col-md-4 no-pad">
                 <div class="inner-cont">
-                    <p class="sort-text act"><a>{{schools[0]}}</a></p>
-                    <p class="sort-text" *ngFor="let school of schools.slice(1)" ><a>{{school}}</a></p>
+                    <p class="sort-text" *ngFor="let school of schools" ><a>{{school}}</a></p>
                 </div>
             </div>
         </div>

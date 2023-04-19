@@ -62,11 +62,15 @@ ul {
 }
 
 hr {
-  background-color: rgba(0, 0, 0, .05);
+  background-color: rgba(0, 0, 0, .15);
   height: 1px;
   margin-bottom: 0px;
   margin-top: 0px;
 
+}
+
+.marginr {
+  margin-right: 20px !important;
 }
 
 

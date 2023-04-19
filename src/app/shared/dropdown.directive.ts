@@ -8,9 +8,8 @@ export class DropdownDirective implements OnInit{
     @HostBinding('class.current') isOpen = false;
 
     ngOnInit(): void {
-       this.ddService.buttonEmitterCancelled.subscribe(isOpen => {
+       this.ddService.buttonEmitter.subscribe(isOpen => {
         this.isOpen = isOpen;
-        this.ddService.buttonEmitter.emit(this.isOpen);
        })
     
     }

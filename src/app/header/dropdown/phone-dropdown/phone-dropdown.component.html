@@ -7,32 +7,32 @@
         </div>
         <div class="row">
             <div class="col"> 
-                <p class="sort-text">Catalogs <span>&#8595;</span></p>
-                <hr>
-                <!-- TEMPORARY - REPLACE WITH NGFORM -->
-                        <div class="row">
-                            <div class="col-xs-3" *ngFor="let catalog of catalogs; let i = index">
-                                <p class="sort-text act" *ngIf="i===0"><a>{{catalog}}</a></p>
-                                <p class="sort-text" *ngIf="i!==0"><a>{{catalog}}</a></p>
-                            </div>
+                <p class="sort-text" (click)="clicked = !clicked">Catalogs <span *ngIf="!clicked">&#8595;</span><span *ngIf="clicked">&#8593;</span></p>
+                <div *ngIf="clicked">
+                    <hr>
+                    <div class="row marginr">
+                        <div class="col-xs-3" *ngFor="let catalog of catalogs; let i = index" >
+                            <p class="sort-text" [ngClass]="currentCatalog === i ? 'act' : ''"><a (click)="currentCatalog = i">{{catalog}}</a></p>
                         </div>
+                    </div>
 
-                        <hr>
+                    <hr>
 
-                        <div class="row">
-                            <div class="col-xs-3" *ngFor="let state of states; let i = index">
-                                <p class="sort-text act" *ngIf="i===0"><a>{{state}}</a></p>
-                                <p class="sort-text" *ngIf="i!==0"><a>{{state}}</a></p>
-                            </div>
+                    <div class="row marginr">
+                        <div class="col-xs-3" *ngFor="let state of states; let i = index">
+                            <p class="sort-text" [ngClass]="currentState === i ? 'act' : ''"><a (click)="currentState = i; changeSchool()">{{state}}</a></p>
                         </div>
+                    </div>
 
-                        <hr>
+                    <hr>
 
-                        <div class="row">
-                            <div class="col-xs-3" *ngFor="let school of schools; let i = index">
-                                <p class="sort-text"><a>{{school}}</a></p>
-                            </div>
+                    <div class="row marginr">
+                        <div class="col-xs-3" *ngFor="let school of schools; let i = index">
+                            <p class="sort-text"><a>{{school}}</a></p>
                         </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <div class="row">

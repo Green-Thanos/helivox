@@ -13,10 +13,15 @@ export class PhoneDropdownComponent implements OnInit{
   states = [];
   schools = [];
 
+  currentCatalog = 0;
+  currentState = 0;
+
+
+  clicked = false;
+
   @Output() close = new EventEmitter<null>();
 
   ngOnInit(): void {
-    // TEMPORARY UNTIL NGFORMS ARE IMPLEMENTED
     this.catalogs = this.dta.getCatalogs();
     this.states = this.dta.getStates();
     this.schools = this.dta.getSchools(this.states[0]);
@@ -25,7 +30,12 @@ export class PhoneDropdownComponent implements OnInit{
   
   closeDropdown(){
     this.close.emit();
-    this.dpdnService.buttonEmitterCancelled.emit(false);
+    this.dpdnService.update(false);
+  }
+
+  changeSchool(){
+    this.schools = this.dta.getSchools(this.states[this.currentState]);
+
   }
 
   constructor(private dta: DataService, private dpdnService: DropdownService){}

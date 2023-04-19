@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
       this.isOpen = !this.isOpen;
       this.renderer[this.isOpen ? 'removeClass' : 'addClass'](this.dpdn.nativeElement, 'dpdn');
 
-      this.ddService.buttonEmitterCancelled.emit(this.isOpen);
+      this.ddService.update(this.isOpen);
     }
 
   }

@@ -7,6 +7,12 @@ export class DropdownService {
 
     // Tells the viewport
     buttonEmitter = new EventEmitter<boolean>();
-    // Updates the directive
-    buttonEmitterCancelled = new EventEmitter<boolean>();
+
+
+    private isOpen: boolean = false;
+
+    update(isOpen: boolean){
+        this.isOpen = isOpen;
+        this.buttonEmitter.emit(this.isOpen);
+    }
 }

@@ -1,4 +1,4 @@
-<div class="nav">
+<div class="nav disable-selection">
     <ul class="hnav">
         <img src="../../assets/helivox.png" alt="" class="img img-responsive" routerLink="/">
         
@@ -12,12 +12,13 @@
     <hr>
 </div>
 
-<div class="phone-view">
+<!-- Phone nav bar -->
+<div class="phone-view disable-selection">
     <phone-view></phone-view>
 </div>
 
-
-<div #dpdn class="dpdn">
+<!-- Phone dropdown -->
+<div #dpdn class="dpdn disable-selection">
     <dropdown *ngIf="innerWidth >= 1000"></dropdown>
     <phone-dropdown *ngIf="innerWidth < 1000" (close)="cancelDropdown()"></phone-dropdown>
 </div>
