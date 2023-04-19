@@ -28,7 +28,7 @@
 
                     <div class="row marginr">
                         <div class="col-xs-3" *ngFor="let school of schools; let i = index">
-                            <p class="sort-text"><a>{{school}}</a></p>
+                            <p class="sort-text"><a [routerLink]="['/catalogs', currentCatalog, currentState, i]" (click)="resetDpdn()">{{school}}</a></p>
                         </div>
                     </div>
                 </div>
@@ -37,17 +37,17 @@
         </div>
         <div class="row">
             <div class="col">
-                <p class="sort-text" (click)="closeDropdown()"><a routerLink="articles">Articles</a></p>
+                <p class="sort-text"><a routerLink="articles" (click)="closeDropdown()">Articles</a></p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p class="sort-text" (click)="closeDropdown()"><a routerLink="about-us">About-Us</a></p>
+                <p class="sort-text"><a routerLink="about-us" (click)="closeDropdown()">About-Us</a></p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p class="sort-text" (click)="closeDropdown()"><a routerLink="login">Login</a></p>
+                <p class="sort-text"><a routerLink="login" (click)="closeDropdown()">Login</a></p>
             </div>
         </div>
     </div>

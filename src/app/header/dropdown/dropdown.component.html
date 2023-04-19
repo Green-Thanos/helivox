@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4 no-pad">
                 <div class="inner-cont">
-                    <p class="sort-text" *ngFor="let school of schools" ><a>{{school}}</a></p>
+                    <p class="sort-text" *ngFor="let school of schools; let i = index"><a [routerLink]="['/catalogs', currentCatalog, currentState, i]" (click)="resetDpdn()">{{school}}</a></p>
                 </div>
             </div>
         </div>

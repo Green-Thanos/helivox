@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DropdownService } from 'src/app/shared/dropdown.service';
 import { DataService } from 'src/app/shared/dta.service';
 
@@ -19,7 +19,6 @@ export class PhoneDropdownComponent implements OnInit{
 
   clicked = false;
 
-  @Output() close = new EventEmitter<null>();
 
   ngOnInit(): void {
     this.catalogs = this.dta.getCatalogs();
@@ -29,15 +28,20 @@ export class PhoneDropdownComponent implements OnInit{
 
   
   closeDropdown(){
-    this.close.emit();
-    this.dpdnService.update(false);
+    this.ddService.update(false);
   }
 
   changeSchool(){
     this.schools = this.dta.getSchools(this.states[this.currentState]);
 
   }
+  resetDpdn(){
+    this.ddService.update(false);
+    this.currentCatalog = 0;
+    this.currentState = 0;
+    this.changeSchool();
+  }
 
-  constructor(private dta: DataService, private dpdnService: DropdownService){}
+  constructor(private dta: DataService, private ddService: DropdownService){}
 }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DropdownService } from 'src/app/shared/dropdown.service';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class DropdownComponent implements OnInit {
   ngOnInit(): void {
     this.catalogs = this.dta.getCatalogs();
     this.states = this.dta.getStates();
-    this.schools = this.dta.getSchools(this.states[this.currentState]);
+    this.changeSchool();
   }
 
   changeSchool(){
@@ -27,7 +28,14 @@ export class DropdownComponent implements OnInit {
 
   }
 
-  constructor(private dta: DataService){}
+  resetDpdn(){
+    this.ddService.update(false);
+    this.currentCatalog = 0;
+    this.currentState = 0;
+    this.changeSchool();
+  }
+
+  constructor(private dta: DataService, private ddService: DropdownService){}
 
 
 }
