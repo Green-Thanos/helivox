@@ -8,6 +8,9 @@ export class DropdownService {
     // Tells the viewport
     buttonEmitter = new EventEmitter<boolean>();
 
+    // Checks if catalogs page is currently active
+    pageChecker = new EventEmitter<boolean>();
+
 
     private isOpen: boolean = false;
 

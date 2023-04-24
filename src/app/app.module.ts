@@ -15,6 +15,10 @@ import { PhoneViewComponent } from './header/phone-view/phone-view.component';
 import { PhoneDropdownComponent } from './header/dropdown/phone-dropdown/phone-dropdown.component';
 import { UpperBannerComponent } from './main-page/upper-banner/upper-banner.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { IntroBannerComponent } from './catalogs-page/intro-banner/intro-banner.component';
+import { SortBannerComponent } from './catalogs-page/content-banner/sort-banner/sort-banner.component';
+import { ContentBannerComponent } from './catalogs-page/content-banner/content-banner.component';
+import { SortPanelComponent } from './catalogs-page/content-banner/sort-panel/sort-panel.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     PhoneViewComponent,
     PhoneDropdownComponent,
     UpperBannerComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    IntroBannerComponent,
+    SortBannerComponent,
+    ContentBannerComponent,
+    SortPanelComponent
   ],
   imports: [
     BrowserModule,

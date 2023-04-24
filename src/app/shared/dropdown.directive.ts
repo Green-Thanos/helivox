@@ -1,4 +1,4 @@
-import { Directive, HostListener, HostBinding, OnInit } from '@angular/core';
+import { Directive, HostListener, HostBinding, OnInit, EventEmitter } from '@angular/core';
 import { DropdownService } from './dropdown.service';
 
 @Directive({
@@ -7,9 +7,17 @@ import { DropdownService } from './dropdown.service';
 export class DropdownDirective implements OnInit{
     @HostBinding('class.current') isOpen = false;
 
+    @HostBinding('class.current') pageOpen = false;
+
+    
+
     ngOnInit(): void {
-       this.ddService.buttonEmitter.subscribe(isOpen => {
+       this.ddService.buttonEmitter.subscribe(isOpen => { 
         this.isOpen = isOpen;
+       })
+
+       this.ddService.pageChecker.subscribe(pageOpen => {
+        this.pageOpen = pageOpen;
        })
     
     }

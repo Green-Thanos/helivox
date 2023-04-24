@@ -1,0 +1,29 @@
+<input placeholder="Search...">
+<div style="position: relative">
+    <button (click)="selectedFilter === 0 ? selectedFilter = -1 : selectedFilter = 0">{{activeFilters[0]}} <span class="caret"></span></button>
+    <div class="dropdown" *ngIf="selectedFilter === 0">
+        <p class="ddCont" *ngFor="let rating of filtrationData[0]; let i = index" (click)="changeFilters(0, i)">{{rating}}</p>
+    </div>
+</div>
+<div style="position: relative">
+    <button (click)="selectedFilter === 1 ? selectedFilter = -1 : selectedFilter = 1">{{activeFilters[1]}}  <span class="caret"></span></button>
+    <div class="dropdown" *ngIf="selectedFilter === 1">
+        <p class="ddCont" *ngFor="let hours of filtrationData[1]; let i = index" (click)="changeFilters(1, i)">{{hours}}</p>
+
+    </div>
+</div>
+<div style="position: relative">
+    <button (click)="selectedFilter === 2 ? selectedFilter = -1 : selectedFilter = 2">{{activeFilters[2]}}  <span class="caret"></span></button>
+    <div class="dropdown" *ngIf="selectedFilter === 2">
+        <p class="ddCont" *ngFor="let cost of filtrationData[2]; let i = index" (click)="changeFilters(2, i)">{{cost}}</p>
+
+    </div>
+</div>
+<div style="position: relative">
+    <button (click)="selectedFilter === 3 ? selectedFilter = -1 : selectedFilter = 3">{{activeFilters[3]}}  <span class="caret"></span></button>
+    <div class="dropdown" *ngIf="selectedFilter === 3">
+        <p class="ddCont" *ngFor="let tag of filtrationData[3]; let i = index" (click)="changeFilters(3, i)">{{tag}}</p>
+    </div>
+</div>
+<a (click)="reset()">RESET</a>
+<br><br>
