@@ -10,6 +10,7 @@ export class ContentBannerComponent {
 
   activeFilters = this.data.getDefaultTags();
   selected = this.data.getTypes()[0];
+  searchText = "";
   
   recordCategory(selected: string){
     this.selected = selected;
@@ -17,6 +18,10 @@ export class ContentBannerComponent {
 
   parseFilters(activeFilters: string[]){
     this.activeFilters = activeFilters;
+  }
+
+  parseSearch(searchText: string){
+    this.searchText = searchText;
   }
 
   constructor(private data: DataService){}

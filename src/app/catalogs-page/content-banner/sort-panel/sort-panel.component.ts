@@ -11,6 +11,9 @@ export class SortPanelComponent implements OnChanges{
 
   @Input("selected") selectedCategory: string;
   @Output() exportFilters = new EventEmitter<string[]>();
+  @Output() exportSearch = new EventEmitter<string>();
+
+  searchText: string = "";
 
   filtrationData = this.dta.filtrationData;
 
@@ -24,15 +27,20 @@ export class SortPanelComponent implements OnChanges{
     }
   }
 
-  // When the input (selected category) changes, update tags list
+  // When the input (selected category like stem) changes, update tags list
   ngOnChanges(changes: SimpleChanges): void {
     this.filtrationData[3] = this.dta.getTags(this.selectedCategory);
+    this.reset();
   }
 
   changeFilters(type: number, index: number){
     this.activeFilters[type] = this.filtrationData[type][index];
     this.exportFilters.emit(this.activeFilters);
     this.selectedFilter = -1;
+  }
+
+  onSearchChange(){
+    this.exportSearch.emit(this.searchText.toLowerCase());
   }
 
   reset() {

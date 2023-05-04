@@ -19,6 +19,7 @@ import { IntroBannerComponent } from './catalogs-page/intro-banner/intro-banner.
 import { SortBannerComponent } from './catalogs-page/content-banner/sort-banner/sort-banner.component';
 import { ContentBannerComponent } from './catalogs-page/content-banner/content-banner.component';
 import { SortPanelComponent } from './catalogs-page/content-banner/sort-panel/sort-panel.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SortPanelComponent } from './catalogs-page/content-banner/sort-panel/so
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

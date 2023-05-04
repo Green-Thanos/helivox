@@ -9,11 +9,13 @@ export class DataService {
         "Test": ["Test1", "Test2", "Test3", "Test1", "Test2", "Test3"]
     };
     tags = {
-        "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing"],
+        "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing", "ABC"],
         "SPORTS": ["Boys", "Girls", "Winter", "Spring", "Fall", "Dance", "Swim", "Personal Fitness", "Self Defense"],
         "ARTS": ["Art", "Lit", "Pub. Speaking", "Lang/Culture", "Drama", "Music", "Film"],
         "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
     }
+
+    // Referenced by default tags
     filtrationData = {
         0: ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"],
         1: ["0", "1-5", "6-10", "10+"],
@@ -21,7 +23,6 @@ export class DataService {
         3: this.getTags("STEM")
       }
     
-
     defaultTags = ["Rating", "Hours", "Cost", "Tags"];
     types = ["STEM", "SPORTS", "ARTS", "MISC"];
 
