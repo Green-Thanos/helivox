@@ -20,6 +20,8 @@ import { SortBannerComponent } from './catalogs-page/content-banner/sort-banner/
 import { ContentBannerComponent } from './catalogs-page/content-banner/content-banner.component';
 import { SortPanelComponent } from './catalogs-page/content-banner/sort-panel/sort-panel.component';
 import { FormsModule } from '@angular/forms';
+import { CardContentComponent } from './catalogs-page/content-banner/card-content/card-content.component';
+import { ModalComponent } from './catalogs-page/content-banner/card-content/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { FormsModule } from '@angular/forms';
     IntroBannerComponent,
     SortBannerComponent,
     ContentBannerComponent,
-    SortPanelComponent
+    SortPanelComponent,
+    CardContentComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

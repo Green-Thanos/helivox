@@ -1,0 +1,32 @@
+<div class="box" (click)="isOpen=true; check()">
+    <div class="inner-box" (click)="notToggled=true">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>{{data.title}}</h3>
+            </div>
+            <div class="col-sm-6" style="margin-top: 15px;">
+                <span style="background-color: rgb(26, 138, 138)">5 HRS/WEEK</span>
+                <span style="background-color: rgb(17, 146, 17)">$0</span>
+                <span style="background-color: rgb(86, 88, 86); cursor: pointer" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
+            </div>
+        </div>
+        <div *ngIf="!commentsToggled">
+            <img [src]="data.image" class="image-display">
+            <p class="data-text">{{data.description}} {{data.description}}</p>
+        </div>
+
+        <div *ngIf="commentsToggled" class="comment-box">
+            <p *ngIf="data.comments.length === 0">There are no comments yet. Try commenting!</p>
+            <div *ngFor="let d of data.comments; let i = index" >
+                <p style="font-weight: 500; margin: 0">{{d[0]}}: </p> <blockquote>{{d[1]}}</blockquote>
+            </div>
+           
+        </div>
+        <div style="text-align: center"  *ngIf="commentsToggled" >
+            <input placeholder="Enter Comment"><button>Enter</button>
+        </div>
+
+
+    </div>
+</div>
+

@@ -5,11 +5,7 @@
             <sort-panel [selected]="selected" (exportFilters)="parseFilters($event)" (exportSearch)="parseSearch($event)"></sort-panel>
         </div>
         <div class="col-sm-9">
-            CONTENT: {{selected}} |
-            {{activeFilters[0] !== "Rating" ? activeFilters[0] + " | " : ""}}  
-            {{activeFilters[1] !== "Hours" ? activeFilters[1] + " | "  : ""}} 
-            {{activeFilters[2] !== "Cost" ? activeFilters[2] + " | "  : ""}} 
-            {{activeFilters[3] !== "Tags" ? activeFilters[3] + "|": ""}}  {{searchText}}
+            <card-content [selected]="selected" [activeFilters]="activeFilters" [searchText]="searchText"></card-content>
         </div>
     </div>
 </div>

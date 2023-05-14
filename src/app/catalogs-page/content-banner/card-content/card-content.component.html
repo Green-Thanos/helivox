@@ -1,0 +1,26 @@
+<!-- CONTENT: {{selected}} |
+{{activeFilters[0] !== "Rating" ? activeFilters[0] + " | " : ""}}  
+{{activeFilters[1] !== "Hours" ? activeFilters[1] + " | "  : ""}} 
+{{activeFilters[2] !== "Cost" ? activeFilters[2] + " | "  : ""}} 
+{{activeFilters[3] !== "Tags" ? activeFilters[3] + "|": ""}}  {{searchText}} -->
+
+<div class="row" style="margin-right: 100px;">
+    <div class="col-lg-4 col-sm-6" *ngFor="let n of [0,1,2,3,4,5 ,6 ,7 ,8,9,10,11,12,13,14,15,16,17 ]; let i = index" (click)="openModal(i)">
+        <div class="card card-content" [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + dummyData[i%2].image + ')'}">
+            <div class="card-header">
+                <p style="color: white; margin: 0">
+                    {{dummyData[0].title.toUpperCase()}}
+                </p>
+            </div>
+            <div class="card-body">
+              <p class="tags">SCIENCE</p>
+              <p class="tags">TAG 2</p>
+              <p class="tags">TAG 3</p>
+              <span>&#8594;</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal *ngIf="isOpen" (openEvent)="closeModal()" [data]="dummyData[openedCatalog%2]"></modal>

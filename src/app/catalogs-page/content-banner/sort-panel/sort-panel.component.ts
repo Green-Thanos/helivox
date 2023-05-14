@@ -45,6 +45,8 @@ export class SortPanelComponent implements OnChanges{
 
   reset() {
     this.activeFilters = this.dta.getDefaultTags(); 
+    this.searchText = "";
+    this.exportSearch.emit(this.searchText.toLowerCase());
     this.exportFilters.emit(this.activeFilters);
   }
 
