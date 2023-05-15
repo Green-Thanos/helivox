@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { CatalogData } from '../../../../shared/catalog-data';
 
 @Component({
@@ -13,6 +13,8 @@ export class ModalComponent {
 
   commentsToggled = false;
 
+  @ViewChild('comments') comments: string;
+
   @Input() data: CatalogData;
 
   @Output() openEvent = new EventEmitter<boolean>();
@@ -24,5 +26,11 @@ export class ModalComponent {
     }
 
     this.notToggled = false;
+  }
+
+  pushComments(){
+    this.data.comments.push(["Anonymous", this.comments]);
+
+    this.comments = '';
   }
 }

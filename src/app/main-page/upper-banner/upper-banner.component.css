@@ -14,7 +14,7 @@ h1 {
 
 
 
-    background-image: linear-gradient(to left, black, black,black,black, black,black, black, black,black,black, black,black, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b);
+    background-image: linear-gradient(to left, black, black,black,black, black,black, black, black,black,black, black, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b, #5dc60b, #5dc60b,  #5dc60b);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         background-clip: text;

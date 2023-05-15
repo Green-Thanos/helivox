@@ -9,7 +9,7 @@ export class DataService {
         "Test": ["Test1", "Test2", "Test3", "Test1", "Test2", "Test3"]
     };
     tags = {
-        "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing", "ABC"],
+        "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing"],
         "SPORTS": ["Boys", "Girls", "Winter", "Spring", "Fall", "Dance", "Swim", "Personal Fitness", "Self Defense"],
         "ARTS": ["Art", "Lit", "Pub. Speaking", "Lang/Culture", "Drama", "Music", "Film"],
         "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
