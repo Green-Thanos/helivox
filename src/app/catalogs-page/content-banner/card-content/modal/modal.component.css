@@ -14,7 +14,7 @@
 .inner-box{
     background: white;
     width: 900px;
-    height: 900px;
+    height: 95%;
     border-radius: 5px;
     padding-left: 20px;
     overflow-y: scroll;
@@ -22,6 +22,7 @@
     position: relative;
 
 }
+
 
 span {
     padding: 6px 13px 6px 13px;
@@ -33,6 +34,8 @@ span {
     -ms-user-select: none; 
     user-select: none; 
 }
+
+
 
 .data-text {
     margin-top: 20px;
