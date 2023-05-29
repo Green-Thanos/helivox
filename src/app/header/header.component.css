@@ -110,11 +110,14 @@ span {
   cursor: pointer;
 }
 
-.glyphicon {
+
+
+i {
   position: absolute;
   top: 44px;
   right: 10%;
-
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 .dpdn {

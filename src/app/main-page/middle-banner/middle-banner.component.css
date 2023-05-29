@@ -1,0 +1,35 @@
+@property --num {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: false;
+}
+.col-md-6 {
+    padding: 40px;
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+p.big {
+    font-size: 10vw;
+    display:inline;
+    transition: --num 5s;
+    counter-set: num var(--num);
+}
+p.big:first-of-type::after {
+    content: counter(num);
+}
+.activate {
+    --num: 67;
+}
+.row {
+    padding: 70px 0px 70px 0px;
+}
+@media only screen and (max-width: 900px) {
+    p.big {
+      font-size: 100px
+    }
+    .row {
+        padding: 70px 20px 70px 20px;
+    }
+}
