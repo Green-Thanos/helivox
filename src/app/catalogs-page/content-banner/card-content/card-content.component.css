@@ -34,6 +34,10 @@
 span {
     margin-left: 95%;
     font-size: 20px;
+    position: absolute;
+    right: 20px;
+    color: white;
+    bottom: 5px;
 }
 .card-header{
     color: rgb(171, 176, 182);
