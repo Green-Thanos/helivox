@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -17,12 +17,15 @@ export class MiddleBannerComponent implements OnDestroy {
 
   i = 0;
 
+  bugFixTest: MiddleBannerComponent;
+  
   numberChanger = setInterval(() => {
     this.i = (this.i+1) % this.listOfNums.length
     this.currNum = this.listOfNums[this.i];
     this.currText = this.listOfText[this.i];
-  }, 9000)
+  }, 9000);
 
+  
   ngOnDestroy(): void {
     clearInterval(this.numberChanger);
   }

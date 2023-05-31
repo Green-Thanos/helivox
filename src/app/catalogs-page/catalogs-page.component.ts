@@ -15,19 +15,32 @@ export class CatalogsPageComponent implements OnInit, OnDestroy{
 
   subscription: Subscription;
 
+  data = [];
+
   ngOnInit(): void {
     this.catalogData = {
       catalog: this.dta.catalogs[this.route.snapshot.params["catalog"]],
       state: this.dta.getStates()[this.route.snapshot.params["state"]],
       school: this.dta.getSchools(this.dta.getStates()[this.route.snapshot.params["state"]])[this.route.snapshot.params["school"]]
     };
+
+    // If they change the catalog data on the page 
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.catalogData.catalog = this.dta.catalogs[params["catalog"]],
       this.catalogData.state = this.dta.getStates()[params["state"]],
       this.catalogData.school = this.dta.getSchools(this.dta.getStates()[params["state"]])[params["school"]]
+      
+      this.dta.getData(this.catalogData.catalog).subscribe((response: any[]) => {
+        this.data = response;
+      })
+  
     })
 
     this.ddService.pageChecker.emit(true);
+
+    this.dta.getData(this.catalogData.catalog).subscribe((response: any[]) => {
+      this.data = response;
+    })
 
   }
 
@@ -39,3 +52,4 @@ export class CatalogsPageComponent implements OnInit, OnDestroy{
 
   constructor(private dta: DataService, private route: ActivatedRoute, private ddService: DropdownService){}
 }
+

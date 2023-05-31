@@ -34,3 +34,8 @@ p {
     left: 7%;
 }
 
+@media only screen and (max-width: 900px) {
+    p {
+        font-size: 16px;
+    }
+}

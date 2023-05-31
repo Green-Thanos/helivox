@@ -6,7 +6,7 @@ import { DataService } from 'src/app/shared/dta.service';
   templateUrl: './sort-panel.component.html',
   styleUrls: ['./sort-panel.component.css']
 })
-export class SortPanelComponent implements OnChanges{
+export class SortPanelComponent{
   selectedFilter = -1;
 
   @Input("selected") selectedCategory: string;
@@ -28,10 +28,10 @@ export class SortPanelComponent implements OnChanges{
   }
 
   // When the input (selected category like stem) changes, update tags list
-  ngOnChanges(changes: SimpleChanges): void {
-    this.filtrationData[3] = this.dta.getTags(this.selectedCategory);
-    this.reset();
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.filtrationData[3] = this.dta.getTags(this.selectedCategory);
+  //   this.reset();
+  // }
 
   changeFilters(type: number, index: number){
     this.activeFilters[type] = this.filtrationData[type][index];

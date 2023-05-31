@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -7,6 +7,9 @@ import { DataService } from 'src/app/shared/dta.service';
   styleUrls: ['./content-banner.component.css']
 })
 export class ContentBannerComponent {
+
+  @Input("data") catalogData = [];
+  @Input("catalogCategory") catalogCategory;
 
   activeFilters = this.data.getDefaultTags();
   selected = this.data.getTypes()[0];

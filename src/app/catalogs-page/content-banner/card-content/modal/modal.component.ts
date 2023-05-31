@@ -29,7 +29,12 @@ export class ModalComponent {
   }
 
   pushComments(){
-    this.data.comments.push(["Anonymous", this.comments]);
+    if(this.data.comments === undefined){
+      this.data.comments = [["Anonymous", this.comments]];
+    }
+    else{
+      this.data.comments.push(["Anonymous", this.comments]);
+    }
 
     this.comments = '';
   }

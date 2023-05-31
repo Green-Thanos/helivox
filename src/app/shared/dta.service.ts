@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CatalogData } from './catalog-data';
+
 
 @Injectable({providedIn: 'root'})
 export class DataService {
 
-    catalogs = ["Courses", "Clubs", "Extracurriculars"];
+    // Catalogs Page
+
+    catalogs = ["Courses", "Clubs"];
     schools = {
         "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
         "Test": ["Test1", "Test2", "Test3", "Test1", "Test2", "Test3"]
@@ -17,21 +22,21 @@ export class DataService {
 
     // Referenced by default tags
     filtrationData = {
-        0: ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"],
-        1: ["0", "1-5", "6-10", "10+"],
-        2: ["$0", "$1-20", "$20-50", "$50+"],
-        3: this.getTags("STEM")
+        0: ["0", "1-5", "6-10", "10+"],
+        1: ["$0", "$1-20", "$20-50", "$50+"],
+        2: this.getTags("STEM")
       }
     
-    defaultTags = ["Rating", "Hours", "Cost", "Tags"];
+    defaultTags = ["Hours", "Cost", "Tags"];
     types = ["STEM", "SPORTS", "ARTS", "MISC"];
 
     // Front page
 
-    // Stats
-
     statVal = ['67', '94', '2'];
     statText = ['Are goofy', 'Hate HS', 'Like Glynn'];
+
+
+    // Getters for all variables
 
     getStatVal(){
         return this.statVal.slice();
@@ -65,5 +70,17 @@ export class DataService {
     getTypes() {
         return this.types.slice()
     }
+
+    // Http Request Methods
+
+    postData(newDta: any, fileName: String){
+        this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+    }
+
+    getData(filename: String){
+        return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json')
+    }
+
+    constructor(private http: HttpClient){}
 
 }

@@ -1,12 +1,13 @@
 <div class="box" (click)="isOpen=true; check()">
     <div class="inner-box" (click)="notToggled=true">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <h3>{{data.title}}</h3>
             </div>
-            <div class="col-sm-6" style="margin-top: 15px;">
-                <span style="background-color: rgb(26, 138, 138)">5 HRS/WEEK</span>
-                <span style="background-color: rgb(17, 146, 17)">$0</span>
+            <div class="col-sm-7" style="margin-top: 15px;">
+                <span style="background-color: rgb(26, 138, 138)">{{data.tags[0]}} HRS/WEEK</span>
+                <span style="background-color: rgb(17, 146, 17)">${{data.tags[1]}}</span>
+                <a href="{{data.link}}" target="_blank" style="text-decoration:none" *ngIf="data.link !== 'na'"><span style="background-color: rgb(182, 17, 17); cursor: pointer" >Learn More</span></a>
                 <span style="background-color: rgb(86, 88, 86); cursor: pointer" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
                 <span style="background-color: rgba(0, 0, 0, 0.055); cursor: pointer; font-weight: 700;right: 40px; border: 1px solid rgba(0, 0, 0, 0.445); position: absolute;color: black;" (click)="isOpen = true; check()">x</span>
 
@@ -18,7 +19,7 @@
         </div>
 
         <div *ngIf="commentsToggled" class="comment-box">
-            <p *ngIf="data.comments.length === 0">There are no comments yet. Try commenting!</p>
+            <p *ngIf="data.comments === undefined">There are no comments yet. Try commenting!</p>
             <div *ngFor="let d of data.comments; let i = index" >
                 <p style="font-weight: 500; margin: 0">{{d[0]}}: </p> <blockquote>{{d[1]}}</blockquote>
             </div>
@@ -26,6 +27,7 @@
         <div style="text-align: center" *ngIf="commentsToggled" >
             <input placeholder="Enter Comment" [(ngModel)]="comments"><button (click)="pushComments()">Enter</button>
         </div>
+
 
 
     </div>

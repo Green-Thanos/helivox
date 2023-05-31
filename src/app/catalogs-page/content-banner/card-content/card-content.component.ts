@@ -8,33 +8,11 @@ import { DataService } from 'src/app/shared/dta.service';
 })
 export class CardContentComponent {
 
-  dummyData = [{
-    title: "Environmental Science AP",
-    tags: [ "5", "0"],
-    labels: ["Science"],
-    image: "https://resources.finalsite.net/images/f_auto,q_auto,t_image_size_2/v1544015049/troyk12mius/qhymxhcjvmy6darpzpnb/TroyHighHero.jpg",
-    description: `Students will explore and investigate the interrelationships of the natural world and analyze environmental problems, both natural and human-made. Topics will include Ecosystems, Biodiversity, Populations, Earth Systems and Resources, Land and Water Use, Energy and Resources, Pollution and Global Change. Laboratory investigations and field work are integral components of this course. This course is designed to prepare students for the College Board exam in the Spring.
-    Skills you will learn:
-    · Explaining environmental concepts and processes
-    · Analyzing data, visual representations, and writings
-    · Applying quantitative methods in solving problems
-    · Proposing a solution for an environmental problem and supporting your idea with evidence
-    · Analyzing a research study to identify a hypothesis`,
-    comments: [["AntHill Baboon Kabir", "Hey How is it going? I actually feed the turtles straws!"], ["H.E.L.P", "What an Environmentalist!"]]
-  }, 
-  {
-    title: "Physics 2 AP",
-    tags: ["3", "1"],
-    labels: ["Math"], 
-    image: "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0",
-    description: `Random Description`,
-    comments: []
-  }]
-
-  
   @Input() selected: string;
   @Input() activeFilters: string[];
   @Input() searchText: string;
+  @Input("data") catalogData = []
+  @Input("catalogCategory") catalogCategory;
 
   isOpen: boolean = false;
   openedCatalog: number;
@@ -46,6 +24,54 @@ export class CardContentComponent {
   }
   closeModal(){
     this.isOpen = false;
+  }
+
+  passesTags(i: number){
+    if(this.catalogData[i].school !== this.catalogCategory.school){
+      return false;
+    }
+    if(!this.catalogData[i].title.toLowerCase().includes(this.searchText.toLowerCase())){
+      return false;
+    }
+    if(this.catalogData[i].category.toLowerCase() !== this.selected.toLowerCase()){
+      return false;
+    }
+    if(!(this.catalogData[i].labels.includes(this.activeFilters[2])) && this.activeFilters[2] != "Tags"){
+      return false
+    }
+    if(!this.checkIfInRange(this.activeFilters[0], this.catalogData[i].tags[0])  && this.activeFilters[0] != "Hours"){
+      return false;
+    }
+    if(this.activeFilters[1] != "Cost" && !this.checkIfInRange(this.activeFilters[1], this.catalogData[i].tags[1]) ){
+      return false;
+    }
+
+    return true;
+  }
+
+  checkIfInRange(range: String, value: number){
+    if(range.includes("+")){
+      range = range.replace("$", "").replace("+" , "");
+      if(value > Number(range)){
+        return true;
+      }
+      return false;
+    }
+    else if(range.includes("-")){
+      const setOfVals = range.split("-");
+      setOfVals[0] = setOfVals[0].replace("$", "");
+
+      if(value >= Number(setOfVals[0]) && value <= Number(setOfVals[1])){
+        return true;
+      }
+    }
+    else{
+      if(value === Number(range.replace("$", ""))){
+        return true;
+      }
+    }
+    
+    return false;
   }
   constructor(private data: DataService){}
 }
