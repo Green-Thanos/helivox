@@ -26,6 +26,21 @@ export class DataService {
     defaultTags = ["Rating", "Hours", "Cost", "Tags"];
     types = ["STEM", "SPORTS", "ARTS", "MISC"];
 
+    // Front page
+
+    // Stats
+
+    statVal = ['67', '94', '2'];
+    statText = ['Are goofy', 'Hate HS', 'Like Glynn'];
+
+    getStatVal(){
+        return this.statVal.slice();
+    }
+
+    getStatText(){
+        return this.statText.slice();
+    }
+
     getCatalogs(){
         return this.catalogs.slice();
     }

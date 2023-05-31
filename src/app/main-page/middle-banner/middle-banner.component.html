@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <p class="big" [ngClass]="{'activate': animateNum}"></p><p class="big">%</p>
-            <p (appear)="animateNum = true">Of students are overwhelmed</p>
+            <p class="big" [ngStyle]="{'--num': animateNum ? currNum : 0}" (appear)="animateNum = true"></p><p class="big">%</p>
+            <p>{{currText}}</p>
         </div>
         <div class="col-sm-6 right">
             <h3>Mission Statement</h3>
@@ -10,3 +10,5 @@
         </div>
     </div>
 </div>
+
+<!-- [style.--num]="currNum" -->

@@ -19,9 +19,7 @@ p.big {
 p.big:first-of-type::after {
     content: counter(num);
 }
-.activate {
-    --num: 67;
-}
+
 .row {
     padding: 70px 0px 70px 0px;
 }
