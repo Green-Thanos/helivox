@@ -24,7 +24,6 @@ import { FormsModule } from '@angular/forms';
 import { CardContentComponent } from './catalogs-page/content-banner/card-content/card-content.component';
 import { ModalComponent } from './catalogs-page/content-banner/card-content/modal/modal.component';
 import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.component';
-import { OnScrollDirective } from './shared/on-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -47,8 +46,7 @@ import { OnScrollDirective } from './shared/on-scroll.directive';
     SortPanelComponent,
     CardContentComponent,
     ModalComponent,
-    MiddleBannerComponent,
-    OnScrollDirective
+    MiddleBannerComponent
   ],
   imports: [
     BrowserModule,

@@ -28,13 +28,14 @@ export class SortPanelComponent{
   }
 
   // When the input (selected category like stem) changes, update tags list
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   this.filtrationData[3] = this.dta.getTags(this.selectedCategory);
-  //   this.reset();
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.filtrationData[2] = this.dta.getTags(this.selectedCategory);
+    this.reset();
+  }
 
   changeFilters(type: number, index: number){
     this.activeFilters[type] = this.filtrationData[type][index];
+    console.log(this.activeFilters);
     this.exportFilters.emit(this.activeFilters);
     this.selectedFilter = -1;
   }

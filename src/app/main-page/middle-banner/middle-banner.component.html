@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
-            <p class="big" [ngStyle]="{'--num': animateNum ? currNum : 0}" (appear)="animateNum = true"></p><p class="big">%</p>
+            <p class="big" [ngStyle]="{'--num': currNum}"></p><p class="big">%</p>
             <p>{{currText}}</p>
         </div>
         <div class="col-sm-6 right">

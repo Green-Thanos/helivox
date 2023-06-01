@@ -1,23 +1,41 @@
-import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild, HostListener, ElementRef, OnInit } from '@angular/core';
 import { CatalogData } from '../../../../shared/catalog-data';
+import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
   selector: 'modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
 
   isOpen = true;
   notToggled = false;
 
   commentsToggled = false;
 
+  userRating = -1;
+  userRatingOptions = this.dta.getUserRatingOptions();
+  openDropDown = false;
+
+
+
+
+
   @ViewChild('comments') comments: string;
 
   @Input() data: CatalogData;
+  @Input() index: number;
 
   @Output() openEvent = new EventEmitter<boolean>();
+  @Output() newRating = new EventEmitter<number[]>();
+
+  resubmit = false;
+
+  ngOnInit(): void {
+    this.resubmit = this.dta.checkIfResubmit(this.index);
+  }
+  
 
   check(){
     if(!this.notToggled && this.isOpen){
@@ -27,6 +45,7 @@ export class ModalComponent {
 
     this.notToggled = false;
   }
+
 
   pushComments(){
     if(this.data.comments === undefined){
@@ -38,4 +57,12 @@ export class ModalComponent {
 
     this.comments = '';
   }
+
+  parseRating(rating: number){
+    this.newRating.emit([this.index, rating]);
+    this.openDropDown = false;
+    this.dta.addUserRatingLog(this.index);
+  }
+
+  constructor(private dta: DataService, private elementRef: ElementRef){}
 }

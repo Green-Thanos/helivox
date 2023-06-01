@@ -17,6 +17,8 @@ export class CatalogsPageComponent implements OnInit, OnDestroy{
 
   data = [];
 
+  unloaded = true;
+
   ngOnInit(): void {
     this.catalogData = {
       catalog: this.dta.catalogs[this.route.snapshot.params["catalog"]],
@@ -29,9 +31,11 @@ export class CatalogsPageComponent implements OnInit, OnDestroy{
       this.catalogData.catalog = this.dta.catalogs[params["catalog"]],
       this.catalogData.state = this.dta.getStates()[params["state"]],
       this.catalogData.school = this.dta.getSchools(this.dta.getStates()[params["state"]])[params["school"]]
+      this.unloaded = true;
       
       this.dta.getData(this.catalogData.catalog).subscribe((response: any[]) => {
         this.data = response;
+        this.unloaded = false;
       })
   
     })
@@ -40,6 +44,7 @@ export class CatalogsPageComponent implements OnInit, OnDestroy{
 
     this.dta.getData(this.catalogData.catalog).subscribe((response: any[]) => {
       this.data = response;
+      this.unloaded = false;
     })
 
   }

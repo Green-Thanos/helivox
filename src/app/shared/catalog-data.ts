@@ -8,4 +8,5 @@ export interface CatalogData {
     image: string;
     description: string;
     comments: string[][];
+    rating: number;
 }

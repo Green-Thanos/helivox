@@ -1,32 +1,47 @@
 <div class="box" (click)="isOpen=true; check()">
     <div class="inner-box" (click)="notToggled=true">
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-7">
                 <h3>{{data.title}}</h3>
             </div>
-            <div class="col-sm-7" style="margin-top: 15px;">
+            <div class="col-sm-5" style="margin-top: 15px;">
                 <span style="background-color: rgb(26, 138, 138)">{{data.tags[0]}} HRS/WEEK</span>
                 <span style="background-color: rgb(17, 146, 17)">${{data.tags[1]}}</span>
                 <a href="{{data.link}}" target="_blank" style="text-decoration:none" *ngIf="data.link !== 'na'"><span style="background-color: rgb(182, 17, 17); cursor: pointer" >Learn More</span></a>
-                <span style="background-color: rgb(86, 88, 86); cursor: pointer" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
+                
                 <span style="background-color: rgba(0, 0, 0, 0.055); cursor: pointer; font-weight: 700;right: 40px; border: 1px solid rgba(0, 0, 0, 0.445); position: absolute;color: black;" (click)="isOpen = true; check()">x</span>
 
             </div>
         </div>
         <div *ngIf="!commentsToggled">
             <img [src]="data.image" class="image-display">
-            <p class="data-text">{{data.description}} {{data.description}}</p>
+            <p class="data-text">{{data.description}}</p>
+
+            <div style="position: relative">
+                <button (click)="openDropDown = !openDropDown;" [disabled]="(userRating === -2) || resubmit" > {{((userRating === -2) || resubmit) ? 'Thank You!' : "Give A Rating"}} </button>
+                <div class="dropdown" *ngIf="openDropDown">
+                    <p class="ddCont" *ngFor="let rating of userRatingOptions; let i = index" (click)="userRating = -2; parseRating(i+1)">{{rating}}</p>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+        <div style="text-align: center" *ngIf="commentsToggled" >
+            <input placeholder="Enter Comment" [(ngModel)]="comments"><button (click)="pushComments()">Enter</button>
         </div>
 
         <div *ngIf="commentsToggled" class="comment-box">
             <p *ngIf="data.comments === undefined">There are no comments yet. Try commenting!</p>
-            <div *ngFor="let d of data.comments; let i = index" >
+            <div *ngFor="let d of data.comments.reverse(); let i = index" >
                 <p style="font-weight: 500; margin: 0">{{d[0]}}: </p> <blockquote>{{d[1]}}</blockquote>
             </div>
         </div>
-        <div style="text-align: center" *ngIf="commentsToggled" >
-            <input placeholder="Enter Comment" [(ngModel)]="comments"><button (click)="pushComments()">Enter</button>
-        </div>
+   
+        <span style="background-color: rgb(86, 88, 86); cursor: pointer; margin-bottom: 10px;" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
 
 
 

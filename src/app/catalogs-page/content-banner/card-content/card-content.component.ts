@@ -73,5 +73,16 @@ export class CardContentComponent {
     
     return false;
   }
+
+  parseNewRating(newRating: number[]){
+    if(this.catalogData[newRating[0]].rating === undefined){
+      this.catalogData[newRating[0]].rating = newRating[1];
+    }
+    else {
+      this.catalogData[newRating[0]].rating = ((newRating[1] + this.catalogData[newRating[0]].rating)/2);
+    }
+    
+    this.data.postData(this.catalogData, this.catalogCategory.catalog);
+  }
   constructor(private data: DataService){}
 }

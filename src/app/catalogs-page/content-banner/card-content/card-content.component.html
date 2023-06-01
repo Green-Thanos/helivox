@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                   <p class="tags" *ngFor="let j of n.labels">{{j}}</p>
-    
+                  <img src="../../../../assets/helivox.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="Information about this badge!">
     
                   
     
@@ -23,4 +23,4 @@
 
 </div>
 
-<modal *ngIf="isOpen" (openEvent)="closeModal()" [data]="catalogData[openedCatalog]"></modal>
+<modal *ngIf="isOpen" (openEvent)="closeModal()" (newRating)="parseNewRating($event)" [data]="catalogData[openedCatalog]" [index]="openedCatalog"></modal>

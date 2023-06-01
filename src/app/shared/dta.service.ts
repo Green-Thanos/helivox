@@ -24,11 +24,16 @@ export class DataService {
     filtrationData = {
         0: ["0", "1-5", "6-10", "10+"],
         1: ["$0", "$1-20", "$20-50", "$50+"],
-        2: this.getTags("STEM")
+        2: this.getTags("STEM"),
+        3: ['Superior', 'Outstanding']
       }
     
-    defaultTags = ["Hours", "Cost", "Tags"];
+    defaultTags = ["Hours", "Cost", "Tags", "Rating"];
     types = ["STEM", "SPORTS", "ARTS", "MISC"];
+
+    userRatingOptions = ['Unacceptable', 'Subpar', 'Standard', 'Superior', 'Outstanding'];
+
+    checkIfUserResubmitRating = [];
 
     // Front page
 
@@ -37,6 +42,18 @@ export class DataService {
 
 
     // Getters for all variables
+
+    getUserRatingOptions(){
+        return this.userRatingOptions.slice();
+    }
+
+    addUserRatingLog(index: number){
+        this.checkIfUserResubmitRating.push(index);
+    }
+    
+    checkIfResubmit(index: number){
+        return this.checkIfUserResubmitRating.includes(index);
+    }
 
     getStatVal(){
         return this.statVal.slice();

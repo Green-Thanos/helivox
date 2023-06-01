@@ -1,3 +1,5 @@
 <intro-banner [catalog]="catalogData.catalog"></intro-banner>
 <hr>
 <content-banner [data]="data" [catalogCategory]="catalogData"></content-banner>
+
+<div class="loading" *ngIf="unloaded">Loading&#8230;</div>

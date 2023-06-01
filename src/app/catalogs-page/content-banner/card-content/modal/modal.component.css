@@ -20,7 +20,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
-
+    padding-bottom: 20px;
 }
 
 
@@ -83,6 +83,32 @@ input, button {
     margin-bottom: 20px;
     color: rgba(0, 0, 0, 0.61);
     margin-top: 10px;
+}
+
+.dropdown {
+    position: absolute; 
+    top: 43px; 
+    width: 250px; 
+    height: fit-content; 
+    background-color: white; 
+    z-index: 2;
+    border-radius: 6px;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    box-shadow: .5px 1px 3px 1px #8888883d;
+
+}
+
+.ddCont {
+    padding-left: 20px;
+    font-size: 16px;
+    margin: 0px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    cursor: pointer;
+}
+
+.ddCont:hover {
+    background-color: rgba(128, 128, 128, 0.226);
 }
 
 @media only screen and (max-width: 900px) {

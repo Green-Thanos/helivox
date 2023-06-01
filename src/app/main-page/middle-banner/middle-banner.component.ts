@@ -7,7 +7,6 @@ import { DataService } from 'src/app/shared/dta.service';
   styleUrls: ['./middle-banner.component.css']
 })
 export class MiddleBannerComponent implements OnDestroy {
-  animateNum = false;
 
   listOfNums = this.dta.getStatVal();
   listOfText = this.dta.getStatText();
