@@ -35,7 +35,6 @@ export class SortPanelComponent{
 
   changeFilters(type: number, index: number){
     this.activeFilters[type] = this.filtrationData[type][index];
-    console.log(this.activeFilters);
     this.exportFilters.emit(this.activeFilters);
     this.selectedFilter = -1;
   }

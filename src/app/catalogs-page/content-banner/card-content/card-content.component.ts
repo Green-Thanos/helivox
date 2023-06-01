@@ -46,6 +46,18 @@ export class CardContentComponent {
       return false;
     }
 
+    if((this.activeFilters[3] != "Rating" && this.catalogData[i].rating === undefined)){
+      return false;
+    }
+    else{
+      if((this.activeFilters[3] === "Outstanding") && !(this.catalogData[i].rating >= 4)){
+        return false
+      }
+      if((this.activeFilters[3] === "Superior") && !(this.catalogData[i].rating >= 3 && this.catalogData[i].rating < 4)){
+        return false
+      }
+    }
+
     return true;
   }
 
