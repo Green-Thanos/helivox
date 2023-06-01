@@ -13,11 +13,8 @@
 p.big {
     font-size: 10vw;
     display:inline;
-    transition: --num 5s;
+    transition: --num 3s;
     counter-set: num var(--num);
-}
-p.big:first-of-type::after {
-    content: counter(num);
 }
 
 .row {
@@ -29,5 +26,10 @@ p.big:first-of-type::after {
     }
     .row {
         padding: 70px 20px 70px 20px;
+    }
+}
+@media only screen and (min-width: 1300px) {
+    p.big:first-of-type::after {
+        content: counter(num);
     }
 }

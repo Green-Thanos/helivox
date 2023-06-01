@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataService } from 'src/app/shared/dta.service';
   templateUrl: './middle-banner.component.html',
   styleUrls: ['./middle-banner.component.css']
 })
-export class MiddleBannerComponent implements OnDestroy {
+export class MiddleBannerComponent implements OnDestroy, OnInit {
 
   listOfNums = this.dta.getStatVal();
   listOfText = this.dta.getStatText();
@@ -15,14 +15,18 @@ export class MiddleBannerComponent implements OnDestroy {
   currText = this.listOfText[0];
 
   i = 0;
+  
+  innerWidth = 0;
 
-  bugFixTest: MiddleBannerComponent;
+  ngOnInit() {
+    this.innerWidth = window.innerWidth;
+}
   
   numberChanger = setInterval(() => {
     this.i = (this.i+1) % this.listOfNums.length
     this.currNum = this.listOfNums[this.i];
     this.currText = this.listOfText[this.i];
-  }, 9000);
+  }, 5000);
 
   
   ngOnDestroy(): void {
