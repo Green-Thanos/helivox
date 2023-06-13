@@ -37,15 +37,26 @@ export class DataService {
 
     // Front page
 
-    statVal = ['83', '69', '21.3', '95', '75'];
+    statVal = ['83', '69', '21', '95', '75'];
     statText = ['of teens identify school as a major stress factor - 2017 APA Stress Survey', 
     'of teens say getting into a good college is a major stress factor - 2017 APA Stress Survey', 
     'was the percentage increase in college applications between the 2019-2020 and the 2021-2022 school year - Department of Education, NCES College Enrollment Rates',
     'of Americans support US High School Students having more academic opportunities and choices - State of the Skills Gap: Perceptions of the role high school plays in preparing students for success in career - 2023 Edge Research and K12 Inc',
-    "75% of high school graduates do not feel adequately prepared t make college and career decisions - YouScience 'Post Graduation Readiness Report'"];
+    "75% of high school graduates do not feel adequately prepared to make college and career decisions - YouScience 'Post Graduation Readiness Report'"];
 
+    carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
 
     // Getters for all variables
+
+    getCarousel(){
+        return this.carouselImages.slice();
+    }
+
+    addCarousel(img: string){
+        this.carouselImages.push(img);
+
+        // send to backend
+    }
 
     getUserRatingOptions(){
         return this.userRatingOptions.slice();

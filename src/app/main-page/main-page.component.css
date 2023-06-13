@@ -8,6 +8,6 @@ hr {
 
 @media only screen and (max-width: 900px) {
     hr {
-        margin-top: 100px;
+        margin-top: 30px;
     }
 }

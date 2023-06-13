@@ -24,6 +24,8 @@ import { FormsModule } from '@angular/forms';
 import { CardContentComponent } from './catalogs-page/content-banner/card-content/card-content.component';
 import { ModalComponent } from './catalogs-page/content-banner/card-content/modal/modal.component';
 import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.component';
+import { SliderComponent } from './main-page/slider/slider.component';
+import { DonationBannerComponent } from './main-page/donation-banner/donation-banner.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,10 @@ import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.c
     SortPanelComponent,
     CardContentComponent,
     ModalComponent,
-    MiddleBannerComponent
+    MiddleBannerComponent,
+    SliderComponent,
+    DonationBannerComponent,
+    
   ],
   imports: [
     BrowserModule,
