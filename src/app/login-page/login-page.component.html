@@ -1,1 +1,36 @@
-<p>login-page works!</p>
+<div class="container1">
+    <div class="outer-box" *ngIf="signup === false">
+        <img src="../../assets/helivox.png">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+            <input type="text" placeholder="Username" formControlName="username">
+            <input type="password" placeholder="Password" formControlName="password">
+    
+            <button class="submit" [class.disabledCursor]="!loginForm.valid" [disabled]="!loginForm.valid">Log In</button>
+        </form>
+
+        <div class="strike">
+            <span>or</span>
+        </div>
+        <button class="submit" style="background-color: #f8f9fe; color: #0fc24b" (click)="signup = true;">Sign Up</button>
+    </div>
+    <!-- Signup HTML -->
+    <div class="outer-box" *ngIf="signup === true">
+        <img src="../../assets/helivox.png">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
+            <input type="text" placeholder="Username" formControlName="username">
+            <div formGroupName="passwordData">
+                <input type="password" placeholder="Password" formControlName="password1">
+                <p *ngIf="(signupForm.get('passwordData').touched === true) && (signupForm.get('passwordData.password1').valid === false) ">Password must be longer</p>
+
+                <input type="password" placeholder="Confirm Password" formControlName="password2">
+            </div>
+            <p *ngIf="(signupForm.get('passwordData').valid === false) && (signupForm.get('passwordData').touched === true) ">Passwords don't match</p>
+            <button class="submit" [disabled]="!signupForm.valid" [class.disabledCursor]="!signupForm.valid">Signup</button>
+
+        </form>
+
+        <div class="strike">
+            <span (click)="signup = false" style="color: #0fc24b; cursor: pointer;">Return</span>
+        </div>
+    </div>
+</div>

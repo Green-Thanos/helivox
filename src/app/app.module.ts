@@ -20,7 +20,7 @@ import { IntroBannerComponent } from './catalogs-page/intro-banner/intro-banner.
 import { SortBannerComponent } from './catalogs-page/content-banner/sort-banner/sort-banner.component';
 import { ContentBannerComponent } from './catalogs-page/content-banner/content-banner.component';
 import { SortPanelComponent } from './catalogs-page/content-banner/sort-panel/sort-panel.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardContentComponent } from './catalogs-page/content-banner/card-content/card-content.component';
 import { ModalComponent } from './catalogs-page/content-banner/card-content/modal/modal.component';
 import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.component';
@@ -56,6 +56,7 @@ import { DonationBannerComponent } from './main-page/donation-banner/donation-ba
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule
   ],
