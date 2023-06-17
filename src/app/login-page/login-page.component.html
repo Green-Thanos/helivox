@@ -20,17 +20,17 @@
             <input type="text" placeholder="Username" formControlName="username">
             <div formGroupName="passwordData">
                 <input type="password" placeholder="Password" formControlName="password1">
-                <p *ngIf="(signupForm.get('passwordData').touched === true) && (signupForm.get('passwordData.password1').valid === false) ">Password must be longer</p>
+                <p *ngIf="(signupForm.get('passwordData').touched === true) && (signupForm.get('passwordData.password1').valid === false) " class="error">Password must be longer</p>
 
                 <input type="password" placeholder="Confirm Password" formControlName="password2">
             </div>
-            <p *ngIf="(signupForm.get('passwordData').valid === false) && (signupForm.get('passwordData').touched === true) ">Passwords don't match</p>
+            <p *ngIf="(signupForm.get('passwordData').valid === false) && (signupForm.get('passwordData').touched === true)" class="error">Passwords don't match</p>
             <button class="submit" [disabled]="!signupForm.valid" [class.disabledCursor]="!signupForm.valid">Signup</button>
-
+            <p class="privacy">Review our <a href="../../assets/privacy.pdf" download>privacy policy</a></p>
         </form>
 
         <div class="strike">
             <span (click)="signup = false" style="color: #0fc24b; cursor: pointer;">Return</span>
         </div>
     </div>
-</div>
+</div> 

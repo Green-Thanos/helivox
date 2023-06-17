@@ -70,12 +70,17 @@ input.ng-invalid.ng-touched {
     border: 2px solid red;
 }
 
-p {
+p.error {
     padding: 10px 0px 0px 10px;
     float: left; 
     font-size: 12px; 
     color: red; 
 
+}
+
+p.privacy {
+    padding-top: 10px;
+    font-size: 15px; 
 }
 
 .disabledCursor {

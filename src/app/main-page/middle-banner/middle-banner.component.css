@@ -27,6 +27,9 @@ p.big {
     .row {
         padding: 70px 20px 70px 20px;
     }
+    .change-padding {
+        margin-bottom: 120px;
+    }
 }
 @media only screen and (min-width: 1300px) {
     p.big:first-of-type::after {
