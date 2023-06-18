@@ -11,8 +11,9 @@
                 </div>
                 <div class="card-body">
                   <p class="tags" *ngFor="let j of n.labels">{{j}}</p>
-                  <img src="../../../../assets/helivox.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="Information about this badge!">
-    
+                  <img *ngIf="n.rating >= 4" src="../../../../assets/prestigious_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="Information about this badge!">
+                  <img *ngIf="n.rating >= 3 && n.rating < 4" src="../../../../assets/distinguished_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="Information about this badge!">
+
                   
     
                 </div>
