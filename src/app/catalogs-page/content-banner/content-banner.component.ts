@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataService } from 'src/app/shared/dta.service';
   templateUrl: './content-banner.component.html',
   styleUrls: ['./content-banner.component.css']
 })
-export class ContentBannerComponent {
+export class ContentBannerComponent implements OnInit{
 
   @Input("data") catalogData = [];
   @Input("catalogCategory") catalogCategory;
@@ -14,6 +14,14 @@ export class ContentBannerComponent {
   activeFilters = this.data.getDefaultTags();
   selected = this.data.getTypes()[0];
   searchText = "";
+
+  isAdmin = this.data.getAdminStatus();
+
+  ngOnInit(): void {
+    this.data.adminCheck.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    })
+  }
   
   recordCategory(selected: string){
     this.selected = selected;

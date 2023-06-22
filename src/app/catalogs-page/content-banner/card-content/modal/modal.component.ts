@@ -9,6 +9,22 @@ import { DataService } from 'src/app/shared/dta.service';
 })
 export class ModalComponent implements OnInit {
 
+
+
+  // Form portion
+
+  @Input() filters: String[];
+  @Input() selected: String;
+
+    //Presets
+
+  title = "";
+  hrs = null;
+  cost = null;
+
+
+  // Description portion
+
   isOpen = true;
   notToggled = false;
 
@@ -29,6 +45,9 @@ export class ModalComponent implements OnInit {
 
   @Output() openEvent = new EventEmitter<boolean>();
   @Output() newRating = new EventEmitter<number[]>();
+
+
+
 
   resubmit = false;
 

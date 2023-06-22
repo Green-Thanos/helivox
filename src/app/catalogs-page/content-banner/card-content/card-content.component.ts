@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataService } from 'src/app/shared/dta.service';
   templateUrl: './card-content.component.html',
   styleUrls: ['./card-content.component.css']
 })
-export class CardContentComponent {
+export class CardContentComponent implements OnInit {
 
   @Input() selected: string;
   @Input() activeFilters: string[];
@@ -16,6 +16,17 @@ export class CardContentComponent {
 
   isOpen: boolean = false;
   openedCatalog: number;
+
+  isAdmin = this.data.getAdminStatus();
+
+
+  ngOnInit(): void {
+    this.data.adminCheck.subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    })
+  }
+
+
 
   openModal(i: number){
     this.openedCatalog = i;

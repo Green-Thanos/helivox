@@ -1,6 +1,20 @@
 
 
 <div class="row" style="margin-right: 100px;">
+
+
+    <!-- Admin Edit Feature -->
+
+    <div class="col-lg-4 col-sm-6" *ngIf="isAdmin" (click)="openModal(-1)">
+        <div class="card card-content" style="border: 1px solid black; " >
+            <div class="card-body" style="text-align: center;">
+              <img src="https://www.freepnglogos.com/uploads/plus-icon/plus-icon-plus-svg-png-icon-download-1.png" alt="" style="width: 130px; margin-top:6%; margin-left: 6%">
+            </div>
+        </div>
+    </div>
+
+
+
     <ng-container *ngFor="let n of catalogData; let i = index">
         <div class="col-lg-4 col-sm-6" (click)="openModal(i)" *ngIf="passesTags(i)">
             <div class="card card-content" [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + n.image + ')'}" >
@@ -24,4 +38,4 @@
 
 </div>
 
-<modal *ngIf="isOpen" (openEvent)="closeModal()" (newRating)="parseNewRating($event)" [data]="catalogData[openedCatalog]" [index]="openedCatalog"></modal>
+<modal *ngIf="isOpen" (openEvent)="closeModal()" (newRating)="parseNewRating($event)" [data]="catalogData[openedCatalog]" [index]="openedCatalog" [filters]="catalogCategory" [selected]="selected"></modal>

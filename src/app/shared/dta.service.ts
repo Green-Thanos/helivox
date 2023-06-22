@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core'
+import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CatalogData } from './catalog-data';
 
 
 @Injectable({providedIn: 'root'})
 export class DataService {
+
+    isAdmin = false;
+    adminCheck = new EventEmitter<boolean>();
 
     // Catalogs Page
 
@@ -48,6 +51,15 @@ export class DataService {
     carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
 
     // Getters for all variables
+
+    getAdminStatus(){
+        return this.isAdmin;
+    }
+    
+    changeAdminStatus(){
+        this.isAdmin = !this.isAdmin;
+        this.adminCheck.emit(this.isAdmin);
+    }
 
     getCarousel(){
         return this.carouselImages.slice();
