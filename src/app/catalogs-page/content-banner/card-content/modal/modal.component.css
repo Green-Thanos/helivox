@@ -35,13 +35,20 @@ span {
     user-select: none; 
 }
 
+.disabledCursor {
+    cursor:not-allowed;
+}
 
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
 
 .data-text {
     margin-top: 20px;
     font-size: 17px;
     font-weight: 400;
     line-height: 2;
+    white-space: pre-line;
 }
 
 .image-display {
@@ -58,8 +65,7 @@ span {
     padding: 10px;
 }
 
-input, button {
-    appearance: none;
+input, button, select, textarea {
     background-color: #FAFBFC;
     border: 1px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
@@ -83,6 +89,11 @@ input, button {
     margin-bottom: 20px;
     color: rgba(0, 0, 0, 0.61);
     margin-top: 10px;
+
+}
+
+textarea {
+    white-space:normal;
 }
 
 .dropdown {

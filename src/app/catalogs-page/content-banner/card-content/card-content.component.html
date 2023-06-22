@@ -8,7 +8,7 @@
     <div class="col-lg-4 col-sm-6" *ngIf="isAdmin" (click)="openModal(-1)">
         <div class="card card-content" style="border: 1px solid black; " >
             <div class="card-body" style="text-align: center;">
-              <img src="https://www.freepnglogos.com/uploads/plus-icon/plus-icon-plus-svg-png-icon-download-1.png" alt="" style="width: 130px; margin-top:6%; margin-left: 6%">
+              <img src="../../../../assets/plus.png" alt="" style="width: 130px; margin-top:6%; margin-left: 6%">
             </div>
         </div>
     </div>
@@ -38,4 +38,4 @@
 
 </div>
 
-<modal *ngIf="isOpen" (openEvent)="closeModal()" (newRating)="parseNewRating($event)" [data]="catalogData[openedCatalog]" [index]="openedCatalog" [filters]="catalogCategory" [selected]="selected"></modal>
+<modal *ngIf="isOpen" (openEvent)="closeModal()" (newRating)="parseNewRating($event)" [data]="catalogData[openedCatalog]" [index]="openedCatalog" [filters]="catalogCategory" [selected]="selected" [allCatalogData]="catalogData"></modal>

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
@@ -6,7 +7,7 @@ import { DataService } from 'src/app/shared/dta.service';
   templateUrl: './card-content.component.html',
   styleUrls: ['./card-content.component.css']
 })
-export class CardContentComponent implements OnInit {
+export class CardContentComponent implements OnInit, OnDestroy {
 
   @Input() selected: string;
   @Input() activeFilters: string[];
@@ -18,12 +19,16 @@ export class CardContentComponent implements OnInit {
   openedCatalog: number;
 
   isAdmin = this.data.getAdminStatus();
-
+  adminSubscription: Subscription;
 
   ngOnInit(): void {
-    this.data.adminCheck.subscribe(isAdmin => {
+    this.adminSubscription = this.data.adminCheck.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     })
+  }
+
+  ngOnDestroy(): void {
+    this.adminSubscription.unsubscribe();
   }
 
 
