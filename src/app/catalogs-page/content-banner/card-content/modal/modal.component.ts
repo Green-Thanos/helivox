@@ -47,7 +47,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     let newDta: CatalogData;
     newDta = {
       category: this.selected.toLowerCase(),
-      description: this.catalogForm.value.desc,
+      description: this.catalogForm.value.description,
       image: this.catalogForm.value.image,
       labels: labelsVal,
       link: this.catalogForm.value.link,
