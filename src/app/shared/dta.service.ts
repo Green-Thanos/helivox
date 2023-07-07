@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CatalogData } from './catalog-data';
+import { collection, getFirestore, getDocs, getDocsFromServer, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 
 
 @Injectable({providedIn: 'root'})
@@ -8,6 +9,8 @@ export class DataService {
 
     isAdmin = false;
     adminCheck = new EventEmitter<boolean>();
+
+    db = getFirestore();
 
     // Catalogs Page
 
@@ -118,14 +121,55 @@ export class DataService {
 
     // Http Request Methods
 
+
+    // route(){
+    //     this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + "Clubs" + '.json').subscribe((dta: CatalogData[]) => {
+    //         for(let i = 0; i < dta.length; i++){
+    //             console.log(dta[i])
+    //             const colRef = collection(this.db, "Clubs");
+    //             dta[i].comments = [];
+    //             dta[i].rating = null;
+    //             console.log(dta[i])
+    //             addDoc(colRef, dta[i]);
+    //         }
+    //     })
+    // }
+
+    // New Data should be an object
     postData(newDta: any, fileName: String){
-        this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+
+        const colRef = collection(this.db, <string>fileName);
+        addDoc(colRef, newDta);
+
+        // this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+
     }
 
     getData(filename: String){
-        return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json')
+
+        const colRef = collection(this.db, <string>filename);
+        return getDocsFromServer(colRef);
+
+        // return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json')
+
+
+    }
+
+    // input should be a firebase object
+
+    editData(newInput: any, input: any, fileName: String){
+        const colRef = doc(this.db, <string>fileName, input.id);
+        setDoc(colRef, newInput);
+
+    }
+
+    // input should be a firebase object
+    deleteData(input: any, filename: String){
+        const colRef = doc(this.db, <string>filename, input.id);
+        deleteDoc(colRef);
     }
 
     constructor(private http: HttpClient){}
+
 
 }

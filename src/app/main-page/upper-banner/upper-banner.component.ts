@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/shared/dta.service';
 
 @Component({
   selector: 'upper-banner',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class UpperBannerComponent {
 
+
+  constructor(private dta: DataService){}
 }

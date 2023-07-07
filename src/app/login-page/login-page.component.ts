@@ -31,11 +31,13 @@ export class LoginPageComponent implements OnInit {
 
   onSubmitLogin(){
     console.log(this.loginForm);
+    this.loginForm.reset();
     this.router.navigate([""]);
   }
 
   onSubmitSignup(){
     console.log(this.signupForm);
+    this.signupForm.reset();
     this.router.navigate([""]);
   }
 

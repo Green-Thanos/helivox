@@ -8,7 +8,6 @@ import { DataService } from 'src/app/shared/dta.service';
 })
 export class ContentBannerComponent implements OnInit{
 
-  @Input("data") catalogData = [];
   @Input("catalogCategory") catalogCategory;
 
   activeFilters = this.data.getDefaultTags();

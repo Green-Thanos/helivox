@@ -19,7 +19,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   @Input() filters: any;
   @Input() selected: String;
-  @Input() allCatalogData: CatalogData[];
+  @Input() allCatalogData: any[];
 
 
   isAdmin = this.dta.getAdminStatus();
@@ -44,7 +44,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     const labelsVal = [this.catalogForm.value.tag1]
     if(this.catalogForm.value.tag2 !== null){ labelsVal.push(this.catalogForm.value.tag2)}
     if(this.catalogForm.value.tag3 !== null){ labelsVal.push(this.catalogForm.value.tag3)}
-    let newDta: CatalogData;
+    let newDta: any;
     newDta = {
       category: this.selected.toLowerCase(),
       description: this.catalogForm.value.description,
@@ -54,17 +54,22 @@ export class ModalComponent implements OnInit, OnDestroy {
       school: this.filters.school,
       tags: [this.catalogForm.value.hours, this.catalogForm.value.cost],
       title: this.catalogForm.value.title,
-      comments: null,
+      comments: [],
       rating: null
     }
 
     if(this.index === -1){
-      this.allCatalogData.push(newDta);
+      // this.allCatalogData.push(newDta);
+      this.dta.postData(newDta, this.filters.catalog );
+
     }
     else{
-      this.allCatalogData[this.index] = newDta;
+      // this.allCatalogData[this.index] = newDta;
+      this.dta.editData(newDta, this.allCatalogData[this.index], this.filters.catalog);
+
     }
-    this.dta.postData(this.allCatalogData, this.filters.catalog );
+    // this.dta.postData(this.allCatalogData, this.filters.catalog );
+
     this.ngOnInit();
 
     this.openEvent.emit(true);
@@ -72,8 +77,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   deleteElement(){
-    this.allCatalogData.splice(this.index, 1);
-    this.dta.postData(this.allCatalogData, this.filters.catalog);
+    this.dta.deleteData(this.allCatalogData[this.index], this.filters.catalog);
+    // this.allCatalogData.splice(this.index, 1);
+    // this.dta.postData(this.allCatalogData, this.filters.catalog);
     
     this.ngOnInit();
 
@@ -98,14 +104,12 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   @ViewChild('comments') comments: string;
 
-  @Input() data: CatalogData;
+  
   @Input() index: number;
 
   @Output() openEvent = new EventEmitter<boolean>();
-  @Output() newRating = new EventEmitter<number[]>();
 
-
-
+  data = null;
 
   resubmit = false;
 
@@ -131,9 +135,17 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   parseRating(rating: number){
-    this.newRating.emit([this.index, rating]);
     this.openDropDown = false;
     this.dta.addUserRatingLog(this.index);
+    let newData = this.allCatalogData[this.index].data();
+    if(newData.rating === null){
+      newData.rating = rating;
+    }
+    else {
+      newData.rating = ((rating + newData.rating)/2);
+    }
+    
+    this.dta.editData(newData, this.allCatalogData[this.index], this.filters.catalog);
   }
 
   // Global Portion 
@@ -141,6 +153,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   constructor(private dta: DataService, private elementRef: ElementRef){}
 
   ngOnInit(): void {
+    if(this.index != -1){
+      this.data = this.allCatalogData[this.index].data();
+    }
     this.resubmit = this.dta.checkIfResubmit(this.index);
     this.adminSubscription = this.dta.adminCheck.subscribe((isAdmin) => {
       this.isAdmin = isAdmin;
