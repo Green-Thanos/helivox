@@ -17,16 +17,16 @@
 
     <ng-container *ngFor="let n of catalogData; let i = index">
         <div class="col-lg-4 col-sm-6" (click)="openModal(i)" *ngIf="passesTags(i)">
-            <div class="card card-content" [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + n.data().image + ')'}" >
+            <div class="card card-content" [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(' + n.image + ')'}" >
                 <div class="card-header">
                     <p style="color: white; margin: 0">
-                        {{n.data().title.toUpperCase()}} 
+                        {{n.title.toUpperCase()}} 
                     </p>
                 </div>
                 <div class="card-body">
-                  <p class="tags" *ngFor="let j of n.data().labels">{{j}}</p>
-                  <img *ngIf="n.data().rating >= 4" src="../../../../assets/prestigious_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="This is a prestigious program!">
-                  <img *ngIf="n.data().rating >= 3 && n.data().rating < 4" src="../../../../assets/distinguished_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="This is a distinguished program!">
+                  <p class="tags" *ngFor="let j of n.labels">{{j}}</p>
+                  <img *ngIf="n.rating >= 4" src="../../../../assets/prestigious_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="This is a prestigious program!">
+                  <img *ngIf="n.rating >= 3 && n.rating < 4" src="../../../../assets/distinguished_badge.png" style="width: 30px; position: absolute; right: 10px; top: 40px;" title="This is a distinguished program!">
 
                   
     
@@ -40,4 +40,4 @@
 
 <div class="loading" *ngIf="unloaded">Loading&#8230;</div>
 
-<modal *ngIf="isOpen" (openEvent)="closeModal()" [data]="catalogData[openedCatalog]" [index]="openedCatalog" [filters]="catalogCategory" [selected]="selected" [allCatalogData]="catalogData"></modal>
+<modal *ngIf="isOpen" (openEvent)="closeModal()" [index]="openedCatalog" [filters]="catalogCategory" [selected]="selected" [allCatalogData]="catalogData"></modal>

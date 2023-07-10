@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from 'src/app/shared/dta.service';
+import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
   selector: 'slider',

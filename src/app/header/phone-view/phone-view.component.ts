@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DropdownService } from 'src/app/shared/dropdown.service';
+import { DropdownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
   selector: 'phone-view',

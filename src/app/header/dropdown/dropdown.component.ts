@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DropdownService } from 'src/app/shared/dropdown.service';
-import { DataService } from 'src/app/shared/dta.service';
+import { DropdownService } from 'src/app/shared/services/dropdown.service';
+import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
   selector: 'dropdown',

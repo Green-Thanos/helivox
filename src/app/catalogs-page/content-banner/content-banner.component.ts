@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from 'src/app/shared/dta.service';
+import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
   selector: 'content-banner',

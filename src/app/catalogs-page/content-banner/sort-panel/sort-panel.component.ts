@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
-import { DataService } from 'src/app/shared/dta.service';
+import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
   selector: 'sort-panel',

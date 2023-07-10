@@ -15,12 +15,12 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      'username': new FormControl(null, Validators.required),
+      'username': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, Validators.required)
     })
 
     this.signupForm = new FormGroup({
-      'username': new FormControl(null, Validators.required),
+      'username': new FormControl(null, [Validators.required, Validators.email]),
       'passwordData': new FormGroup({
         'password1': new FormControl(null, [Validators.required, Validators.minLength(6)]),
         'password2': new FormControl(null, Validators.required)
@@ -30,13 +30,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmitLogin(){
-    console.log(this.loginForm);
+    console.log(this.loginForm.value);
     this.loginForm.reset();
     this.router.navigate([""]);
   }
 
   onSubmitSignup(){
-    console.log(this.signupForm);
+    console.log(this.signupForm.value);
     this.signupForm.reset();
     this.router.navigate([""]);
   }

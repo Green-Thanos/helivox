@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DataService } from '../shared/dta.service';
+import { DataService } from '../shared/services/dta.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DropdownService } from '../shared/dropdown.service';
+import { DropdownService } from '../shared/services/dropdown.service';
 
 @Component({
   selector: 'catalogs-page',

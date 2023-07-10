@@ -1,5 +1,5 @@
 import { Directive, HostListener, HostBinding, OnInit, EventEmitter } from '@angular/core';
-import { DropdownService } from './dropdown.service';
+import { DropdownService } from './services/dropdown.service';
 
 @Directive({
     selector: '[app-dropdown]'

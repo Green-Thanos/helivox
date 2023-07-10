@@ -2,7 +2,8 @@
     <div class="outer-box" *ngIf="signup === false">
         <img src="../../assets/helivox.png">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
-            <input type="text" placeholder="Username" formControlName="username">
+            <input type="text" placeholder="Email" formControlName="username">
+            <p *ngIf="(loginForm.get('username').touched === true) && (loginForm.get('username').valid === false) " class="error">Invalid Email</p>
             <input type="password" placeholder="Password" formControlName="password">
     
             <button class="submit" [class.disabledCursor]="!loginForm.valid" [disabled]="!loginForm.valid">Log In</button>
@@ -17,7 +18,8 @@
     <div class="outer-box" *ngIf="signup === true">
         <img src="../../assets/helivox.png">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
-            <input type="text" placeholder="Username" formControlName="username">
+            <input type="text" placeholder="Email" formControlName="username">
+            <p *ngIf="(signupForm.get('username').touched === true) && (signupForm.get('username').valid === false) " class="error">Invalid Email</p>
             <div formGroupName="passwordData">
                 <input type="password" placeholder="Password" formControlName="password1">
                 <p *ngIf="(signupForm.get('passwordData').touched === true) && (signupForm.get('passwordData.password1').valid === false) " class="error">Password must be longer</p>
