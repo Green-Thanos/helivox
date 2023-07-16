@@ -155,6 +155,10 @@ export class DataService {
 
     }
 
+    patchData(newDta: any, fileName: String){
+        this.http.patch('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+    }
+
     // input should be a firebase object
 
     // editData(newInput: any, input: any, fileName: String){

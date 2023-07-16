@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, NgForm, ValidationErrors, ValidatorFn, Fo
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { Subscription } from 'rxjs';
+import { DataService } from '../shared/services/dta.service';
 
 @Component({
   selector: 'login-page',
@@ -52,7 +53,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
     this.unloaded = true;
     this.authSubscription = this.auth.signup(this.signupForm.value.username, this.signupForm.value.passwordData.password1).subscribe(resData => {
-      console.log(resData);
+      let newUser = {}
+      newUser[resData.localId] = {
+        role: "user",
+        email: resData.email,
+        token: resData.localId
+      }
+      this.dta.patchData(newUser, "Users")
       this.unloaded = false;
       this.signup = false;
     }, error => {
@@ -78,7 +85,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  constructor(private router: Router, private auth: AuthService){
+  constructor(private router: Router, private auth: AuthService, private dta: DataService){
 
   }
 
