@@ -13,6 +13,10 @@
             <span>or</span>
         </div>
         <button class="submit" style="background-color: #f8f9fe; color: #0fc24b" (click)="signup = true;">Sign Up</button>
+        <div>
+            <p class="password_change" (click)="resetPassword()">Forgot your password?</p>
+
+        </div>
     </div>
     <!-- Signup HTML -->
     <div class="outer-box" *ngIf="signup === true">

@@ -15,10 +15,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   signup = false;
   loginForm: FormGroup;
   signupForm: FormGroup;
+  verifyEmail = false;
 
   unloaded = false;
 
   authSubscription: Subscription;
+  verificationSubscription: Subscription;
+  deleteUserSubscription: Subscription;
+  deleteAuthSubscription: Subscription;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -38,13 +42,44 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
+    this.verificationSubscription.unsubscribe();
+    this.deleteUserSubscription.unsubscribe();
+    this.deleteAuthSubscription.unsubscribe();
   }
 
   onSubmitLogin(){
 
-    console.log(this.loginForm.value);
+    if(!this.loginForm.valid){
+      return;
+    }
+    this.unloaded = true;
+    this.authSubscription = this.auth.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(resData => {
+      this.verificationSubscription = this.auth.fetchUserData(resData.idToken).subscribe(userData => {
+        if(userData.users[0].emailVerified != true){
+          alert("User not verified: re-signup");
+          // Delete user if user is not verified
+          this.deleteAuthSubscription = this.auth.deleteUser(resData.idToken).subscribe(() => {});
+          this.deleteUserSubscription = this.dta.deleteData(resData.localId, "Users").subscribe(() => {});
+          this.unloaded = false;
+          return
+        }
+        this.unloaded = false;
+        alert('login success');
+        console.log(resData);
+        this.router.navigate([""]);
+
+      })
+    }, error => {
+
+
+      alert(error.error.error.message)
+      console.log(error);
+      
+      this.unloaded = false;
+    });
+
+    // console.log(this.loginForm.value);
     this.loginForm.reset();
-    // this.router.navigate([""]);
   }
 
   onSubmitSignup(){
@@ -53,15 +88,21 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
     this.unloaded = true;
     this.authSubscription = this.auth.signup(this.signupForm.value.username, this.signupForm.value.passwordData.password1).subscribe(resData => {
-      let newUser = {}
-      newUser[resData.localId] = {
-        role: "user",
-        email: resData.email,
-        token: resData.localId
-      }
-      this.dta.patchData(newUser, "Users")
-      this.unloaded = false;
-      this.signup = false;
+      this.verifyEmail = true;
+      this.verificationSubscription = this.auth.verification(resData.idToken).subscribe(() => {
+        this.verifyEmail = false;
+        let newUser = {}
+        newUser[resData.localId] = {
+          role: "0",
+          email: resData.email,
+          token: resData.localId
+        }
+        this.dta.patchData(newUser, "Users")
+        this.unloaded = false;
+        this.signup = false;
+
+      })
+
     }, error => {
       if(error.status === 400){
         alert("This user already exists!");
@@ -74,6 +115,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     });
     this.signupForm.reset();
     // this.router.navigate([""]);
+  }
+
+  resetPassword(){
+    alert('not setup yet')
   }
 
 

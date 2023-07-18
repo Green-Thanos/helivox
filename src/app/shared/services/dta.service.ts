@@ -159,6 +159,10 @@ export class DataService {
         this.http.patch('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
     }
 
+    deleteData(name: string, filename: string){
+        return this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + name + '/' + '.json')
+    }
+
     // input should be a firebase object
 
     // editData(newInput: any, input: any, fileName: String){
