@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CatalogData } from '../templates/catalog-data';
-import { collection, getFirestore, getDocs, getDocsFromServer, addDoc, updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore';
 
 
 @Injectable({providedIn: 'root'})

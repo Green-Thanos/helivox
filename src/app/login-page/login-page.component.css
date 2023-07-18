@@ -77,7 +77,10 @@ div.outer-box {
 input.ng-invalid.ng-touched {
     border: 2px solid red;
 }
-
+.header{
+    font-size: 30px;
+    font-weight: 500;
+}
 p.error {
     padding: 10px 0px 0px 10px;
     float: left; 

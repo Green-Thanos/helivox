@@ -26,6 +26,7 @@ import { ModalComponent } from './catalogs-page/content-banner/card-content/moda
 import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.component';
 import { SliderComponent } from './main-page/slider/slider.component';
 import { DonationBannerComponent } from './main-page/donation-banner/donation-banner.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DonationBannerComponent } from './main-page/donation-banner/donation-ba
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

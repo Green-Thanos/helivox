@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl, NgForm, ValidationErrors, ValidatorFn, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '../shared/services/dta.service';
@@ -15,7 +15,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   signup = false;
   loginForm: FormGroup;
   signupForm: FormGroup;
-  verifyEmail = false;
+  emailVerificationPopup = false;
+  invalidPassword = false;
 
   unloaded = false;
 
@@ -41,10 +42,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-    this.verificationSubscription.unsubscribe();
-    this.deleteUserSubscription.unsubscribe();
-    this.deleteAuthSubscription.unsubscribe();
+    if(this.authSubscription){
+      this.authSubscription.unsubscribe();
+      this.verificationSubscription.unsubscribe();
+    }
+    if(this.deleteUserSubscription){
+      this.deleteUserSubscription.unsubscribe();
+      this.deleteAuthSubscription.unsubscribe();
+    }
+
   }
 
   onSubmitLogin(){
@@ -66,19 +72,21 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.unloaded = false;
         alert('login success');
         console.log(resData);
-        this.router.navigate([""]);
+        this.router.navigateByUrl('');
 
       })
     }, error => {
+      if(error.status === 400){
+        this.invalidPassword = true;
+      }
+      else{
+        alert(error.error.error.message)
+        console.log(error);
+      }
 
-
-      alert(error.error.error.message)
-      console.log(error);
-      
       this.unloaded = false;
-    });
 
-    // console.log(this.loginForm.value);
+    });
     this.loginForm.reset();
   }
 
@@ -88,9 +96,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
     this.unloaded = true;
     this.authSubscription = this.auth.signup(this.signupForm.value.username, this.signupForm.value.passwordData.password1).subscribe(resData => {
-      this.verifyEmail = true;
       this.verificationSubscription = this.auth.verification(resData.idToken).subscribe(() => {
-        this.verifyEmail = false;
         let newUser = {}
         newUser[resData.localId] = {
           role: "0",
@@ -99,8 +105,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
         this.dta.patchData(newUser, "Users")
         this.unloaded = false;
-        this.signup = false;
-
+        this.emailVerificationPopup = true;
       })
 
     }, error => {
@@ -121,7 +126,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     alert('not setup yet')
   }
 
-
+  confirmEmailVerified(){
+    this.signup = false;
+    this.emailVerificationPopup = false;
+  }
 
   passwordCheck(control: FormControl): {[s: string]: boolean} {
     if(control.value.password1 !== control.value.password2) {
@@ -130,7 +138,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  constructor(private router: Router, private auth: AuthService, private dta: DataService){
+  constructor(private router: Router, private auth: AuthService, private dta: DataService, private route: ActivatedRoute){
 
   }
 

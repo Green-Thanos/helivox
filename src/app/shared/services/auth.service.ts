@@ -60,6 +60,21 @@ export class AuthService {
         })
     }
 
+    sendPasswordResetCode(username: string){
+        return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
+        {
+            username: username
+        })
+    }
+    
+    resetPassword(code: string, password: string){
+        return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
+        {
+            oobCode: code,
+            newPassword: password
+        })
+    }
+
     constructor(private http: HttpClient){}
     
 }
