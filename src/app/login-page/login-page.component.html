@@ -1,5 +1,5 @@
 <div class="container1">
-    <div class="outer-box" *ngIf="signup === false && emailVerificationPopup != true">
+    <div class="outer-box" *ngIf="activePopup == 'login'">
         <img src="../../assets/helivox.png">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
             <input type="text" placeholder="Email" formControlName="username">
@@ -12,14 +12,14 @@
         <div class="strike">
             <span>or</span>
         </div>
-        <button class="submit" style="background-color: #f8f9fe; color: #0fc24b" (click)="signup = true;">Sign Up</button>
+        <button class="submit" style="background-color: #f8f9fe; color: #0fc24b" (click)="activePopup = 'signup'">Sign Up</button>
         <div>
             <p class="password_change" (click)="resetPassword()">Forgot your password?</p>
 
         </div>
     </div>
     <!-- Signup HTML -->
-    <div class="outer-box" *ngIf="signup === true && emailVerificationPopup != true">
+    <div class="outer-box" *ngIf="activePopup == 'signup'">
         <img src="../../assets/helivox.png">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignup()">
             <input type="text" placeholder="Email" formControlName="username">
@@ -36,13 +36,13 @@
         </form>
 
         <div class="strike">
-            <span (click)="signup = false" style="color: #0fc24b; cursor: pointer;">Return</span>
+            <span (click)="activePopup = 'login'" style="color: #0fc24b; cursor: pointer;">Return</span>
         </div>
     </div>
 
     <!-- Email Verification Popup -->
 
-    <div class="outer-box" *ngIf="emailVerificationPopup === true">
+    <div class="outer-box" *ngIf="activePopup == 'email_verification'">
         <img src="../../assets/helivox.png">
         <div>
             <p class="header">Verify your email address</p>
@@ -55,5 +55,20 @@
             <span (click)="confirmEmailVerified()" style="color: #0fc24b; cursor: pointer;">Click here to proceed</span>
         </div>
     </div>
+
+    <!-- Reset Password Email Input -->
+    <div class="outer-box" *ngIf="activePopup == 'reset_password_email'">
+        <img src="../../assets/helivox.png">
+        <p class="header">Enter your Email</p>
+        <form [formGroup]="emailResetForm" (ngSubmit)="onSubmitEmailReset()">
+            <input type="text" placeholder="Email" formControlName="username">
+            <p *ngIf="(emailResetForm.get('username').touched === true) && (emailResetForm.get('username').valid === false) " class="error">Invalid Email</p>
+            <br><br><button class="submit" [class.disabledCursor]="!loginForm.valid" [disabled]="!loginForm.valid">Continue</button>
+        </form>
+        <div class="strike">
+            <span (click)="activePopup = 'login'" style="color: #0fc24b; cursor: pointer;">Return</span>
+        </div>
+    </div>
+
 </div> 
 <div class="loading" *ngIf="unloaded">Loading&#8230;</div>

@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CatalogData } from '../templates/catalog-data';
 
 
 @Injectable({providedIn: 'root'})

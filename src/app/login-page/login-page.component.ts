@@ -12,11 +12,12 @@ import { DataService } from '../shared/services/dta.service';
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 
-  signup = false;
   loginForm: FormGroup;
   signupForm: FormGroup;
-  emailVerificationPopup = false;
+  emailResetForm: FormGroup;
   invalidPassword = false;
+
+  activePopup = "login";
 
   unloaded = false;
 
@@ -24,6 +25,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   verificationSubscription: Subscription;
   deleteUserSubscription: Subscription;
   deleteAuthSubscription: Subscription;
+  sendResetCodeSubscription: Subscription;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -39,6 +41,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       }, {validators: this.passwordCheck})
 
     })
+
+    this.emailResetForm = new FormGroup({
+      'username': new FormControl(null, [Validators.required, Validators.email]),
+    })
   }
 
   ngOnDestroy(): void {
@@ -49,6 +55,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if(this.deleteUserSubscription){
       this.deleteUserSubscription.unsubscribe();
       this.deleteAuthSubscription.unsubscribe();
+    }
+    if(this.sendResetCodeSubscription){
+      this.sendResetCodeSubscription.unsubscribe();
     }
 
   }
@@ -105,7 +114,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
         this.dta.patchData(newUser, "Users")
         this.unloaded = false;
-        this.emailVerificationPopup = true;
+        this.activePopup = 'email_verification'
       })
 
     }, error => {
@@ -123,12 +132,23 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   resetPassword(){
-    alert('not setup yet')
+    this.activePopup = 'reset_password_email'
+  }
+  
+  onSubmitEmailReset(){
+    if(!this.emailResetForm.valid){
+      return;
+    }
+    this.sendResetCodeSubscription = this.auth.sendPasswordResetCode(this.emailResetForm.value.username).subscribe(()=>{
+      this.emailResetForm.reset();
+      this.activePopup = 'login';
+    }, error => {
+      alert(error.error.error.message);
+    });
   }
 
   confirmEmailVerified(){
-    this.signup = false;
-    this.emailVerificationPopup = false;
+    this.activePopup = "login";
   }
 
   passwordCheck(control: FormControl): {[s: string]: boolean} {
