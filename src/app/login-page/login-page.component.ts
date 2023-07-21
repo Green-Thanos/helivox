@@ -145,6 +145,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
     this.unloaded = true;
     this.sendResetCodeSubscription = this.auth.sendPasswordResetCode(this.emailResetForm.value.username).subscribe(()=>{
+      this.dta.setAlertData('A reset email has been sent', true, '#07E607');
+
       this.emailResetForm.reset();
       this.activePopup = 'login';
       this.unloaded = false;
