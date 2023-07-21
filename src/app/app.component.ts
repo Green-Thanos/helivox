@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './shared/services/dta.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'helivox';
+
+  constructor(public dta: DataService){}
 }

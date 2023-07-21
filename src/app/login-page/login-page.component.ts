@@ -71,7 +71,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.authSubscription = this.auth.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(resData => {
       this.verificationSubscription = this.auth.fetchUserData(resData.idToken).subscribe(userData => {
         if(userData.users[0].emailVerified != true){
-          alert("User not verified: re-signup");
+          this.dta.setAlertData('User not verified: Re-signup', true, '#e65045');
           // Delete user if user is not verified
           this.deleteAuthSubscription = this.auth.deleteUser(resData.idToken).subscribe(() => {});
           this.deleteUserSubscription = this.dta.deleteData(resData.localId, "Users").subscribe(() => {});
@@ -79,7 +79,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           return
         }
         this.unloaded = false;
-        alert('login success');
+        this.dta.setAlertData('Login Success!', true, '#07E607');
         console.log(resData);
         this.router.navigateByUrl('');
 
@@ -89,7 +89,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.invalidPassword = true;
       }
       else{
-        alert(error.error.error.message)
+        this.dta.setAlertData(error.error.error.message, true, '#e65045');
+
         console.log(error);
       }
 
@@ -119,15 +120,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     }, error => {
       if(error.status === 400){
-        alert("This user already exists!");
+        this.dta.setAlertData("This user already exists!", true, '#e65045');
+        
       }
       else{
-        alert(error.error.error.message)
+        this.dta.setAlertData(error.error.error.message, true, '#e65045');
         console.log(error);
       }
       this.unloaded = false;
+
     });
     this.signupForm.reset();
+
     // this.router.navigate([""]);
   }
 
@@ -139,11 +143,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if(!this.emailResetForm.valid){
       return;
     }
+    this.unloaded = true;
     this.sendResetCodeSubscription = this.auth.sendPasswordResetCode(this.emailResetForm.value.username).subscribe(()=>{
       this.emailResetForm.reset();
       this.activePopup = 'login';
+      this.unloaded = false;
     }, error => {
-      alert(error.error.error.message);
+      this.dta.setAlertData(error.error.error.message, true, '#e65045');
+      this.unloaded = false;
     });
   }
 

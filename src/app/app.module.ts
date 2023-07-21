@@ -27,6 +27,7 @@ import { MiddleBannerComponent } from './main-page/middle-banner/middle-banner.c
 import { SliderComponent } from './main-page/slider/slider.component';
 import { DonationBannerComponent } from './main-page/donation-banner/donation-banner.component';
 import { RouterModule } from '@angular/router';
+import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { RouterModule } from '@angular/router';
     MiddleBannerComponent,
     SliderComponent,
     DonationBannerComponent,
+    DropdownAlertComponent,
     
   ],
   imports: [

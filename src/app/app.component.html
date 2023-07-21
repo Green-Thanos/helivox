@@ -1,5 +1,5 @@
 <header></header>
-
+<dropdown-alert [text]='dta.getAlertText()' [color]="dta.getAlertColor()" *ngIf="dta.getAlertStatus()"></dropdown-alert>
 
 <div class="container-fluid main">
       <router-outlet />

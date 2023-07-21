@@ -8,7 +8,12 @@ export class DataService {
     isAdmin = false;
     adminCheck = new EventEmitter<boolean>();
 
-    // db = getFirestore();
+    // Alert auxilary variables
+
+    alertText = '';
+    alertIsOpen = false;
+    alertColor = ''
+
 
     // Catalogs Page
 
@@ -52,6 +57,25 @@ export class DataService {
     carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
 
     // Getters for all variables
+
+
+    getAlertText(){
+        return this.alertText;
+    }
+
+    setAlertData(text: string, status: boolean, color: string){
+        this.alertText = text;
+        this.alertColor = color;
+        this.alertIsOpen = status;
+    }
+
+    getAlertStatus(){
+        return this.alertIsOpen;
+    }
+
+    getAlertColor(){
+        return this.alertColor;
+    }
 
     getAdminStatus(){
         return this.isAdmin;

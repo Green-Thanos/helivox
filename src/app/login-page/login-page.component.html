@@ -63,7 +63,7 @@
         <form [formGroup]="emailResetForm" (ngSubmit)="onSubmitEmailReset()">
             <input type="text" placeholder="Email" formControlName="username">
             <p *ngIf="(emailResetForm.get('username').touched === true) && (emailResetForm.get('username').valid === false) " class="error">Invalid Email</p>
-            <br><br><button class="submit" [class.disabledCursor]="!loginForm.valid" [disabled]="!loginForm.valid">Continue</button>
+            <br><br><button class="submit" [class.disabledCursor]="!emailResetForm.valid" [disabled]="!emailResetForm.valid">Continue</button>
         </form>
         <div class="strike">
             <span (click)="activePopup = 'login'" style="color: #0fc24b; cursor: pointer;">Return</span>
