@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl, NgForm, ValidationErrors, ValidatorFn, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { DataService } from '../shared/services/dta.service';
+import { User } from '../shared/templates/user';
 
 @Component({
   selector: 'login-page',
@@ -11,6 +12,7 @@ import { DataService } from '../shared/services/dta.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
+
 
   loginForm: FormGroup;
   signupForm: FormGroup;
@@ -23,8 +25,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   authSubscription: Subscription;
   verificationSubscription: Subscription;
-  deleteUserSubscription: Subscription;
-  deleteAuthSubscription: Subscription;
   sendResetCodeSubscription: Subscription;
 
   ngOnInit(): void {
@@ -52,10 +52,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.authSubscription.unsubscribe();
       this.verificationSubscription.unsubscribe();
     }
-    if(this.deleteUserSubscription){
-      this.deleteUserSubscription.unsubscribe();
-      this.deleteAuthSubscription.unsubscribe();
-    }
+
     if(this.sendResetCodeSubscription){
       this.sendResetCodeSubscription.unsubscribe();
     }
@@ -73,8 +70,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         if(userData.users[0].emailVerified != true){
           this.dta.setAlertData('User not verified: Re-signup', true, '#e65045');
           // Delete user if user is not verified
-          this.deleteAuthSubscription = this.auth.deleteUser(resData.idToken).subscribe(() => {});
-          this.deleteUserSubscription = this.dta.deleteData(resData.localId, "Users").subscribe(() => {});
+          this.auth.deleteUser(resData.idToken);
+          this.dta.deleteData(resData.localId, "Users");
           this.unloaded = false;
           return
         }

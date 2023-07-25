@@ -1,5 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { take, exhaustMap } from 'rxjs/operators';
 
 
 @Injectable({providedIn: 'root'})
@@ -144,62 +146,36 @@ export class DataService {
     // Http Request Methods
 
 
-    // route(){
-    //     this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + "Clubs" + '.json').subscribe((dta: CatalogData[]) => {
-    //         for(let i = 0; i < dta.length; i++){
-    //             console.log(dta[i])
-    //             const colRef = collection(this.db, "Clubs");
-    //             dta[i].comments = [];
-    //             dta[i].rating = null;
-    //             console.log(dta[i])
-    //             addDoc(colRef, dta[i]);
-    //         }
-    //     })
-    // }
 
-    // New Data should be an object
     postData(newDta: any, fileName: String){
+        this.auth.user.pipe(take(1)).subscribe(user => {
+            this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json?auth=' + user.token, JSON.stringify(newDta)).subscribe(() => {});
+        })
 
-        // const colRef = collection(this.db, <string>fileName);
-        // addDoc(colRef, newDta);
-
-        this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+        // this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
 
     }
 
     getData(filename: String){
-
-        // const colRef = collection(this.db, <string>filename);
-        // return getDocsFromServer(colRef);
-
-        return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json')
-
+        return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json');
 
     }
 
     patchData(newDta: any, fileName: String){
-        this.http.patch('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+        this.auth.user.pipe(take(1)).subscribe(user => {
+            this.http.patch('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json?auth=' + user.token, JSON.stringify(newDta)).subscribe(() => {});
+        })
     }
 
     deleteData(name: string, filename: string){
-        return this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + name + '/' + '.json')
+        this.auth.user.pipe(take(1)).subscribe(user => {
+            this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + name + '/' + '.json').subscribe(() => {})
+
+        })
     }
 
-    // input should be a firebase object
-
-    // editData(newInput: any, input: any, fileName: String){
-    //     const colRef = doc(this.db, <string>fileName, input.id);
-    //     setDoc(colRef, newInput);
-
-    // }
-
-    // input should be a firebase object
-    // deleteData(input: any, filename: String){
-    //     const colRef = doc(this.db, <string>filename, input.id);
-    //     deleteDoc(colRef);
-    // }
-
-    constructor(private http: HttpClient){}
+ 
+    constructor(private http: HttpClient, private auth: AuthService){}
 
 
 }
