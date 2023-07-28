@@ -77,7 +77,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }
         this.unloaded = false;
         this.dta.setAlertData('Login Success!', true, '#07E607');
-        console.log(resData);
         this.router.navigateByUrl('');
 
       })
@@ -110,7 +109,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           email: resData.email,
           token: resData.localId
         }
-        this.dta.patchData(newUser, "Users")
+        this.dta.patchData(newUser, "Users");
         this.unloaded = false;
         this.activePopup = 'email_verification'
       })

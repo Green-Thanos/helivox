@@ -5,7 +5,7 @@
 
     <!-- Admin Edit Feature -->
 
-    <div class="col-lg-4 col-sm-6" *ngIf="isAdmin" (click)="openModal(-1)">
+    <div class="col-lg-4 col-sm-6" (click)="openModal(-1)" *ngIf="isEditorMode()">
         <div class="card card-content" style="border: 1px solid black; " >
             <div class="card-body" style="text-align: center;">
               <img src="../../../../assets/plus.png" alt="" style="width: 130px; margin-top:6%; margin-left: 6%">

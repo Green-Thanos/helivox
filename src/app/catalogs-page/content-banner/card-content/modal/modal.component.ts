@@ -21,12 +21,12 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() selected: String;
   @Input() allCatalogData: any[];
 
+  editorMode = this.dta.editorMode;
 
-  isAdmin = this.dta.getAdminStatus();
 
-  adminSubscription: Subscription;
 
-    //Presets
+
+  //Presets
 
   title = null;
   hrs = null;
@@ -66,7 +66,9 @@ export class ModalComponent implements OnInit, OnDestroy {
       this.allCatalogData[this.index] = newDta;
 
     }
-    this.dta.postData(this.allCatalogData, this.filters.catalog );
+
+    // this.dta.postData(this.allCatalogData, this.filters.catalog );
+    this.dta.patchData(newDta, this.filters.catalog + "/" + (this.allCatalogData.length-1));
 
     this.openEvent.emit(true);
     this.ngOnInit();
@@ -82,6 +84,8 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.ngOnInit();
 
   }
+
+
 
 
   // Description portion
@@ -132,6 +136,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   parseRating(rating: number){
+    // Change System
     this.openDropDown = false;
     this.dta.addUserRatingLog(this.index);
 
@@ -142,11 +147,17 @@ export class ModalComponent implements OnInit, OnDestroy {
       this.allCatalogData[this.index].rating = ((rating + this.allCatalogData[this.index].rating)/2);
     }
 
-    
-    this.dta.postData(this.allCatalogData, this.filters.catalog);
+    if(!this.resubmit){
+      // Change System 
+      this.dta.patchData(this.allCatalogData[this.index], this.filters.catalog + '/' + this.index);
+    }
   }
 
   // Global Portion 
+
+  allowEdit(){
+    return this.dta.getUser().role > 1;
+  }
 
   constructor(private dta: DataService, private elementRef: ElementRef){}
 
@@ -155,11 +166,13 @@ export class ModalComponent implements OnInit, OnDestroy {
       this.data = this.allCatalogData[this.index];
     }
     this.resubmit = this.dta.checkIfResubmit(this.index);
-    this.adminSubscription = this.dta.adminCheck.subscribe((isAdmin) => {
-      this.isAdmin = isAdmin;
-    })
+
 
     if(this.index !== -1 ){
+      if(!this.allowEdit()){
+        this.editorMode = false;
+      }
+      else{
         this.title = this.data.title;
         this.hrs = this.data.tags[0];
         this.cost = this.data.tags[1];
@@ -170,6 +183,8 @@ export class ModalComponent implements OnInit, OnDestroy {
         this.tagPreselect1 = this.data.labels[0];
         this.tagPreselect2 = this.data.labels[1];
         this.tagPreselect3 = this.data.labels[2];
+      }
+
     }
 
     this.catalogForm = new FormGroup({
@@ -186,7 +201,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.adminSubscription.unsubscribe();
   }
   
 }

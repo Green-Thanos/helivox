@@ -2,7 +2,7 @@
     <div class="inner-box" (click)="notToggled=true">
         
         <!-- Input Form -->
-        <ng-container *ngIf="isAdmin" >
+        <ng-container *ngIf="editorMode" >
             <form [formGroup]="catalogForm"> 
                 <div style="text-align: center; padding-right: 20px"> 
                     <p style=" padding: 20px; font-weight: 500; font-size: 20px">INPUT FORM</p>
@@ -89,7 +89,7 @@
 
         <!-- Main Data -->
 
-        <ng-container *ngIf="!isAdmin">
+        <ng-container *ngIf="!editorMode">
             <div class="row">
                 <div class="col-sm-7">
                     <h3>{{data.title}}</h3>
@@ -126,7 +126,7 @@
     
             <div *ngIf="commentsToggled" class="comment-box">
                 <p *ngIf="data.comments === undefined">There are no comments yet. Try commenting!</p>
-                <div *ngFor="let d of data.comments.reverse(); let i = index" >
+                <div *ngFor="let d of data.comments; let i = index" >
                     <p style="font-weight: 500; margin: 0">{{d[0]}}: </p> <blockquote>{{d[1]}}</blockquote>
                 </div>
             </div>

@@ -9,6 +9,11 @@
         <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Login" routerLink="login">Login</a></li>
     </ul>
     <a href="https://www.instagram.com/helivoxofficial/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+    <div *ngIf="user.role >= 1">
+        <a *ngIf="editorMode" (click)="changeMode()"><i class="fa fa-pencil-square-o" style="font-size:24px; right: 12%; top: 45px;"></i></a>
+        <a *ngIf="!editorMode" (click)="changeMode()"><i class="fa fa-eye" style="font-size:24px; right: 12%; top: 45px;"></i></a>
+    </div>
+
     <hr>
 </div>
 

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/shared/services/dta.service';
+import { User } from 'src/app/shared/templates/user';
 
 @Component({
   selector: 'card-content',
@@ -20,15 +21,12 @@ export class CardContentComponent implements OnInit, OnDestroy {
   isOpen: boolean = false;
   openedCatalog: number;
 
-  isAdmin = this.data.getAdminStatus();
-  adminSubscription: Subscription;
 
   unloaded = true;
   subscription: Subscription;
 
 
   ngOnInit(): void {
-
 
     // If they change the catalog data on the page 
     this.subscription = this.route.params.subscribe((params: Params) => {
@@ -40,6 +38,8 @@ export class CardContentComponent implements OnInit, OnDestroy {
 
     })
 
+
+
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.unloaded = true;
       this.data.getData(this.catalogCategory.catalog).subscribe((response: any[]) => {
@@ -51,14 +51,15 @@ export class CardContentComponent implements OnInit, OnDestroy {
 
 
 
-    this.adminSubscription = this.data.adminCheck.subscribe(isAdmin => {
-      this.isAdmin = isAdmin;
-    })
+
 
   }
 
+  isEditorMode(){
+    return this.data.editorMode;
+  }
+
   ngOnDestroy(): void {
-    this.adminSubscription.unsubscribe();
     this.subscription.unsubscribe();
   }
 

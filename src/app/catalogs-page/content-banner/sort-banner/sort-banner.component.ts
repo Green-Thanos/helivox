@@ -12,12 +12,7 @@ export class SortBannerComponent {
   types = this.data.getTypes();
   selected = this.types[0];
 
-  isAdmin = this.data.getAdminStatus();
 
-  changeAdmin(){
-    this.isAdmin = !this.isAdmin;
-    this.data.changeAdminStatus();
-  }
 
   constructor(private data: DataService){}
 

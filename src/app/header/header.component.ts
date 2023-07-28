@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, Renderer2, HostListener } from '@angular/core';
 import { DropdownService } from '../shared/services/dropdown.service';
+import { DataService } from '../shared/services/dta.service';
+import { User } from '../shared/templates/user';
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
@@ -19,6 +21,9 @@ export class HeaderComponent implements OnInit {
   innerWidth = window.innerWidth;
 
   isOpen = false;
+  
+  editorMode = this.dta.editorMode;
+  user: User;
 
 
   
@@ -30,7 +35,7 @@ export class HeaderComponent implements OnInit {
       this.renderer[isOpen ? 'removeClass' : 'addClass'](this.dpdn.nativeElement, 'dpdn');
       this.isOpen = isOpen;
     })
-
+    this.user = this.dta.getUser()
     
   }
 
@@ -46,6 +51,11 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  constructor(private ddService: DropdownService, private renderer: Renderer2){}
+  changeMode(){
+    this.editorMode = !this.editorMode;
+    this.dta.setEditMode(this.editorMode);
+  }
+
+  constructor(private ddService: DropdownService, private renderer: Renderer2, private dta: DataService){}
 
 }

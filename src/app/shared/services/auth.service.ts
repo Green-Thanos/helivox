@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { tap } from 'rxjs/operators'
 import { User } from "../templates/user";
 import { BehaviorSubject, Subject } from "rxjs";
-import { Router } from "@angular/router";
+import { Data, Router } from "@angular/router";
 import { DropdownAlertComponent } from "src/app/dropdown-alert/dropdown-alert.component";
 import { DataService } from "./dta.service";
 
@@ -25,25 +25,10 @@ interface UserResponseData{
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
 
 
-    signup(email: string, password: string){
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
-        {
-            email: email,
-            password: password,
-            returnSecureToken: true
 
-        }).pipe(tap(resData => {
-            const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate);
-            this.user.next(user);
-            this.autoLogout(+resData.expiresIn * 1000);
-            localStorage.setItem('userData', JSON.stringify(user));
-        }))
-    }
 
     verification(idToken: string){
         return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
@@ -59,19 +44,21 @@ export class AuthService {
             email: string,
             id: string,
             _token: string,
-            _tokenExpirationDate: string
+            _tokenExpirationDate: string,
+            http: HttpClient,
+            _role: number
         } = JSON.parse(localStorage.getItem('userData'));
-        if(!userData){return;}
-
-        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+        if(!userData){return;}  
+        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role);
 
         if(loadedUser.token){
-            this.user.next(loadedUser);
+            this.dta.setUser(loadedUser);
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
             this.autoLogout(expirationDuration);
         }
     }
-    
+
+
     login(email: string, password: string){
         return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
         {
@@ -80,17 +67,34 @@ export class AuthService {
             returnSecureToken: true
 
         }).pipe(tap(resData => {
-            const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate);
-            this.user.next(user);
-            this.autoLogout(+resData.expiresIn * 1000);
-            localStorage.setItem('userData', JSON.stringify(user));
+            this.parseUserInfo(resData);
+        }))
+    }
+    signup(email: string, password: string){
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
+        {
+            email: email,
+            password: password,
+            returnSecureToken: true
 
+        }).pipe(tap(resData => {
+            this.parseUserInfo(resData)
         }))
     }
 
+    parseUserInfo(resData: AuthResponseData){
+        this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string}) => {
+            const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role);
+            this.dta.setUser(user);
+            this.autoLogout(+resData.expiresIn * 1000);
+            localStorage.setItem('userData', JSON.stringify(user));
+        });
+
+    }
+
     logout(){
-        this.user.next(null);
+        this.dta.setUser(null);
         this.router.navigate(['/login']);
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer){
@@ -107,6 +111,7 @@ export class AuthService {
     }
 
     fetchUserData(idToken: string){
+
         return this.http.post<UserResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE', 
         {
             idToken: idToken
