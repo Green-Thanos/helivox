@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
   isOpen = false;
   
   editorMode = this.dta.editorMode;
-  user: User;
 
 
   
@@ -35,8 +34,11 @@ export class HeaderComponent implements OnInit {
       this.renderer[isOpen ? 'removeClass' : 'addClass'](this.dpdn.nativeElement, 'dpdn');
       this.isOpen = isOpen;
     })
-    this.user = this.dta.getUser()
     
+  }
+
+  isEditor(){
+    return this.dta.getUser().role >= 1;
   }
 
   // If user clicks onto a new page the dropdown should go away, so this uses dropdown service to change the value of isOpen in the directive so ngOnInit can react 
