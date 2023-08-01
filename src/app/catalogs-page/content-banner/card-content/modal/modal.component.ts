@@ -105,7 +105,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   @ViewChild('comments') comments: string;
 
-  
+  @Input() inputs: any[];
   @Input() index: number;
 
   @Output() openEvent = new EventEmitter<boolean>();
@@ -124,32 +124,40 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
 
-  pushComments(){
-    if(this.data.comments === undefined){
-      this.data.comments = [["Anonymous", this.comments]];
+  pushComments(){    
+    let username = this.dta.getUser().getUsername()
+    if(this.inputs[this.index].comments === undefined){
+      this.inputs[this.index].comments = [[username, this.comments]];
     }
     else{
-      this.data.comments.push(["Anonymous", this.comments]);
+      this.inputs[this.index].comments.push([username, this.comments]);
     }
+    this.dta.patchData({
+      comments: this.inputs[this.index].comments
+    }, 'Inputs/' + this.index)
 
     this.comments = '';
   }
 
+  verified(){
+    return this.dta.getUser().role >= 0;
+  }
+
   parseRating(rating: number){
-    // Change System
     this.openDropDown = false;
-    this.dta.addUserRatingLog(this.index);
-
-    if(this.allCatalogData[this.index].rating === null || this.allCatalogData[this.index].rating === undefined){
-      this.allCatalogData[this.index].rating = rating;
-    }
-    else {
-      this.allCatalogData[this.index].rating = ((rating + this.allCatalogData[this.index].rating)/2);
-    }
-
+    
     if(!this.resubmit){
-      // Change System 
-      this.dta.patchData(this.allCatalogData[this.index], this.filters.catalog + '/' + this.index);
+      if(this.inputs[this.index] !== undefined){
+        if(this.inputs[this.index].rating !== undefined){
+          rating = (this.inputs[this.index].rating + rating)/2
+        }
+      }
+      this.dta.patchData({
+        rating: rating
+      }, 'Inputs/' + this.index);
+
+      this.dta.addUserRatingLog(this.index);
+
     }
   }
 

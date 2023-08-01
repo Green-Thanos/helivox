@@ -107,7 +107,7 @@
                 <img [src]="data.image" class="image-display">
                 <p class="data-text">{{data.description}}</p>
     
-                <div style="position: relative">
+                <div style="position: relative" *ngIf="verified()">
                     <button (click)="openDropDown = !openDropDown;" [disabled]="(userRating === -2) || resubmit" > {{((userRating === -2) || resubmit) ? 'Thank You!' : "Give a Rating"}} </button>
                     <div class="dropdown" *ngIf="openDropDown">
                         <p class="ddCont" *ngFor="let rating of userRatingOptions; let i = index" (click)="userRating = -2; parseRating(i+1)">{{rating}}</p>
@@ -120,13 +120,14 @@
     
             </div>
     
-            <div style="text-align: center" *ngIf="commentsToggled" >
+            <div style="text-align: center" *ngIf="commentsToggled && verified()" >
                 <input placeholder="Enter Comment" [(ngModel)]="comments"><button (click)="pushComments()">Enter</button>
             </div>
     
             <div *ngIf="commentsToggled" class="comment-box">
-                <p *ngIf="data.comments === undefined">There are no comments yet. Try commenting!</p>
-                <div *ngFor="let d of data.comments; let i = index" >
+                <p *ngIf="this.inputs[this.index].comments === undefined && verified()" style="text-align: center; font-weight: 500;">There are no comments yet. Try commenting!</p>
+                <p *ngIf="!verified()" style="text-align: center; font-weight: 500;">Sign up to comment!</p>
+                <div *ngFor="let d of this.inputs[this.index].comments; let i = index" >
                     <p style="font-weight: 500; margin: 0">{{d[0]}}: </p> <blockquote>{{d[1]}}</blockquote>
                 </div>
             </div>

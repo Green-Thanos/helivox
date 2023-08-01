@@ -39,5 +39,9 @@ export class User{
     get role(){
         return this._role;
     }
+
+    getUsername(){
+        return this.email.split('@')[0];
+    }
     
  }

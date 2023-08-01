@@ -17,6 +17,7 @@ export class CardContentComponent implements OnInit, OnDestroy {
   @Input("catalogCategory") catalogCategory;
 
   catalogData = []
+  inputs = [];
 
   isOpen: boolean = false;
   openedCatalog: number;
@@ -33,7 +34,11 @@ export class CardContentComponent implements OnInit, OnDestroy {
       this.unloaded = true;
       this.data.getData(this.catalogCategory.catalog).subscribe((response: any[]) => {
         this.catalogData = response;
-        this.unloaded = false;
+        this.data.getData("Inputs").subscribe((inputs: any[]) => {
+          this.unloaded = false;
+          this.inputs = inputs;
+        })
+
       })
 
     })
@@ -63,7 +68,15 @@ export class CardContentComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  checkIfRating(i: number){
+    if(this.inputs[i] !== undefined){
+      if(this.inputs[i].rating !== undefined){
+        return this.inputs[i].rating;
+      }
+    }
+    return 0;
 
+  }
 
   openModal(i: number){
     this.openedCatalog = i;
