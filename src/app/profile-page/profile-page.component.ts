@@ -31,6 +31,10 @@ export class ProfilePageComponent implements OnInit{
   rolesList = ['User', 'Volunteer', 'Editor', 'Admin'];
   selectedUser = -1;
 
+  openAdminSort = false;
+  currentRoleSort = -1;
+  searchText = "";
+
 
   ngOnInit(): void {
     if(this.dta.getUser().role < 0){
@@ -44,6 +48,18 @@ export class ProfilePageComponent implements OnInit{
         this.userList = resData;
       })
     }
+  }
+
+
+
+  checkIfValid(uid: string){
+    if(this.searchText !== "" && !this.userList[uid].email.includes(this.searchText)){
+      return false;
+    }
+    if(this.currentRoleSort !== -1 && +this.userList[uid].role !== this.currentRoleSort){
+      return false;
+    }
+    return true;
   }
 
   changeRole(index: number, role: number){
