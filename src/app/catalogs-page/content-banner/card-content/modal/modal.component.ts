@@ -126,11 +126,24 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   pushComments(){    
     let username = this.dta.getUser().getUsername()
-    if(this.inputs[this.index].comments === undefined){
-      this.inputs[this.index].comments = [[username, this.comments]];
+    if(this.inputs[this.index] === undefined){
+    
+      this.inputs[this.index] = {
+        comments: [[username, this.comments]]
+      }
+      
     }
     else{
-      this.inputs[this.index].comments.push([username, this.comments]);
+      if(this.inputs[this.index].comments === undefined){
+        this.inputs[this.index] = {
+          comments: [[username, this.comments]],
+          rating: this.inputs[this.index].rating
+        }
+      }
+      else{
+        this.inputs[this.index].comments.push([username, this.comments]);
+      }
+      
     }
     this.dta.patchData({
       comments: this.inputs[this.index].comments

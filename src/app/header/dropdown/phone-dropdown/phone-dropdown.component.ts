@@ -26,6 +26,10 @@ export class PhoneDropdownComponent implements OnInit{
     this.schools = this.dta.getSchools(this.states[0]);
   }
 
+  checkIsUser(){
+    return this.dta.getUser().role >= 0;
+  }
+
   
   closeDropdown(){
     this.ddService.update(false);

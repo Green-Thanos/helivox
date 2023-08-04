@@ -1,11 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 
 
-interface UserResponseData{
-    users: [{
-        emailVerified: boolean
-    }]
-}
+
 
 export class User{
 
@@ -14,8 +10,15 @@ export class User{
         public id: string, 
         private _token: string, 
         private _tokenExpirationDate: Date,
-        private _role: number
+        private _role: number,
+        private _profile_picture: string
     ){}
+
+    // Setters
+
+    set profile_picture(pfp: string) {
+        this._profile_picture = pfp;
+    }
 
 
 
@@ -29,6 +32,14 @@ export class User{
         return this._token;
     }
 
+    get profile_picture() {
+        if(!this._tokenExpirationDate || (new Date() > this._tokenExpirationDate)){
+            return '../../assets/anonymous.png';
+        }
+        return this._profile_picture;
+        
+    }
+
     get uid(){
         if(!this._tokenExpirationDate || (new Date() > this._tokenExpirationDate)){
             return null;
@@ -38,6 +49,10 @@ export class User{
 
     get role(){
         return this._role;
+    }
+
+    get tokenExpirationDate(){
+        return this._tokenExpirationDate;
     }
 
     getUsername(){

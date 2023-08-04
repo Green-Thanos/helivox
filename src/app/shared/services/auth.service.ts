@@ -46,10 +46,11 @@ export class AuthService {
             _token: string,
             _tokenExpirationDate: string,
             http: HttpClient,
-            _role: number
+            _role: number,
+            _profile_picture: string
         } = JSON.parse(localStorage.getItem('userData'));
         if(!userData){return;}  
-        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role);
+        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role, userData._profile_picture);
 
         if(loadedUser.token){
             this.dta.setUser(loadedUser);
@@ -67,7 +68,13 @@ export class AuthService {
             returnSecureToken: true
 
         }).pipe(tap(resData => {
-            this.parseUserInfo(resData);
+            this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string, profile_picture: string}) => {
+                const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+                const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role, userD.profile_picture);
+                this.dta.setUser(user);
+                this.autoLogout(+resData.expiresIn * 1000);
+                localStorage.setItem('userData', JSON.stringify(user));
+            });
         }))
     }
     signup(email: string, password: string){
@@ -78,23 +85,30 @@ export class AuthService {
             returnSecureToken: true
 
         }).pipe(tap(resData => {
-            this.parseUserInfo(resData)
-        }))
-    }
-
-    parseUserInfo(resData: AuthResponseData){
-        this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string}) => {
             const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role);
+            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, 0, undefined);
             this.dta.setUser(user);
             this.autoLogout(+resData.expiresIn * 1000);
             localStorage.setItem('userData', JSON.stringify(user));
-        });
-
+            
+        }))
     }
 
+    // parseUserInfo(resData: AuthResponseData){
+    //     this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string, profile_picture: string}) => {
+    //         const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+    //         const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role, userD.profile_picture);
+    //         this.dta.setUser(user);
+    //         this.autoLogout(+resData.expiresIn * 1000);
+    //         localStorage.setItem('userData', JSON.stringify(user));
+    //         console.log(user)
+    //     });
+
+    // }
+
     logout(){
-        this.dta.setUser(null);
+        const newUser = new User("", "", "", new Date(), -1, "");
+        this.dta.setUser(newUser);
         this.router.navigate(['/login']);
         localStorage.removeItem('userData');
         if(this.tokenExpirationTimer){

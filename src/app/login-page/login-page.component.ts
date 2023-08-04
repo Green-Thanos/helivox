@@ -69,18 +69,29 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.verificationSubscription = this.auth.fetchUserData(resData.idToken).subscribe(userData => {
         if(userData.users[0].emailVerified != true){
           this.dta.setAlertData('User not verified: Re-signup', true, '#e65045');
+          const newUser = new User("", "", "", new Date(), -1, "");
+          this.dta.setUser(newUser);
+          localStorage.removeItem('userData');
           // Delete user if user is not verified
           this.auth.deleteUser(resData.idToken);
           this.dta.deleteData(resData.localId, "Users");
           this.unloaded = false;
           return
         }
+
+        this.dta.patchData({
+          verified: true
+        }, 'Users/' + resData.localId);
+
         this.unloaded = false;
         this.dta.setAlertData('Login Success!', true, '#07E607');
         this.router.navigateByUrl('');
 
       })
     }, error => {
+      const newUser = new User("", "", "", new Date(), -1, "");
+      this.dta.setUser(newUser);
+      localStorage.removeItem('userData');
       if(error.status === 400){
         this.invalidPassword = true;
       }
@@ -103,18 +114,24 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.unloaded = true;
     this.authSubscription = this.auth.signup(this.signupForm.value.username, this.signupForm.value.passwordData.password1).subscribe(resData => {
       this.verificationSubscription = this.auth.verification(resData.idToken).subscribe(() => {
-        let newUser = {}
-        newUser[resData.localId] = {
+
+        this.dta.patchData({
           role: "0",
           email: resData.email,
-          token: resData.localId
-        }
-        this.dta.patchData(newUser, "Users");
+          token: resData.localId,
+          verified: false
+        }, "Users/" + this.dta.getUser().uid);
         this.unloaded = false;
         this.activePopup = 'email_verification'
+        const newUser = new User("", "", "", new Date(), -1, "");
+        this.dta.setUser(newUser);
+        localStorage.removeItem('userData');
       })
 
     }, error => {
+      const newUser = new User("", "", "", new Date(), -1, "");
+      this.dta.setUser(newUser);
+      localStorage.removeItem('userData');
       if(error.status === 400){
         this.dta.setAlertData("This user already exists!", true, '#e65045');
         
@@ -129,6 +146,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.signupForm.reset();
 
     // this.router.navigate([""]);
+
   }
 
   resetPassword(){

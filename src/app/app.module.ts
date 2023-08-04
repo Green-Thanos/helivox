@@ -28,6 +28,7 @@ import { SliderComponent } from './main-page/slider/slider.component';
 import { DonationBannerComponent } from './main-page/donation-banner/donation-banner.component';
 import { RouterModule } from '@angular/router';
 import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,6 @@ import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.componen
     DropdownComponent,
     MainPageComponent,
     CatalogsPageComponent,
-    ArticlesPageComponent,
     AboutUsPageComponent,
     LoginPageComponent,
     DropdownDirective,
@@ -54,6 +54,8 @@ import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.componen
     SliderComponent,
     DonationBannerComponent,
     DropdownAlertComponent,
+    ArticlesPageComponent,
+    ProfilePageComponent,
     
   ],
   imports: [

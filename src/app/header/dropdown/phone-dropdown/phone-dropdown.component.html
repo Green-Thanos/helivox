@@ -45,9 +45,14 @@
                 <p class="sort-text"><a routerLink="about-us" (click)="closeDropdown()">About-Us</a></p>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!checkIsUser()">
             <div class="col">
                 <p class="sort-text"><a routerLink="login" (click)="closeDropdown()">Login</a></p>
+            </div>
+        </div>
+        <div class="row" *ngIf="checkIsUser()">
+            <div class="col">
+                <p class="sort-text"><a routerLink="profile" (click)="closeDropdown()">Profile</a></p>
             </div>
         </div>
     </div>

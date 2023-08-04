@@ -8,7 +8,7 @@ import { User } from '../templates/user';
 @Injectable({providedIn: 'root'})
 export class DataService {
 
-    user = new User("", "", "", new Date(), -1);
+    user = new User("", "", "", new Date(), -1, "");
     editMode = false;
 
     // Alert auxilary variables

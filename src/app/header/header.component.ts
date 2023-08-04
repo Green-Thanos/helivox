@@ -37,8 +37,19 @@ export class HeaderComponent implements OnInit {
     
   }
 
+  checkPFP(){
+    if(this.dta.getUser().profile_picture !== undefined){
+      return this.dta.getUser().profile_picture;
+    }
+    return '../../assets/anonymous.png';
+  }
+
   isEditor(){
     return this.dta.getUser().role >= 1;
+  }
+  
+  checkIsUser(){
+    return this.dta.getUser().role >= 0;
   }
 
   // If user clicks onto a new page the dropdown should go away, so this uses dropdown service to change the value of isOpen in the directive so ngOnInit can react 

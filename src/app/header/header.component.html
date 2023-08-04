@@ -6,14 +6,15 @@
         <li app-dropdown><a data-hover="Catalogs">Catalogs</a><span class="caret"></span></li>
         <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Articles" routerLink="articles">Articles</a></li>
         <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="About Us" routerLink="about-us">About Us</a></li>
-        <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Login" routerLink="login">Login</a></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()" *ngIf="!checkIsUser()"><a data-hover="Login" routerLink="login">Login</a></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()" *ngIf="checkIsUser()"><a data-hover="Profile" routerLink="profile" >Profile</a></li>
     </ul>
     <a href="https://www.instagram.com/helivoxofficial/"><i class="fa fa-instagram" style="font-size:24px"></i></a>
     <div *ngIf="isEditor()">
         <a *ngIf="editorMode" (click)="changeMode()"><i class="fa fa-pencil-square-o" style="font-size:24px; right: 12%; top: 45px;"></i></a>
         <a *ngIf="!editorMode" (click)="changeMode()"><i class="fa fa-eye" style="font-size:24px; right: 12%; top: 45px;"></i></a>
     </div>
-
+    <img [src]="checkPFP()" class="pfp" routerLink="profile" *ngIf="checkIsUser()">
     <hr>
 </div>
 
