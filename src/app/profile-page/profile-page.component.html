@@ -8,61 +8,14 @@
                    accept="image/*"
                    (change)="currentImage = $event; selectedFile=this.currentImage.target.files[0].name">
         </label>
-        <button class="button" (click)="processFile(currentImage)" style="color: black; margin-top: 5px">Upload Picture</button>
+        <button class="button" (click)="checkImage()" style="color: black; margin-top: 5px">Upload Picture</button>
     </div>
     <hr>
-    <div *ngIf="user.role >= 3">
-        <h1>Admin Features:</h1><br>
-        <div class="row">
-            <div class="col-md-6" style="padding-left: 20px">
-                <div style="width: fit-content;">
-                    Sort Menu: <button class="button role" style="color: black; margin-left: 5px" (click)="openAdminSort = !openAdminSort">
-                        {{currentRoleSort === -1 ? "Select Role" : rolesList[currentRoleSort]}}
-                    </button>
 
-                    <input [(ngModel)]="searchText" placeholder="Search..." (ngModelChange)="onSearchChange()" class="search">
+    <admin-panel *ngIf="user.role >= 3"></admin-panel>
 
-                    <div class="dropdown" *ngIf="openAdminSort" style="text-align: left;">
-                        <p class="ddCont" (click)="currentRoleSort = -1; openAdminSort = !openAdminSort">None</p>
-                        <p class="ddCont" *ngFor="let roles of rolesList; let j = index" (click)="currentRoleSort = j; openAdminSort = !openAdminSort">{{roles}}</p>
-                    </div>
-                </div>
-            </div>
-        </div><br>
 
-       
-        <div class="user_list">
-            <ng-container *ngFor=" let n of userListKeys; let i = index">
-                <div class="row user_display" *ngIf="checkIfValid(n)">
-                    <div class="col-md-3">
-                        {{userList[n].email}}
-                    </div>
-                    <div class="col-md-3">
-                        <div style="width: fit-content;">
-                            <button class="button role" style="color: black;" (click)="selectedUser = selectedUser == i ? -1 : i">
-                                {{rolesList[userList[n].role]}}
-                            
-                            </button>
-                            <div class="dropdown" *ngIf="selectedUser == i">
-                                <p class="ddCont" *ngFor="let roles of rolesList; let j = index" (click)="changeRole(i, j)">{{roles}}</p>
-                            </div>
-                        </div>
-        
-                    </div>
-                    <div class="col-md-3">
-                        Verified: {{userList[n].verified}}
-                    </div>
-                    <div class="col-md-3">
-                        <button class="button role" style="float: right;" (click)="deleteUser(i)">Delete</button>
-                    </div>
-                </div>
-            </ng-container>
-
-        </div>
-
-        
-        <br><hr>
-    </div>
+    <confirmation-modal *ngIf="confirmationValue !== ''" (confirmation)="checkConfirmation($event)"></confirmation-modal>
 
 
     <button class="button" (click)="logout()" style="margin-top: 50px; ">Logout</button>

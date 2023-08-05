@@ -29,6 +29,8 @@ import { DonationBannerComponent } from './main-page/donation-banner/donation-ba
 import { RouterModule } from '@angular/router';
 import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { AdminPanelComponent } from './profile-page/admin-panel/admin-panel.component';
+import { ConfirmationModalComponent } from './profile-page/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     DropdownAlertComponent,
     ArticlesPageComponent,
     ProfilePageComponent,
+    AdminPanelComponent,
+    ConfirmationModalComponent,
     
   ],
   imports: [

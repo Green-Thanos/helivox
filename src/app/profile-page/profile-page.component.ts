@@ -25,65 +25,40 @@ export class ProfilePageComponent implements OnInit{
   
   user = this.dta.getUser();
 
-  userList: any;
-  userListKeys: any;
-
-  rolesList = ['User', 'Volunteer', 'Editor', 'Admin'];
-  selectedUser = -1;
-
-  openAdminSort = false;
-  currentRoleSort = -1;
-  searchText = "";
+  confirmationValue = "";
 
 
   ngOnInit(): void {
     if(this.dta.getUser().role < 0){
       this.router.navigateByUrl('');
     }
-    if(this.dta.getUser().role >= 3){
-      this.unloaded = true;
-      this.http.get("https://helivox-2-default-rtdb.firebaseio.com/Users.json/?auth=" + this.user.token).subscribe(resData => {
-        this.unloaded = false;
-        this.userListKeys = Object.keys(resData);
-        this.userList = resData;
-      })
-    }
+
   }
-
-
-
-  checkIfValid(uid: string){
-    if(this.searchText !== "" && !this.userList[uid].email.includes(this.searchText)){
-      return false;
+  checkConfirmation(conf: boolean){
+    if(conf){
+      if(this.confirmationValue === "delete"){
+        const user = this.dta.getUser();
+        this.dta.deleteData(user.uid, "Users");
+        this.auth.deleteUser(user.token);
+      }
+      if(this.confirmationValue === "logout"){
+        this.auth.logout();
+      }
+      if(this.confirmationValue === "image"){
+        this.processFile(this.currentImage);
+      }
     }
-    if(this.currentRoleSort !== -1 && +this.userList[uid].role !== this.currentRoleSort){
-      return false;
-    }
-    return true;
-  }
 
-  changeRole(index: number, role: number){
-    this.selectedUser = -1;
-    this.userList[this.userListKeys[index]].role = role;
-    this.dta.patchData({
-      role: ""+role
-    }, 'Users/' + this.userList[this.userListKeys[index]].token);
-  }
+    this.confirmationValue = "";
 
-  deleteUser(index: number){
-    this.dta.deleteData(this.userList[this.userListKeys[index]].token, "Users");
-    this.userListKeys.splice(index, 1);
-    delete this.userList[this.userListKeys[index]];
   }
 
   deleteSignedInUser(){
-    const user = this.dta.getUser();
-    this.dta.deleteData(user.uid, "Users");
-    this.auth.deleteUser(user.token);
+    this.confirmationValue = "delete";
   }
 
   logout(){
-    this.auth.logout();
+    this.confirmationValue = "logout";
   }
   
   processFile(e: Event){
@@ -100,6 +75,10 @@ export class ProfilePageComponent implements OnInit{
         profile_picture: res.data.display_url
       }, "Users/" + this.dta.getUser().uid)
     });
+  }
+
+  checkImage(){
+    this.confirmationValue = "image";
   }
 
 

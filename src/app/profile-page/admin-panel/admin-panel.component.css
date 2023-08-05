@@ -1,12 +1,8 @@
-.outer{
-    text-align: center;
+
+.search{
+    margin: 0px;
+    color: black;
 }
-
-input[type="file"] {
-    display: none;
-}
-
-
 
 .button, label, input {
     appearance: none;
@@ -75,15 +71,6 @@ input[type="file"] {
     border-color: rgba(0, 0, 0, 0.404);
 }
 
-.upload{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
-img{
-    height: 400px;
-    border-radius: 5%;
-}
 
 hr {
     width: 91%;
@@ -93,11 +80,55 @@ hr {
     margin-top: 0px;
 }
 
-
-@media screen and (max-width: 700px) {
-    img{
-        height: 400px;
-        border-radius: 5%;
-        width: 100%
-    }
+h1{
+    font-weight: 300
 }
+
+.user_display{
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 8px;
+    margin: 5px;
+    font-size: 19px;
+
+}
+
+.user_list{
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.role{
+    margin: 0px;
+}
+
+.dropdown {
+    position: absolute; 
+    top: 34px; 
+    width: 250px; 
+    height: fit-content; 
+    background-color: white; 
+    z-index: 2;
+    border-radius: 6px;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    box-shadow: .5px 1px 3px 1px #8888883d;
+
+}
+
+.ddCont {
+    padding-left: 20px;
+    font-size: 16px;
+    margin: 0px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    cursor: pointer;
+}
+
+.ddCont:hover {
+    background-color: rgba(128, 128, 128, 0.226);
+}
+
