@@ -31,6 +31,7 @@ import { DropdownAlertComponent } from './dropdown-alert/dropdown-alert.componen
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AdminPanelComponent } from './profile-page/admin-panel/admin-panel.component';
 import { ConfirmationModalComponent } from './profile-page/confirmation-modal/confirmation-modal.component';
+import { ApplicationBannerComponent } from './profile-page/application-banner/application-banner.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { ConfirmationModalComponent } from './profile-page/confirmation-modal/co
     ProfilePageComponent,
     AdminPanelComponent,
     ConfirmationModalComponent,
+    ApplicationBannerComponent,
     
   ],
   imports: [
