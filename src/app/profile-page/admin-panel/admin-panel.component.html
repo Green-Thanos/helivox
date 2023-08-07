@@ -1,52 +1,15 @@
 <div>
-    <h1>Admin Features:</h1><br>
+    <h1>{{rolesList[user.role]}} Features:</h1><br>
     <div class="row">
-        <div class="col-md-6" style="padding-left: 20px">
-            <div style="width: fit-content;">
-                Sort Menu: <button class="button role" style="color: black; margin-left: 5px" (click)="openAdminSort = !openAdminSort">
-                    {{currentRoleSort === -1 ? "Select Role" : rolesList[currentRoleSort]}}
-                </button>
-
-                <input [(ngModel)]="searchText" placeholder="Search..." class="search">
-
-                <div class="dropdown" *ngIf="openAdminSort" style="text-align: left;">
-                    <p class="ddCont" (click)="currentRoleSort = -1; openAdminSort = !openAdminSort">None</p>
-                    <p class="ddCont" *ngFor="let roles of rolesList; let j = index" (click)="currentRoleSort = j; openAdminSort = !openAdminSort">{{roles}}</p>
-                </div>
-            </div>
-        </div>
-    </div><br>
-    <div class="user_list">
-        <ng-container *ngFor=" let n of userListKeys; let i = index">
-            <div class="row user_display" *ngIf="checkIfValid(n)">
-                <div class="col-md-3">
-                    {{userList[n].email}}
-                </div>
-                <div class="col-md-3">
-                    <div style="width: fit-content;">
-                        <button class="button role" style="color: black;" (click)="selectedUser = selectedUser == i ? -1 : i">
-                            {{rolesList[userList[n].role]}}
-                        
-                        </button>
-                        <div class="dropdown" *ngIf="selectedUser == i">
-                            <p class="ddCont" *ngFor="let roles of rolesList; let j = index" (click)="changeRole(i, j)">{{roles}}</p>
-                        </div>
-                    </div>
-    
-                </div>
-                <div class="col-md-3">
-                    Verified: {{userList[n].verified}}
-                </div>
-                <div class="col-md-3">
-                    <button class="button role" style="float: right;" (click)="routeDeletion(i)" *ngIf="!userList[n].verified">Delete</button>
-                </div>
-            </div>
-        </ng-container>
-
+        Note: To edit the site, click the eye icon next to the instagram icon in the header. This will toggle edit mode. While in edit mode, navigate to the catalogs or articles to see advanced editing features. 
     </div>
+    <br><br>
+    <admin-features *ngIf="user.role >= 3"></admin-features>
+    <editor-features *ngIf="user.role === 2"></editor-features>
+    <volunteer-features *ngIf="user.role === 1"></volunteer-features>
 
     <br><hr>
 </div>
-<confirmation-modal *ngIf="confirmation" (confirmation)="checkConfirmation($event)"></confirmation-modal>
 
-<div class="loading" *ngIf="unloaded">Loading&#8230;</div>
+
+
