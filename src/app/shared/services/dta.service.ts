@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core'
+import { Injectable, EventEmitter, OnInit } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { take, exhaustMap } from 'rxjs/operators';
@@ -6,11 +6,42 @@ import { User } from '../templates/user';
 
 
 @Injectable({providedIn: 'root'})
-export class DataService {
+export class DataService{
+
+    init(){
+        return this.getData('Admin').toPromise().then((data: {
+            catalogs: string[],
+            carouselImages: string[],
+            schools: any,
+            tags: any
+        }) => {
+            this.catalogs = data.catalogs;
+            this.carouselImages = data.carouselImages;
+            this.schools = data.schools;
+            this.tags = data.tags;
+            this.isActive = true;
+        }).catch(()=>{
+            this.catalogs = ["Courses", "Clubs"];
+            this.schools = {
+                "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
+                "Georgia": ["John's Creek High School"]
+            };
+            this.tags = {
+                "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing"],
+                "SPORTS": ["Boys", "Girls", "Winter", "Spring", "Fall", "Dance", "Swim", "Personal Fitness", "Self Defense"],
+                "ARTS": ["Art", "Lit", "Pub. Speaking", "Lang/Culture", "Drama", "Music", "Film"],
+                "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
+            }
+
+            this.carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
+            this.isActive = false;
+        })
+    }
+
 
     user = new User("", "", "", new Date(), -1, "");
     editMode = false;
-
+    isActive = false;
     // Alert auxilary variables
 
     alertText = '';
@@ -19,7 +50,6 @@ export class DataService {
 
 
     // Catalogs Page
-
     catalogs = ["Courses", "Clubs"];
     schools = {
         "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
@@ -34,14 +64,14 @@ export class DataService {
 
     // Referenced by default tags
     filtrationData = {
-        0: ["0", "1-5", "6-10", "10+"],
-        1: ["$0", "$1-20", "$20-50", "$50+"],
-        2: this.getTags("STEM"),
-        3: ['Superior', 'Outstanding']
+        "Hours": ["0", "1-5", "6-10", "10+"],
+        "Cost": ["$0", "$1-20", "$20-50", "$50+"],
+        "Tags": this.getTags("STEM"),
+        "Rating": ['Superior', 'Outstanding']
       }
     
-    defaultTags = ["Hours", "Cost", "Tags", "Rating"];
-    types = ["STEM", "SPORTS", "ARTS", "MISC"];
+    defaultTags = Object.keys(this.filtrationData);
+    types = Object.keys(this.tags);
 
     userRatingOptions = ['Unacceptable', 'Subpar', 'Standard', 'Superior', 'Outstanding'];
 
@@ -49,7 +79,7 @@ export class DataService {
 
     // Front page
 
-    statVal = ['83', '75', '69', '21', '95', ];
+    statVal = ['83', '75', '69', '21', '95' ];
     statText = ['of teens identify school as a major stress factor - 2017 APA Stress Survey', 
     "of high school graduates do not feel adequately prepared to make college and career decisions - YouScience 'Post Graduation Readiness Report'",
     'of teens say getting into a good college is a major stress factor - 2017 APA Stress Survey', 
@@ -138,9 +168,22 @@ export class DataService {
         return this.schools[state];
 
     }
-
+    getAllSchools(){
+        return this.schools;
+    }
+    setAllSchools(schools: any){
+        this.schools = schools;
+    }   
     getTags(desc: string) {
         return this.tags[desc]
+    }
+
+    getAllTags(){
+        return this.tags;
+    }
+
+    setAllTags(tags: any){
+        this.tags = tags;
     }
 
     getDefaultTags(){

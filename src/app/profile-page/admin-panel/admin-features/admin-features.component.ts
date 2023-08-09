@@ -23,6 +23,9 @@ export class AdminFeaturesComponent {
   confirmation = false;
   tempIndex = -1;
 
+  currentAdminInput = 0;
+  isActive = this.dta.isActive;
+
   ngOnInit(): void {
 
     if(this.dta.getUser().role >= 3){

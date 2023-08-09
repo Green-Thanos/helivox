@@ -37,9 +37,9 @@ export class CardContentComponent implements OnInit, OnDestroy {
         this.data.getData("Inputs").subscribe((inputs: any[]) => {
           this.unloaded = false;
           this.inputs = inputs;
-        })
+        }, (err) => {})
 
-      })
+      }, (err) => {this.unloaded = false;})
 
     })
 
@@ -52,7 +52,7 @@ export class CardContentComponent implements OnInit, OnDestroy {
         this.unloaded = false;
       })
 
-    })
+    }, (err) => {this.unloaded = false;})
 
 
 
@@ -88,6 +88,7 @@ export class CardContentComponent implements OnInit, OnDestroy {
   }
 
   passesTags(i: number){
+
     if(this.catalogData[i].school !== this.catalogCategory.school){
       return false;
     }
@@ -107,14 +108,21 @@ export class CardContentComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    if((this.activeFilters[3] != "Rating" && this.catalogData[i].rating === undefined)){
+    if((this.activeFilters[3] != "Rating" && this.inputs[i] === undefined)){
       return false;
     }
+
     else{
-      if((this.activeFilters[3] === "Outstanding") && !(this.catalogData[i].rating >= 4)){
+      if(this.inputs[i] !== undefined){
+        if(this.inputs[i].rating === undefined){
+          return false
+        }
+      }
+
+      if((this.activeFilters[3] === "Outstanding") && !(this.inputs[i].rating >= 4)){
         return false
       }
-      if((this.activeFilters[3] === "Superior") && !(this.catalogData[i].rating >= 3 && this.catalogData[i].rating < 4)){
+      if((this.activeFilters[3] === "Superior") && !(this.inputs[i].rating >= 3 && this.inputs[i].rating < 4)){
         return false
       }
     }

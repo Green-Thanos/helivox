@@ -30,9 +30,9 @@ export class DropdownComponent implements OnInit {
 
   resetDpdn(){
     this.ddService.update(false);
-    this.currentCatalog = 0;
-    this.currentState = 0;
-    this.changeSchool();
+    // this.currentCatalog = 0;
+    // this.currentState = 0;
+    // this.changeSchool();
   }
 
   constructor(private dta: DataService, private ddService: DropdownService){}

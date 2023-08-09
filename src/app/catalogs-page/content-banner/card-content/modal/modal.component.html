@@ -71,8 +71,9 @@
                     <div class="row">
                         Description:<br>
                         <textarea type="text" placeholder="Description" rows="12" class="form-control" formControlName="description">{{desc}}</textarea>
+                        <p class="error" *ngIf="!catalogForm.get('description').valid && catalogForm.touched">Minimum of 20 characters required</p>
                     </div>
-
+                    
                     <hr>
                     <div class="row">
                         <button style="color: rgb(24, 175, 24); margin-right: 4px" (click)="submitElement()" [class.disabledCursor]="!catalogForm.valid" [disabled]="!catalogForm.valid">

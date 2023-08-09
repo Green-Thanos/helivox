@@ -1,0 +1,9 @@
+<br>
+<p>Carousel Input</p>
+<div *ngFor="let data of carouselData; let i = index; trackBy: trackByFn" class="form_holder">
+    <input type="text" [(ngModel)]="carouselData[i]">
+</div>
+<input type="text" placeholder="New Data" [(ngModel)]="newData"><br>
+<button class="button submit" (click)="submit()">Submit</button>
+
+<confirmation-modal *ngIf="confirmationModal" (confirmation)="checkConfirmation($event)"></confirmation-modal>

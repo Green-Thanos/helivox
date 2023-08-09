@@ -68,7 +68,12 @@ export class ModalComponent implements OnInit, OnDestroy {
     }
 
     // this.dta.postData(this.allCatalogData, this.filters.catalog );
-    this.dta.patchData(newDta, this.filters.catalog + "/" + (this.allCatalogData.length-1));
+    if(this.dta.getUser().role === 1){
+      this.dta.postData(newDta, "Volunteer_Submissions");
+    }
+    else{
+      this.dta.patchData(newDta, this.filters.catalog + "/" + (this.allCatalogData.length-1));
+    }
 
     this.openEvent.emit(true);
     this.ngOnInit();
@@ -217,7 +222,7 @@ export class ModalComponent implements OnInit, OnDestroy {
       'tag3': new FormControl(this.tagPreselect3),
       'link': new FormControl(this.link, Validators.required),
       'image': new FormControl(this.image, Validators.required),
-      'description': new FormControl(this.desc, Validators.required)
+      'description': new FormControl(this.desc, [Validators.required, Validators.minLength(20)])
     })
   }
 

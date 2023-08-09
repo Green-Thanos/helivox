@@ -42,6 +42,30 @@
     </ng-container>
 
 </div>
+<div class="row">
+    <h1 style="font-weight: 300;">Website Edits:</h1><br>
+    <div style="text-align: center;">
+        <p style="display: inline-block; padding-right: 6px"> Website admin features are </p><p class="active" *ngIf="isActive">ACTIVE - proceed</p><p class="failed" *ngIf="!isActive">DOWN - do not edit</p>
+    </div>
+
+   
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div *ngIf="isActive">
+                <carousel-input *ngIf="currentAdminInput === 0"></carousel-input>
+                <catalogs-input *ngIf="currentAdminInput === 1"></catalogs-input>
+                <schools-input *ngIf="currentAdminInput === 2"></schools-input>
+                <tags-input *ngIf="currentAdminInput === 3"></tags-input>
+                <div class="row arrows">
+                    <span class="arrow" (click)="currentAdminInput = currentAdminInput === 0 ? 3 : (currentAdminInput - 1)">&#8592;</span>
+                    <span class="arrow" style="float: right;" (click)="currentAdminInput = (currentAdminInput + 1) % 4">&#8594;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <confirmation-modal *ngIf="confirmation" (confirmation)="checkConfirmation($event)"></confirmation-modal>
 <div class="loading" *ngIf="unloaded">Loading&#8230;</div>

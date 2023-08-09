@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -35,6 +35,15 @@ import { ApplicationBannerComponent } from './profile-page/application-banner/ap
 import { AdminFeaturesComponent } from './profile-page/admin-panel/admin-features/admin-features.component';
 import { EditorFeaturesComponent } from './profile-page/admin-panel/editor-features/editor-features.component';
 import { VolunteerFeaturesComponent } from './profile-page/admin-panel/volunteer-features/volunteer-features.component';
+import { DataService } from './shared/services/dta.service';
+import { CarouselInputComponent } from './profile-page/admin-panel/admin-features/carousel-input/carousel-input.component';
+import { CatalogsInputComponent } from './profile-page/admin-panel/admin-features/catalogs-input/catalogs-input.component';
+import { SchoolsInputComponent } from './profile-page/admin-panel/admin-features/schools-input/schools-input.component';
+import { TagsInputComponent } from './profile-page/admin-panel/admin-features/tags-input/tags-input.component';
+
+export function serviceLoader(dta: DataService){
+  return () => dta.init()
+}
 
 @NgModule({
   declarations: [
@@ -68,6 +77,10 @@ import { VolunteerFeaturesComponent } from './profile-page/admin-panel/volunteer
     AdminFeaturesComponent,
     EditorFeaturesComponent,
     VolunteerFeaturesComponent,
+    CarouselInputComponent,
+    CatalogsInputComponent,
+    SchoolsInputComponent,
+    TagsInputComponent,
     
   ],
   imports: [
@@ -78,7 +91,14 @@ import { VolunteerFeaturesComponent } from './profile-page/admin-panel/volunteer
     HttpClientModule,
     RouterModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: serviceLoader,
+      deps: [DataService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule{ }

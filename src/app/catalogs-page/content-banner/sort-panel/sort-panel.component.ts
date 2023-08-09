@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnInit} from '@angular/core';
 import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
@@ -7,36 +7,48 @@ import { DataService } from 'src/app/shared/services/dta.service';
   styleUrls: ['./sort-panel.component.css']
 })
 export class SortPanelComponent{
-  selectedFilter = -1;
+  selectedFilter = "";
 
   @Input("selected") selectedCategory: string;
   @Output() exportFilters = new EventEmitter<string[]>();
   @Output() exportSearch = new EventEmitter<string>();
 
+
+
+
+
+
+
   searchText: string = "";
 
   filtrationData = this.dta.filtrationData;
 
-  activeFilters = this.dta.getDefaultTags();
+  activeFilters = Object.keys(this.filtrationData);
 
   // When user clicks out of dropdown, close dropdown
   @HostListener('document:mousedown', ['$event'])
   onGlobalClick(event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.selectedFilter = -1;
+      this.selectedFilter = "";
     }
   }
 
+
+
   // When the input (selected category like stem) changes, update tags list
   ngOnChanges(changes: SimpleChanges): void {
-    this.filtrationData[2] = this.dta.getTags(this.selectedCategory);
+    this.filtrationData["Tags"] = this.dta.getTags(this.selectedCategory);
     this.reset();
   }
 
-  changeFilters(type: number, index: number){
-    this.activeFilters[type] = this.filtrationData[type][index];
+  getKeys(){
+    return Object.keys(this.filtrationData)
+  }
+
+  changeFilters(index: number, typeIndex: number){
+    this.activeFilters[typeIndex] = this.filtrationData[this.getKeys()[typeIndex]][index];
     this.exportFilters.emit(this.activeFilters);
-    this.selectedFilter = -1;
+    this.selectedFilter = "";
   }
 
   onSearchChange(){
@@ -44,11 +56,13 @@ export class SortPanelComponent{
   }
 
   reset() {
-    this.activeFilters = this.dta.getDefaultTags(); 
+    this.activeFilters = Object.keys(this.filtrationData); 
     this.searchText = "";
     this.exportSearch.emit(this.searchText.toLowerCase());
     this.exportFilters.emit(this.activeFilters);
   }
+
+
 
   constructor(private elementRef: ElementRef, private dta: DataService){}
 
