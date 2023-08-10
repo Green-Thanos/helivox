@@ -1,6 +1,6 @@
-<br>
+
 <p>Carousel Input</p>
-<div *ngFor="let data of carouselData; let i = index; trackBy: trackByFn" class="form_holder">
+<div *ngFor="let data of carouselData; let i = index; trackBy: trackByFn">
     <input type="text" [(ngModel)]="carouselData[i]">
 </div>
 <input type="text" placeholder="New Data" [(ngModel)]="newData"><br>

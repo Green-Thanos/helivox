@@ -20,11 +20,18 @@ export class CarouselInputComponent {
         this.newData = '';
       }
       this.carouselData = this.carouselData.filter((str) => str !== '');
-      console.log(this.carouselData);
+      this.submitToDatabase(this.carouselData);
     }
     this.confirmationModal = false;
 
     
+  }
+
+  submitToDatabase(carouselData: any){
+    this.dta.patchData({
+      carouselImages: carouselData
+    }, 'Admin')
+    this.dta.setCarousel(carouselData);
   }
   trackByFn(index: any, item: any) {
     return index;

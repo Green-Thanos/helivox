@@ -42,6 +42,7 @@
     </ng-container>
 
 </div>
+<hr>
 <div class="row">
     <h1 style="font-weight: 300;">Website Edits:</h1><br>
     <div style="text-align: center;">
@@ -53,6 +54,7 @@
     <div class="col-md-8">
         <div class="card">
             <div *ngIf="isActive">
+                <br>
                 <carousel-input *ngIf="currentAdminInput === 0"></carousel-input>
                 <catalogs-input *ngIf="currentAdminInput === 1"></catalogs-input>
                 <schools-input *ngIf="currentAdminInput === 2"></schools-input>

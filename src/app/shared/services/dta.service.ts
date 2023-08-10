@@ -130,6 +130,10 @@ export class DataService{
         return this.carouselImages.slice();
     }
 
+    setCarousel(carouselImages: any){
+        this.carouselImages = carouselImages;
+    }
+
     addCarousel(img: string){
         this.carouselImages.push(img);
 
@@ -159,7 +163,9 @@ export class DataService{
     getCatalogs(){
         return this.catalogs.slice();
     }
-
+    setCatalogs(catalogs: any){
+        this.catalogs = catalogs;
+    }
     getStates(){
         return Object.keys(this.schools)
     }
