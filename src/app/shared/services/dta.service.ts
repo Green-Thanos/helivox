@@ -20,6 +20,13 @@ export class DataService{
             this.schools = data.schools;
             this.tags = data.tags;
             this.isActive = true;
+
+            for(let i = 0; i < this.catalogs.length; i++){
+                this.catalogs[i] = this.catalogs[i].replace("_", " ")
+            }
+
+            this.defaultTags = Object.keys(this.filtrationData);
+            this.types = Object.keys(this.tags);
         }).catch(()=>{
             this.catalogs = ["Courses", "Clubs"];
             this.schools = {
@@ -223,6 +230,9 @@ export class DataService{
 
     deleteData(name: string, filename: string){
             this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + name + '.json?auth=' + this.user.token).subscribe(() => {})
+    }
+    deleteFile(filename: string){
+        this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + '.json?auth=' + this.user.token).subscribe(() => {})
     }
 
  

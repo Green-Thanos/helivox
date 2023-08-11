@@ -33,7 +33,7 @@ export class CardContentComponent implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.unloaded = true;
       this.data.getData(this.catalogCategory.catalog).subscribe((response: any[]) => {
-        this.catalogData = response;
+        this.catalogData = response === null ? [] : response;
         this.data.getData("Inputs").subscribe((inputs: any[]) => {
           this.unloaded = false;
           this.inputs = inputs;
@@ -45,14 +45,14 @@ export class CardContentComponent implements OnInit, OnDestroy {
 
 
 
-    this.subscription = this.route.params.subscribe((params: Params) => {
-      this.unloaded = true;
-      this.data.getData(this.catalogCategory.catalog).subscribe((response: any[]) => {
-        this.catalogData = response;
-        this.unloaded = false;
-      })
+    // this.subscription = this.route.params.subscribe((params: Params) => {
+    //   this.unloaded = true;
+    //   this.data.getData(this.catalogCategory.catalog).subscribe((response: any[]) => {
+    //     this.catalogData = response;
+    //     this.unloaded = false;
+    //   })
 
-    }, (err) => {this.unloaded = false;})
+    // }, (err) => {this.unloaded = false;})
 
 
 

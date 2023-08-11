@@ -6,7 +6,7 @@
         (click)="selected = j" >{{state}}</button>
         <input type="text" style="width: 8%" placeholder="New State" [(ngModel)]="newState">
     </div>
-</div><br>
+</div><br>Note: If creating a new state, include a new school or it will not be parsed<br><br>
 <div class="col-md-12">
     <div *ngFor="let data of schools[states[selected]]; let i = index; trackBy: trackByFn">
         <input type="text" [(ngModel)]="schools[states[selected]][i]">

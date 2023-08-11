@@ -1,5 +1,5 @@
 
-<p>Catalog Input</p>
+<p>Catalog Input</p><br>Note: The last letter of the catalog name will be cut from the title<br><br>
 <div *ngFor="let data of catalogsData; let i = index; trackBy: trackByFn">
     <input type="text" [(ngModel)]="catalogsData[i]">
 </div>

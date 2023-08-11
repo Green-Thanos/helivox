@@ -6,7 +6,7 @@
         (click)="selected = j" >{{category}}</button>
         <input type="text" style="width: 8%" placeholder="New Category" [(ngModel)]="newCategory">
     </div>
-</div><br>
+</div><br>Note: If creating a new category, include a tag or it will not be parsed<br><br>
 <div class="col-md-12">
     <div *ngFor="let data of tags[categories[selected]]; let i = index; trackBy: trackByFn">
         <input type="text" [(ngModel)]="tags[categories[selected]][i]">

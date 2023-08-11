@@ -116,9 +116,18 @@ i {
   position: absolute;
   top: 44px;
   right: 10%;
-  margin-left: 5px;
+  margin-left: 2px;
   cursor: pointer;
 }
+
+.fa-youtube {
+  right: 11.5%;
+}
+
+.tiktok {
+  right: 13%;
+}
+
 
 .pfp{
   position: absolute;

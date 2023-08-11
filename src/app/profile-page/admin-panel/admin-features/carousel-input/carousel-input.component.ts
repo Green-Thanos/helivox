@@ -16,7 +16,7 @@ export class CarouselInputComponent {
   checkConfirmation(confirmation: boolean){
     if(confirmation){
       if(this.newData !== ""){
-        this.carouselData.push(this.newData);
+        this.carouselData.push(this.newData.trim());
         this.newData = '';
       }
       this.carouselData = this.carouselData.filter((str) => str !== '');

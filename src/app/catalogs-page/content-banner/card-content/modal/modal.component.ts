@@ -43,7 +43,9 @@ export class ModalComponent implements OnInit, OnDestroy {
   submitElement(){
     const labelsVal = [this.catalogForm.value.tag1]
     if(this.catalogForm.value.tag2 !== null){ labelsVal.push(this.catalogForm.value.tag2)}
+
     if(this.catalogForm.value.tag3 !== null){ labelsVal.push(this.catalogForm.value.tag3)}
+
     let newDta: any;
     newDta = {
       category: this.selected.toLowerCase(),
@@ -59,13 +61,16 @@ export class ModalComponent implements OnInit, OnDestroy {
     }
 
     if(this.index === -1){
+
       this.allCatalogData.push(newDta);
 
     }
+    
     else{
       this.allCatalogData[this.index] = newDta;
 
     }
+
 
     // this.dta.postData(this.allCatalogData, this.filters.catalog );
     if(this.dta.getUser().role === 1){
