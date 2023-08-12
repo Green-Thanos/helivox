@@ -51,7 +51,10 @@ export class AuthService {
         } = JSON.parse(localStorage.getItem('userData'));
         if(!userData){return;}  
         const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role, userData._profile_picture);
-
+        if(localStorage.getItem('volData') !== null || localStorage.getItem('volData') !== undefined){
+            console.log(localStorage.getItem('volData'))
+            this.dta.setVolQuests(JSON.parse(localStorage.getItem('volData')));
+        }
         if(loadedUser.token){
             this.dta.setUser(loadedUser);
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
@@ -74,6 +77,15 @@ export class AuthService {
                 this.dta.setUser(user);
                 this.autoLogout(+resData.expiresIn * 1000);
                 localStorage.setItem('userData', JSON.stringify(user));
+
+                if(+userD.role === 1){
+                    this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Volunteer_Submissions/'+ resData.localId + '.json?auth='+ resData.idToken).subscribe((volD: any[]) => {
+                        if(volD !== undefined && volD !== null){
+                            this.dta.setVolQuests(volD);
+                            localStorage.setItem('volData', JSON.stringify(volD));
+                        }
+                    })
+                }
             });
         }))
     }
@@ -111,6 +123,7 @@ export class AuthService {
         this.dta.setUser(newUser);
         this.router.navigate(['/login']);
         localStorage.removeItem('userData');
+        localStorage.removeItem('volData');
         if(this.tokenExpirationTimer){
             clearTimeout(this.tokenExpirationTimer);
         }

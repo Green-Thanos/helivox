@@ -84,6 +84,8 @@ export class DataService{
 
     checkIfUserResubmitRating = [];
 
+    volQuests = [];
+
     // Front page
 
     statVal = ['83', '75', '69', '21', '95' ];
@@ -97,8 +99,17 @@ export class DataService{
     carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
 
     // Getters for all variables
+    
     get editorMode(){
         return this.editMode;
+    }
+
+    setVolQuests(e: any){
+        this.volQuests = e;
+    }
+
+    getVolQuests(){
+        return this.volQuests.slice();
     }
 
     setEditMode(editMode: boolean){
