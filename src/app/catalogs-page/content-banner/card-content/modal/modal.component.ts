@@ -123,6 +123,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   @Input() inputs: any[];
   @Input() index: number;
 
+  @Input() volMenu: boolean;
+
   @Output() openEvent = new EventEmitter<boolean>();
 
   data = null;

@@ -52,7 +52,6 @@ export class AuthService {
         if(!userData){return;}  
         const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role, userData._profile_picture);
         if(localStorage.getItem('volData') !== null || localStorage.getItem('volData') !== undefined){
-            console.log(localStorage.getItem('volData'))
             this.dta.setVolQuests(JSON.parse(localStorage.getItem('volData')));
         }
         if(loadedUser.token){

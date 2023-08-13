@@ -109,7 +109,7 @@
                 <p class="data-text">{{data.description}}</p>
     
                 <div style="position: relative" *ngIf="verified()">
-                    <button (click)="openDropDown = !openDropDown;" [disabled]="(userRating === -2) || resubmit" > {{((userRating === -2) || resubmit) ? 'Thank You!' : "Give a Rating"}} </button>
+                    <button *ngIf="!volMenu" (click)="openDropDown = !openDropDown;" [disabled]="(userRating === -2) || resubmit" > {{((userRating === -2) || resubmit) ? 'Thank You!' : "Give a Rating"}} </button>
                     <div class="dropdown" *ngIf="openDropDown">
                         <p class="ddCont" *ngFor="let rating of userRatingOptions; let i = index" (click)="userRating = -2; parseRating(i+1)">{{rating}}</p>
                     </div>
@@ -133,7 +133,7 @@
                 </div>
             </div>
        
-            <span style="background-color: rgb(86, 88, 86); cursor: pointer; margin-bottom: 10px;" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
+            <span *ngIf="!volMenu" style="background-color: rgb(86, 88, 86); cursor: pointer; margin-bottom: 10px;" (click)="commentsToggled = !commentsToggled">{{commentsToggled ? "<< Description" : "Comments >>"}}</span>
 
         </ng-container>
 

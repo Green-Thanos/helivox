@@ -40,3 +40,31 @@
         <h1>Pending Quests: </h1>
     </div>
 </div>
+<div style="text-align: left; cursor: pointer">
+    <div class="user_list">
+        <ng-container *ngFor=" let n of volData; let i = index">
+            <div class="row user_display" (click)="isOpen = true; selected = i">
+                <div class="col-md-3">
+                    <p> Title:</p>{{n.title}}
+                </div>
+                <div class="col-md-3">
+                    <div style="width: fit-content;">
+                       <p> Category:</p> {{n.category}}
+                    </div>
+    
+                </div>
+                <div class="col-md-6">
+                    <p> School:</p> {{n.school}}
+                </div>
+
+            </div>
+        </ng-container>
+    </div>
+    
+    <modal *ngIf="isOpen" (openEvent)="isOpen = false; selected = -1;" [index]="selected" [allCatalogData]="volData" [volMenu]="true"></modal>
+</div>
+<div class="row">
+    <div class="col-md-3 left">
+        <h1>Completed Quests: </h1>
+    </div>
+</div>
