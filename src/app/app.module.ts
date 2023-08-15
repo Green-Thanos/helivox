@@ -40,6 +40,8 @@ import { CarouselInputComponent } from './profile-page/admin-panel/admin-feature
 import { CatalogsInputComponent } from './profile-page/admin-panel/admin-features/catalogs-input/catalogs-input.component';
 import { SchoolsInputComponent } from './profile-page/admin-panel/admin-features/schools-input/schools-input.component';
 import { TagsInputComponent } from './profile-page/admin-panel/admin-features/tags-input/tags-input.component';
+import { ProfileCardComponent } from './about-us-page/profile-card/profile-card.component';
+import { AboutSubmissionComponent } from './profile-page/admin-panel/admin-features/about-submission/about-submission.component';
 
 export function serviceLoader(dta: DataService){
   return () => dta.init()
@@ -81,6 +83,8 @@ export function serviceLoader(dta: DataService){
     CatalogsInputComponent,
     SchoolsInputComponent,
     TagsInputComponent,
+    ProfileCardComponent,
+    AboutSubmissionComponent,
     
   ],
   imports: [

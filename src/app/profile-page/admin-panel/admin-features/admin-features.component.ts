@@ -34,6 +34,9 @@ export class AdminFeaturesComponent {
         this.unloaded = false;
         this.userListKeys = Object.keys(resData);
         this.userList = resData;
+      }, err => {
+        console.log(err);
+        this.unloaded = false;
       })
     }
   }
@@ -73,6 +76,7 @@ export class AdminFeaturesComponent {
       role: ""+role
     }, 'Users/' + this.userList[this.userListKeys[index]].token);
   }
+
 
 
 

@@ -11,13 +11,32 @@ export class User{
         private _token: string, 
         private _tokenExpirationDate: Date,
         private _role: number,
-        private _profile_picture: string
+        private _profile_picture: string,
+        private _name: string,
+        private _about: any
     ){}
 
     // Setters
 
     set profile_picture(pfp: string) {
         this._profile_picture = pfp;
+        const cur = JSON.parse(localStorage.getItem('userData'));
+        cur._profile_picture = pfp;
+        localStorage.setItem('userData', JSON.stringify(cur));
+    }
+
+    set name(name: string){
+        this._name = name;
+        const cur = JSON.parse(localStorage.getItem('userData'));
+        cur._name = name;
+        localStorage.setItem('userData', JSON.stringify(cur));
+    }
+
+    set about(about: any){
+        this._about = about;
+        const cur = JSON.parse(localStorage.getItem('userData'));
+        cur._about = about;
+        localStorage.setItem('userData', JSON.stringify(cur));
     }
 
 
@@ -53,6 +72,14 @@ export class User{
 
     get tokenExpirationDate(){
         return this._tokenExpirationDate;
+    }
+
+    get name(){
+        return this._name;
+    }
+
+    get about(){
+        return this._about;
     }
 
     getUsername(){

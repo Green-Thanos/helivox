@@ -55,6 +55,11 @@ img {
     transition-duration: 0.1s;
 }
 
+a {
+    color: black;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 975px) {
     img {
         height: 400px;

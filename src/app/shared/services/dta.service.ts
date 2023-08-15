@@ -9,6 +9,10 @@ import { User } from '../templates/user';
 export class DataService{
 
     init(){
+        this.getData('About').subscribe((res) => {
+            this.aboutUs = res;
+        })
+
         return this.getData('Admin').toPromise().then((data: {
             catalogs: string[],
             carouselImages: string[],
@@ -43,10 +47,11 @@ export class DataService{
             this.carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
             this.isActive = false;
         })
+
     }
 
 
-    user = new User("", "", "", new Date(), -1, "");
+    user = new User("", "", "", new Date(), -1, "", "", "");
     editMode = false;
     isActive = false;
     // Alert auxilary variables
@@ -54,6 +59,8 @@ export class DataService{
     alertText = '';
     alertIsOpen = false;
     alertColor = ''
+
+    aboutUs = null;
 
 
     // Catalogs Page
@@ -104,6 +111,14 @@ export class DataService{
         return this.editMode;
     }
 
+    getAbout(){
+        return this.aboutUs;
+    }
+
+    setAbout(e: any){
+        this.aboutUs = e;
+    }
+
     setVolQuests(e: any){
         this.volQuests = e;
     }
@@ -132,6 +147,11 @@ export class DataService{
         this.alertText = text;
         this.alertColor = color;
         this.alertIsOpen = status;
+        setTimeout(() => {
+            this.alertText = "";
+            this.alertColor = color;
+            this.alertIsOpen = false;
+        }, 2000)
     }
 
     getAlertStatus(){

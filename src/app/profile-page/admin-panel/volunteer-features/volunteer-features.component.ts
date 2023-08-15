@@ -11,11 +11,29 @@ export class VolunteerFeaturesComponent implements OnInit{
   isOpen = false;
   selected = -1;
 
+  user = this.dta.getUser();
+
+  name = this.user.name;
+
   ngOnInit(): void {
     this.volData = this.dta.getVolQuests();
-    console.log(this.volData)
   }
   
+  submitName(){
+    const list = this.dta.getAbout();
+    if(list.Member.indexOf(this.user.name) !== -1){
+      list.Member.splice(list.Member.indexOf(this.user.name), 1, this.name);
+    }
+    else{
+      list.Member.push(this.name);
+    }
+    this.dta.getUser().name = this.name;
+    this.dta.postData(list.Member, 'About/Volunteer');
+    this.dta.patchData({name: this.name}, "Users/" + this.user.uid);
+    this.dta.setAbout(list);
+    this.dta.setAlertData('Success!', true, '#07E607');
+
+  }
 
   constructor(private dta: DataService){}
 

@@ -47,10 +47,12 @@ export class AuthService {
             _tokenExpirationDate: string,
             http: HttpClient,
             _role: number,
-            _profile_picture: string
+            _profile_picture: string,
+            _name: string,
+            _about: any
         } = JSON.parse(localStorage.getItem('userData'));
         if(!userData){return;}  
-        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role, userData._profile_picture);
+        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate), userData._role, userData._profile_picture, userData._name, userData._about);
         if(localStorage.getItem('volData') !== null || localStorage.getItem('volData') !== undefined){
             this.dta.setVolQuests(JSON.parse(localStorage.getItem('volData')));
         }
@@ -70,9 +72,9 @@ export class AuthService {
             returnSecureToken: true
 
         }).pipe(tap(resData => {
-            this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string, profile_picture: string}) => {
+            this.http.get('https://helivox-2-default-rtdb.firebaseio.com/Users/' + resData.localId + '.json?auth='+ resData.idToken).subscribe((userD:{role: string, profile_picture: string, name: string, about: any}) => {
                 const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-                const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role, userD.profile_picture);
+                const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, +userD.role, userD.profile_picture, userD.name, userD.about);
                 this.dta.setUser(user);
                 this.autoLogout(+resData.expiresIn * 1000);
                 localStorage.setItem('userData', JSON.stringify(user));
@@ -97,7 +99,7 @@ export class AuthService {
 
         }).pipe(tap(resData => {
             const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, 0, undefined);
+            const user = new User(resData.email, resData.localId, resData.idToken, expirationDate, 0, undefined, "", "");
             this.dta.setUser(user);
             this.autoLogout(+resData.expiresIn * 1000);
             localStorage.setItem('userData', JSON.stringify(user));
@@ -118,7 +120,7 @@ export class AuthService {
     // }
 
     logout(){
-        const newUser = new User("", "", "", new Date(), -1, "");
+        const newUser = new User("", "", "", new Date(), -1, "", "", "");
         this.dta.setUser(newUser);
         this.router.navigate(['/login']);
         localStorage.removeItem('userData');
