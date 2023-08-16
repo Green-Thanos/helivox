@@ -49,7 +49,7 @@ export class AboutSubmissionComponent implements OnInit{
   }
 
   processFile(e: Event){
-    if(this.cachedImage !== ""){
+    if(this.cachedImage !== "" && this.currentImage === undefined){
       this.sendToDb(this.cachedImage);
       return
     }
