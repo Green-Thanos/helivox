@@ -42,6 +42,8 @@ import { SchoolsInputComponent } from './profile-page/admin-panel/admin-features
 import { TagsInputComponent } from './profile-page/admin-panel/admin-features/tags-input/tags-input.component';
 import { ProfileCardComponent } from './about-us-page/profile-card/profile-card.component';
 import { AboutSubmissionComponent } from './profile-page/admin-panel/admin-features/about-submission/about-submission.component';
+import { ArticlesContentComponent } from './articles-page/articles-content/articles-content.component';
+import { ArticlesBannerComponent } from './articles-page/articles-banner/articles-banner.component';
 
 export function serviceLoader(dta: DataService){
   return () => dta.init()
@@ -85,6 +87,8 @@ export function serviceLoader(dta: DataService){
     TagsInputComponent,
     ProfileCardComponent,
     AboutSubmissionComponent,
+    ArticlesContentComponent,
+    ArticlesBannerComponent,
     
   ],
   imports: [

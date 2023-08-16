@@ -1,36 +1,3 @@
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-xs-8">
-            <button class="button" role="button" 
-                [ngClass]="selected === articlesButtons[i] ? 'button-active' : ''" 
-                (click)="selected = articlesButtons[i];" 
-                *ngFor="let button of articlesButtons; let i = index">
-            {{articlesButtons[i]}}</button>
-        </div>
-    </div>
-    
-    <div class="">
-        <div class="col-lg-4">
-            <div class="card">
-                <img [src]="testObj[0].image" alt="testImg">
-        
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <img [src]="testObj[0].image" alt="testImg">
-        
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <img [src]="testObj[0].image" alt="testImg">
-        
-            </div>
-        </div>
-        Text
-    </div>
-
-
-</div>
+<articles-banner></articles-banner>
+<hr>
+<articles-content></articles-content>
