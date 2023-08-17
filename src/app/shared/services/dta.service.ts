@@ -120,10 +120,19 @@ export class DataService{
     }
 
     setVolQuests(e: any){
+        if(e !== null && e !== undefined){
+            
+        }
         this.volQuests = e;
     }
 
     getVolQuests(){
+        if(this.volQuests === null){
+            return [];
+        }
+        if(this.volQuests.length === 0){
+            return []
+        }
         return this.volQuests.slice();
     }
 

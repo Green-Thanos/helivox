@@ -21,7 +21,10 @@ export class VolunteerFeaturesComponent implements OnInit{
   
   submitName(){
     const list = this.dta.getAbout();
-    if(list.Member.indexOf(this.user.name) !== -1){
+    if(list.Member === null || list.Member === undefined){
+      list.Member = [this.name];
+    }
+    else if(list.Member.indexOf(this.user.name) !== -1){
       list.Member.splice(list.Member.indexOf(this.user.name), 1, this.name);
     }
     else{
