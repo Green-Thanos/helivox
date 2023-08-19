@@ -101,8 +101,9 @@ export class AboutSubmissionComponent implements OnInit{
   checkConfirmation(conf: boolean){
     if(conf){
       this.submitAbout();
-      this.confirmationModal = false;
     }
+    this.confirmationModal = false;
+
   }
   
   openModal(){

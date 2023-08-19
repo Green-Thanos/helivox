@@ -4,9 +4,44 @@ import { AuthService } from './auth.service';
 import { take, exhaustMap } from 'rxjs/operators';
 import { User } from '../templates/user';
 
+// Retrieve data from firebase database
+
+// import { initializeApp } from "firebase/app";
+// import { collection, getDocs, getFirestore } from "firebase/firestore";
+
+// firebaseConfig = {
+//     apiKey: "AIzaSyDXcpYQ9XHpJSRyhhqJgRx4Mc99eh_MeLE",
+//     authDomain: "helivox-2.firebaseapp.com",
+//     databaseURL: "https://helivox-2-default-rtdb.firebaseio.com",
+//     projectId: "helivox-2",
+//     storageBucket: "helivox-2.appspot.com",
+//     messagingSenderId: "582156179729",
+//     appId: "1:582156179729:web:f8bdbbdc06d3e92f94d4b0",
+//     measurementId: "G-NWGYBGTEWH"
+//   };
+  
+//   // Initialize Firebase
+//    app = initializeApp(this.firebaseConfig);
+//    db = getFirestore(this.app);
+
+// tempReroute(){
+        
+//     let ref = collection(this.db, 'Courses');
+//     getDocs(ref).then((d) => {
+//         let f = [];
+//         d.docs.forEach(element => {
+//             f.push({...element.data()})
+//         });
+//         console.log(f)
+//         this.http.put('https://helivox-2-default-rtdb.firebaseio.com/Courses.json?auth=' + this.user.token, f).subscribe(() => {});
+//     })
+// }
+
 
 @Injectable({providedIn: 'root'})
 export class DataService{
+
+
 
     init(){
         this.getData('About').subscribe((res) => {
@@ -274,6 +309,8 @@ export class DataService{
     deleteFile(filename: string){
         this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + '.json?auth=' + this.user.token).subscribe(() => {})
     }
+
+
 
  
     constructor(private http: HttpClient){}
