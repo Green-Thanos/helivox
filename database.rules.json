@@ -1,0 +1,71 @@
+/*
+ * Levels of auth correspond with a number, 0 - 4
+ * Level 0: User with read access to all but other users
+ * level 1: Volunteer with add but no edit
+ * level 2: Editor with full read and write for all but other users
+ * level 3: Admin with full site control
+ * 
+ * */
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+		".read": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+    ".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+      
+    "$input": {
+      ".read": true,
+    },
+      
+    "Admin":{
+      ".read": true,
+    	".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+        
+    },
+    "Courses":{
+      ".read": true,
+    	".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '2'",
+        
+    },
+    "Clubs":{
+      ".read": true,
+    	".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '2'",
+      
+    },
+    "Volunteer_Submissions":{
+      ".read": "(root.child('Users/' + auth.uid + '/role').val()) >= '2'",
+    	".write": "newData.exists() && (root.child('Users/' + auth.uid + '/role').val()) >= '2'",
+      "$uid": {
+        ".read": "$uid === auth.uid && ((root.child('Users/' + auth.uid + '/role').val()) >= '1')",
+        ".write": "$uid === auth.uid && ((root.child('Users/' + auth.uid + '/role').val()) >= '1')",
+
+      }
+
+    },
+    "Users": {
+      ".read": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+      ".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid ",
+
+      }
+    },
+    "Inputs":{
+      ".read": true,
+      ".write": "auth != null",
+  	},
+    "About": {
+      ".read": true,
+
+      "Admin": {
+        ".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '3'",
+      },
+      "Editor": {
+        ".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '2'",
+      },
+      "Volunteer": {
+        ".write": "(root.child('Users/' + auth.uid + '/role').val()) >= '1'",
+      }
+    }
+  }
+}
