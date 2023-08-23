@@ -13,7 +13,8 @@ export class User{
         private _role: number,
         private _profile_picture: string,
         private _name: string,
-        private _about: any
+        private _about: any, 
+        private _hours: number
     ){}
 
     // Setters
@@ -36,6 +37,13 @@ export class User{
         this._about = about;
         const cur = JSON.parse(localStorage.getItem('userData'));
         cur._about = about;
+        localStorage.setItem('userData', JSON.stringify(cur));
+    }
+
+    set hours(hours: number){
+        this._hours = hours;
+        const cur = JSON.parse(localStorage.getItem('userData'));
+        cur._hours = hours;
         localStorage.setItem('userData', JSON.stringify(cur));
     }
 
@@ -80,6 +88,10 @@ export class User{
 
     get about(){
         return this._about;
+    }
+
+    get hours() {
+        return this._hours;
     }
 
     getUsername(){

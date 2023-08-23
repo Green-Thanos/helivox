@@ -77,6 +77,14 @@ export class ModalComponent implements OnInit, OnDestroy {
       let uid = this.dta.getUser().uid
       newDta['catalog'] = this.filters.catalog;
       this.dta.patchData(newDta, "Volunteer_Submissions/" + uid + "/" + this.dta.getVolQuests().length);
+      let newhrCount = (this.dta.getUser().hours === undefined || this.dta.getUser().hours === null) ? 1 : ++this.dta.getUser().hours;
+      console.log(newhrCount)
+      this.dta.patchData({
+        hours: newhrCount
+      }, "Users/" + uid);
+      let currentUser = this.dta.getUser();
+      currentUser.hours = newhrCount;
+      this.dta.setUser(currentUser);
       let list = this.dta.getVolQuests();
       list.push({uid: newDta});
       this.dta.setVolQuests(list)

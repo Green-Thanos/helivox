@@ -86,7 +86,7 @@ export class DataService{
     }
 
 
-    user = new User("", "", "", new Date(), -1, "", "", "");
+    user = new User("", "", "", new Date(), -1, "", "", "", 0);
     editMode = false;
     isActive = false;
     // Alert auxilary variables
@@ -156,9 +156,10 @@ export class DataService{
 
     setVolQuests(e: any){
         if(e !== null && e !== undefined){
-            
+            this.volQuests = e;
+            localStorage.setItem('volData', JSON.stringify(this.volQuests));
+
         }
-        this.volQuests = e;
     }
 
     getVolQuests(){
@@ -177,6 +178,8 @@ export class DataService{
 
     setUser(user: User){
         this.user = user;
+        localStorage.setItem('userData', JSON.stringify(this.user));
+
     }
 
     getUser(){

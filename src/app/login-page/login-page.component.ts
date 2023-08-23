@@ -69,7 +69,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.verificationSubscription = this.auth.fetchUserData(resData.idToken).subscribe(userData => {
         if(userData.users[0].emailVerified != true){
           this.dta.setAlertData('User not verified: Re-signup', true, '#e65045');
-          const newUser = new User("", "", "", new Date(), -1, "", "", "");
+          const newUser = new User("", "", "", new Date(), -1, "", "", "", 0);
           this.dta.setUser(newUser);
           localStorage.removeItem('userData');
           // Delete user if user is not verified
@@ -89,7 +89,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
       })
     }, error => {
-      const newUser = new User("", "", "", new Date(), -1, "", "", "");
+      const newUser = new User("", "", "", new Date(), -1, "", "", "" ,0);
       this.dta.setUser(newUser);
       localStorage.removeItem('userData');
       if(error.status === 400){
@@ -123,13 +123,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         }, "Users/" + this.dta.getUser().uid);
         this.unloaded = false;
         this.activePopup = 'email_verification'
-        const newUser = new User("", "", "", new Date(), -1, "", "", "");
+        const newUser = new User("", "", "", new Date(), -1, "", "", "", 0);
         this.dta.setUser(newUser);
         localStorage.removeItem('userData');
       })
 
     }, error => {
-      const newUser = new User("", "", "", new Date(), -1, "", "", "");
+      const newUser = new User("", "", "", new Date(), -1, "", "", "", 0);
       this.dta.setUser(newUser);
       localStorage.removeItem('userData');
       if(error.status === 400){

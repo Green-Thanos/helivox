@@ -70,7 +70,7 @@ export class ProfilePageComponent implements OnInit{
       this.unloaded = false;
       this.dta.getUser().profile_picture = res.data.display_url;
       const userData = this.dta.getUser();
-      localStorage.setItem("userData", JSON.stringify(new User(userData.email, userData.id, userData.token, new Date(userData.tokenExpirationDate), userData.role, userData.profile_picture, userData.name, userData.about)))
+      localStorage.setItem("userData", JSON.stringify(new User(userData.email, userData.id, userData.token, new Date(userData.tokenExpirationDate), userData.role, userData.profile_picture, userData.name, userData.about, userData.hours)))
       this.dta.patchData({
         profile_picture: res.data.display_url
       }, "Users/" + this.dta.getUser().uid)
