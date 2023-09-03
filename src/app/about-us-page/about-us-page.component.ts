@@ -7,7 +7,8 @@ import { DataService } from '../shared/services/dta.service';
   styleUrls: ['./about-us-page.component.css']
 })
 export class AboutUsPageComponent implements OnInit{
-  list = [1, 1];
+  order = []
+  list = [1, 7, 0];
 
   admins: any;
   editors: any;
@@ -29,7 +30,14 @@ export class AboutUsPageComponent implements OnInit{
           this.heads.push(this.admins[i])
         }
       }
+      this.reorder();
     }, 200)
+  }
+
+  reorder(){
+    let temp = this.exec;
+    this.exec.push(this.exec[0]);
+    this.exec.splice(0,1)
   }
 
   constructor(private dta: DataService){}
