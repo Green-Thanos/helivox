@@ -35,8 +35,9 @@ export class AboutUsPageComponent implements OnInit{
   }
 
   reorder(){
-    let temp = this.exec;
-    this.exec.push(this.exec[0]);
+    this.exec.splice(3, 0 , this.exec[0]);
+    this.exec.push(this.exec[4]);
+    this.exec.splice(4,1)
     this.exec.splice(0,1)
   }
 
