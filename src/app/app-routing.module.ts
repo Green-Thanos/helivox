@@ -7,7 +7,7 @@ import { MainPageComponent } from "./main-page/main-page.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ArticlesPageComponent } from "./articles-page/articles-page.component";
 import { ProfilePageComponent } from "./profile-page/profile-page.component";
-
+import { AchievementsPageComponent } from "./achievements-page/achievements.component";
 
 const appRoutes: Routes = [
     {
@@ -27,6 +27,9 @@ const appRoutes: Routes = [
     },
     {
         path: 'profile', component: ProfilePageComponent
+    },
+    {
+        path: 'achievements', component: AchievementsPageComponent
     },
     {
         path: '**', component: NotFoundComponent

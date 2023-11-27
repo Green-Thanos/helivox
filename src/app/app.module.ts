@@ -44,6 +44,8 @@ import { ProfileCardComponent } from './about-us-page/profile-card/profile-card.
 import { AboutSubmissionComponent } from './profile-page/admin-panel/admin-features/about-submission/about-submission.component';
 import { ArticlesContentComponent } from './articles-page/articles-content/articles-content.component';
 import { ArticlesBannerComponent } from './articles-page/articles-banner/articles-banner.component';
+import { AchievementsPageComponent } from './achievements-page/achievements.component';
+import { AchievementCardComponent } from './achievements-page/achievement-card/achievement-card.component';
 
 export function serviceLoader(dta: DataService){
   return () => dta.init()
@@ -89,6 +91,8 @@ export function serviceLoader(dta: DataService){
     AboutSubmissionComponent,
     ArticlesContentComponent,
     ArticlesBannerComponent,
+    AchievementsPageComponent,
+    AchievementCardComponent,
     
   ],
   imports: [

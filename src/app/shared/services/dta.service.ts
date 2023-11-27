@@ -47,6 +47,9 @@ export class DataService{
         this.getData('About').subscribe((res) => {
             this.aboutUs = res;
         })
+        this.getData('Achievements').subscribe((res) => {
+            this.achievements = res;
+        })
 
         return this.getData('Admin').toPromise().then((data: {
             catalogs: string[],
@@ -96,6 +99,7 @@ export class DataService{
     alertColor = ''
 
     aboutUs = null;
+    achievements = null;
 
 
     // Catalogs Page
@@ -148,6 +152,10 @@ export class DataService{
 
     getAbout(){
         return this.aboutUs;
+    }
+
+    getAchievements() {
+        return this.achievements;
     }
 
     setAbout(e: any){

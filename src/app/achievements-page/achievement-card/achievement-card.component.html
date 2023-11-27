@@ -1,0 +1,32 @@
+<div class="row" style="padding-top: 50px;">
+    <div class="col-md-9">
+      <div class="row">
+        <!-- Check if event.image is present -->
+        <ng-container *ngIf="event.image; else noImage">
+          <div class="col-md-1 img-container" [ngStyle]="{'background-image': 'url(' + event.image + ')'}"></div>
+          <div class="col-md-11">
+            <div>
+              <p class="title">{{event.title}}</p>
+            </div>
+            <div>  
+              <p class="description">{{event.description}}</p> 
+            </div>
+          </div>
+        </ng-container>
+        
+        <!-- If no image is present, center the text -->
+        <ng-template #noImage>
+          <div class="col-md-12 text-center">
+            <div>
+              <p class="title">{{event.title}}</p>
+            </div>
+            <div>  
+              <p class="description">{{event.description}}</p> 
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <hr />
+  

@@ -1,5 +1,31 @@
 # Helivox
 
+The official website for Helivox
+
+## Steps to Deploy
+
+```
+gh repo clone 
+cd helivox-angular
+npm install firebase
+npm i -g firebase-tools
+ng build (--prod)
+firebase login /* should be with authorized email */
+firebase init (HOSTING, GITHUB OPTIONAL)
+firebase deploy
+```
+
+*Note for running firebase init*
+- Select yes for single page app
+- Select NO for overwrite index.html
+- Type dist/helivox as the public directory
+
+*all build files in dist folder*
+
+For hosting bugs, first check firebase.json and line 16 of angular.json - `"outputPath": "dist/helivox"`
+
+___
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
 
 ## Development server
@@ -22,6 +48,3 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
