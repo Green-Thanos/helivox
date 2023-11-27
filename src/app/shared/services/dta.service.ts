@@ -82,7 +82,6 @@ export class DataService{
                 "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
             }
 
-            this.carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
             this.isActive = false;
         })
 
@@ -142,7 +141,7 @@ export class DataService{
     'of Americans support US High School Students having more academic opportunities and choices - State of the Skills Gap: Perceptions of the role high school plays in preparing students for success in career - 2023 Edge Research and K12 Inc',
     ];
 
-    carouselImages = ['https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Seminar%20Highlights%20opp%20slide.png', 'https://raw.githubusercontent.com/Firingsniper/Helivox-stuff/main/Corrected%20Prof%20Network%20Carousel.png'];
+    carouselImages = [];
 
     // Getters for all variables
     
