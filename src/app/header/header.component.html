@@ -6,6 +6,7 @@
         <li app-dropdown><a data-hover="Catalogs">Catalogs</a><span class="caret"></span></li>
         <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Articles" routerLink="articles">Articles</a></li>
         <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="About Us" routerLink="about-us">About Us</a></li>
+        <li routerLinkActive="current" (click)="cancelDropdown()"><a data-hover="Achievements" routerLink="achievements">Achievements</a></li>
         <li routerLinkActive="current" (click)="cancelDropdown()" *ngIf="!checkIsUser()"><a data-hover="Login" routerLink="login">Login</a></li>
         <li routerLinkActive="current" (click)="cancelDropdown()" *ngIf="checkIsUser()"><a data-hover="Profile" routerLink="profile" >Profile</a></li>
     </ul>
