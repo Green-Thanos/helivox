@@ -4,8 +4,11 @@ div.container-fluid {
 }
 
 h1 {
-    font-size: calc(70% + 1vw + 1vh);
-    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    font-size: calc(80% + 1vw + 1vh);
+    font-weight: 600;
+    padding-bottom: 20px;
 }
 
 img {

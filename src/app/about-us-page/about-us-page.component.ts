@@ -16,6 +16,7 @@ export class AboutUsPageComponent implements OnInit{
 
   exec = [];
   heads = [];
+  alumni = [];
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -26,19 +27,24 @@ export class AboutUsPageComponent implements OnInit{
         if(this.admins[i].category === "Executive"){
           this.exec.push(this.admins[i])
         }
+        else if (this.admins[i].category === "Alumni"){
+          this.alumni.push(this.admins[i])
+        }
         else {
           this.heads.push(this.admins[i])
         }
       }
+      console.log(this.alumni)
+      console.log(this.exec)
       this.reorder();
     }, 200)
   }
-
   reorder(){
     this.exec.splice(3, 0 , this.exec[0]);
     this.exec.push(this.exec[4]);
     this.exec.splice(4,1)
     this.exec.splice(0,1)
+
   }
 
   constructor(private dta: DataService){}

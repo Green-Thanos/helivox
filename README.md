@@ -9,7 +9,7 @@ gh repo clone
 cd helivox-angular
 npm install firebase
 npm i -g firebase-tools
-ng build (--prod)
+ng build
 firebase login /* should be with authorized email */
 firebase init (HOSTING, GITHUB OPTIONAL)
 firebase deploy
@@ -21,6 +21,8 @@ firebase deploy
 - Type dist/helivox as the public directory
 
 *all build files in dist folder*
+
+After the initial setup - `ng build` for a local build, and `firebase deploy` to push to production
 
 For hosting bugs, first check firebase.json and line 16 of angular.json - `"outputPath": "dist/helivox"`
 
