@@ -42,7 +42,6 @@ import { User } from '../templates/user';
 export class DataService{
 
 
-
     init(){
         this.getData('About').subscribe((res) => {
             this.aboutUs = res;
@@ -50,6 +49,10 @@ export class DataService{
         this.getData('Achievements').subscribe((res) => {
             this.achievements = res;
         })
+        this.getData('Articles').subscribe((res) => {
+            this.articles = res;
+        })
+
 
         return this.getData('Admin').toPromise().then((data: {
             catalogs: string[],
@@ -100,6 +103,7 @@ export class DataService{
     aboutUs = null;
     achievements = null;
 
+    articles = null;
 
     // Catalogs Page
     catalogs = ["Courses", "Clubs"];
@@ -155,6 +159,10 @@ export class DataService{
 
     getAchievements() {
         return this.achievements;
+    }
+
+    getArticles() {
+        return this.articles;
     }
 
     setAbout(e: any){
