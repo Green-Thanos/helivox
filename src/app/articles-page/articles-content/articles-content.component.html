@@ -10,21 +10,33 @@
         </div>
     </div>
 
-    <div class="col-md-4"
-    *ngFor="let obj of testObj">
-        <div class="card">
-            <img [src]="obj.image" alt="testImg">
-            <h2>{{obj.title}}</h2>
-            <p>by {{obj.author}} on 'date'</p>
-            <p class="blue"
-            (click)="showArticle=true; gotoTop();">
-            View article</p>
+    <div *ngFor="let obj of testObj">
+        <div *ngIf="selected === 'Latest' ? true : selected === obj.category"
+        class="col-md-4">
+            <div class="card">
+                <img [src]="obj.image" alt="testImg">
+                <h2>{{obj.title}}</h2>
+                <p>by {{obj.author}} on 'date'</p>
+                <p class="blue"
+                (click)="showArticle=true; gotoTop();"
+                style="font-weight: 500;">
+                View article</p>
+            </div>
         </div>
     </div>
 
 </div>
 
 <div *ngIf="showArticle">
+
+    <div class="content">
+        <h1 class="articleTitle">{{testObj[0].title}}</h1>
+        <div class="thumbnail-container">
+            <img [src]="testObj[0].image" alt="testImg" class="articleThumbnail">
+        </div>
+        <p class="articleAuthor">by {{testObj[0].author}} on 'date'</p>
+        <img [src]="testObj[0].content" alt="testContent">
+    </div>
 
     <div style="text-align: center; padding: 50px;">
         <button class="button"
