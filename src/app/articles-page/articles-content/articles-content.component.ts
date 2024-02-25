@@ -1,48 +1,54 @@
-import { Component } from '@angular/core';
-import { DataService } from '../../shared/services/dta.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/shared/services/dta.service';
 
 @Component({
   selector: 'articles-content',
   templateUrl: './articles-content.component.html',
   styleUrls: ['./articles-content.component.css']
 })
-export class ArticlesContentComponent {
+export class ArticlesContentComponent implements OnInit{
+
+  ngOnInit(): void {
+    this.dta.getData("Articles").subscribe((data) => {
+      console.log(data);
+    })
+    this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + "Articles" + '.json', JSON.stringify(this.testObj)).subscribe(() => {});
+        
+
+  }
 
   articlesButtons = ["Latest", "Highschool", "College", "Archive"];
 
   selected = "Latest";
 
-  testObj = [];
+  testObj = [
+    {
+      title: "test article",
+      image: "https://venngage-wordpress.s3.amazonaws.com/uploads/2016/10/IconsHeader.png",
+      author: "test author",
+      date: new Date(),
+      content: "https://raw.githubusercontent.com/LemonX19/Helivox-Public/main/6.png",
+      category: "Highschool"
+    },
+    {
+      title: "test article 2",
+      image: "https://kezbrks.files.wordpress.com/2014/03/screen-shot-2014-03-10-at-15-37-33.png",
+      author: "test author 2",
+      date: new Date(),
+      content: "",
+      category: "College"
+    },
+    {
+      title: "test article 3",
+      image: "https://kezbrks.files.wordpress.com/2014/03/screen-shot-2014-03-10-at-15-37-33.png",
+      author: "test author 3",
+      date: new Date(),
+      content: "",
+      category: "Archive"
+    }
+]
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.testObj = this.dta.getArticles();
-    }, 200)
-  }
-
-//   testObj = [
-//     {
-//       title: "test article",
-//       image: "https://venngage-wordpress.s3.amazonaws.com/uploads/2016/10/IconsHeader.png",
-//       author: "test author",
-//       date: new Date(),
-//       content: "https://raw.githubusercontent.com/LemonX19/Helivox-Public/main/6.png"
-//     },
-//     {
-//       title: "test article 2",
-//       image: "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?cs=srgb&dl=pexels-pixabay-206359.jpg&fm=jpg",
-//       author: "test author 2",
-//       date: new Date(),
-//       content: ""
-//     },
-//     {
-//       title: "test article 3",
-//       image: "https://t3.ftcdn.net/jpg/03/36/97/58/360_F_336975809_VvYkV1QZX2E8igeS3kYpcBGiMcK6zWpL.jpg",
-//       author: "test author 3",
-//       date: new Date(),
-//       content: ""
-//     }
-//  ]
 
   showArticle = false;
 
@@ -53,5 +59,7 @@ export class ArticlesContentComponent {
     });
   }
 
-  constructor(private dta: DataService){}
+  constructor(private dta: DataService, private http: HttpClient) {
+
+  }
 }
