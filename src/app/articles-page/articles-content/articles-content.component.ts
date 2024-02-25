@@ -49,6 +49,7 @@ export class ArticlesContentComponent implements OnInit{
     }
 ]
 
+
   showArticle = false;
 
   gotoTop() {
@@ -61,5 +62,4 @@ export class ArticlesContentComponent implements OnInit{
   constructor(private dta: DataService, private http: HttpClient) {
 
   }
-
 }
