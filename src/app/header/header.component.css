@@ -1,20 +1,17 @@
-
-
-a { 
-    color: black !important; 
-    cursor: pointer;
+a {
+  color: black !important;
+  cursor: pointer;
 }
 img {
-    list-style: outside none none;
-    width: 5rem; 
-    float: left;
-    position: absolute;
-    top: 20px;
-    right: 90%;
-
+  list-style: outside none none;
+  width: 5rem;
+  float: left;
+  position: absolute;
+  top: 20px;
+  right: 90%;
 }
 .hnav {
-  font-family: 'Raleway', Arial, sans-serif;
+  font-family: "Raleway", Arial, sans-serif;
   text-align: right;
   text-transform: uppercase;
   font-weight: 500;
@@ -23,8 +20,6 @@ img {
   padding-bottom: 20px;
   padding-top: 20px;
   text-align: center;
-  
-
 }
 .hnav * {
   box-sizing: border-box;
@@ -38,7 +33,6 @@ img {
   overflow: hidden;
   height: 25px;
   line-height: 25px;
-  
 }
 .hnav a {
   padding: 0.3em 0;
@@ -88,11 +82,11 @@ body {
 }
 
 hr {
-    width: 90%;
-    background-color: rgba(0, 0, 0, .2);
-    height: 1px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 1px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 div.nav {
@@ -110,8 +104,6 @@ span {
   cursor: pointer;
 }
 
-
-
 i {
   position: absolute;
   top: 44px;
@@ -128,8 +120,7 @@ i {
   right: 13.7%;
 }
 
-
-.pfp{
+.pfp {
   position: absolute;
   top: 30px;
   right: 5%;
@@ -137,7 +128,7 @@ i {
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.356);
-  height: 50px
+  height: 50px;
 }
 
 .dpdn {
@@ -161,8 +152,7 @@ img {
   cursor: pointer;
 }
 
-
-.disable-selection{
+.disable-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -170,10 +160,4 @@ img {
   -ms-user-select: none;
   user-select: none;
   outline: 0;
-  }
-
-
-
-
-
-
+}

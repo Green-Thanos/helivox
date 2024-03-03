@@ -1,11 +1,7 @@
-
-
-a { 
-    color: black !important; 
-    cursor: pointer;
-
+a {
+  color: black !important;
+  cursor: pointer;
 }
-
 
 .dropdown {
   position: fixed;
@@ -20,7 +16,6 @@ a {
   border-right: 0px solid;
   border-color: rgb(204, 197, 197);
   z-index: 3;
-
 }
 
 .inner-cont {
@@ -35,9 +30,10 @@ a {
 }
 
 .no-pad {
-  padding: 0px; 
+  padding: 0px;
   margin: 0px;
-  overflow: scroll; overflow-x: hidden
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .sort-text {
@@ -46,21 +42,8 @@ a {
   padding: 10px;
   padding-right: 0px;
   cursor: pointer;
-
-  
 }
 
 .act {
   text-decoration: underline;
 }
-
-
-
-
-
-
-
-
-
-
-

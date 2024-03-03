@@ -1,22 +1,21 @@
 div.container-fluid {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    font-size: calc(80% + 1vw + 1vh);
-    font-weight: 600;
-    padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: calc(80% + 1vw + 1vh);
+  font-weight: 600;
+  padding-bottom: 20px;
 }
 
 img {
-    height: 300px;
+  height: 300px;
 }
 
-.col-sm-4{
-    display: flex;
-    justify-content: center;
-    
+.col-sm-4 {
+  display: flex;
+  justify-content: center;
 }

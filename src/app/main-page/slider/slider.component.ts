@@ -4,9 +4,8 @@ import { DataService } from 'src/app/shared/services/dta.service';
 @Component({
   selector: 'slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+  styleUrls: ['./slider.component.css'],
 })
-
 export class SliderComponent implements OnInit {
   // implements AfterviewInit
   images: string[] = this.dta.getCarousel();
@@ -44,10 +43,9 @@ export class SliderComponent implements OnInit {
   //       img.src = imageUrl;
   //     });
   //   });
-  
+
   //   await Promise.all(imagePromises);
   // }
-  
 
   // changeImg(isDecrease: boolean) {
   //   if (isDecrease) {

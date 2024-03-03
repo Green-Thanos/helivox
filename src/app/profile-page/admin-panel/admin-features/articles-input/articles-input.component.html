@@ -1,0 +1,20 @@
+<h1>Add an Article</h1>
+<p style="font-weight: 300; font-size: medium">
+  Note that you can't delete an article; send a message in the helivox discord
+  to edit or delete an entry
+</p>
+<!-- <div *ngFor="let data of carouselData; let i = index; trackBy: trackByFn">
+    <input type="text" [(ngModel)]="carouselData[i]">
+</div> -->
+<input type="text" placeholder="Title" [(ngModel)]="title" /><br />
+<input type="text" placeholder="Author" [(ngModel)]="author" /><br />
+<input type="text" placeholder="Image" [(ngModel)]="image" /><br />
+<input type="text" placeholder="Content" [(ngModel)]="content" /><br />
+<input type="text" placeholder="Category" [(ngModel)]="category" /><br />
+
+<button class="button submit" (click)="submit()">Submit</button>
+
+<confirmation-modal
+  *ngIf="confirmationModal"
+  (confirmation)="checkConfirmation($event)"
+></confirmation-modal>

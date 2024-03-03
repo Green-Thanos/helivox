@@ -5,10 +5,9 @@ import { DataService } from 'src/app/shared/services/dta.service';
 @Component({
   selector: 'phone-dropdown',
   templateUrl: './phone-dropdown.component.html',
-  styleUrls: ['./phone-dropdown.component.css']
+  styleUrls: ['./phone-dropdown.component.css'],
 })
-export class PhoneDropdownComponent implements OnInit{
-
+export class PhoneDropdownComponent implements OnInit {
   catalogs = [];
   states = [];
   schools = [];
@@ -16,9 +15,7 @@ export class PhoneDropdownComponent implements OnInit{
   currentCatalog = 0;
   currentState = 0;
 
-
   clicked = false;
-
 
   ngOnInit(): void {
     this.catalogs = this.dta.getCatalogs();
@@ -26,26 +23,26 @@ export class PhoneDropdownComponent implements OnInit{
     this.schools = this.dta.getSchools(this.states[0]);
   }
 
-  checkIsUser(){
+  checkIsUser() {
     return this.dta.getUser().role >= 0;
   }
 
-  
-  closeDropdown(){
+  closeDropdown() {
     this.ddService.update(false);
   }
 
-  changeSchool(){
+  changeSchool() {
     this.schools = this.dta.getSchools(this.states[this.currentState]);
-
   }
-  resetDpdn(){
+  resetDpdn() {
     this.ddService.update(false);
     this.currentCatalog = 0;
     this.currentState = 0;
     this.changeSchool();
   }
 
-  constructor(private dta: DataService, private ddService: DropdownService){}
+  constructor(
+    private dta: DataService,
+    private ddService: DropdownService,
+  ) {}
 }
-

@@ -4,7 +4,7 @@ import { DataService } from 'src/app/shared/services/dta.service';
 @Component({
   selector: 'schools-input',
   templateUrl: './schools-input.component.html',
-  styleUrls: ['./schools-input.component.css']
+  styleUrls: ['./schools-input.component.css'],
 })
 export class SchoolsInputComponent {
   schools = this.dta.getAllSchools();
@@ -19,40 +19,40 @@ export class SchoolsInputComponent {
 
   deleteState = false;
 
-  submit(){
+  submit() {
     this.confirmationModal = true;
   }
 
-  deleteS(){
+  deleteS() {
     this.confirmationModal = true;
     this.deleteState = true;
   }
 
-  checkConfirmation(conf: boolean){
-
-    if(this.deleteState){
+  checkConfirmation(conf: boolean) {
+    if (this.deleteState) {
       this.deleteState = false;
-      if(conf){
+      if (conf) {
         delete this.schools[this.states[this.selected]];
         this.states = Object.keys(this.schools);
         this.submitToDatabase(this.schools);
       }
-    }
-    else if(conf){
-      if(this.newState !== ''){
+    } else if (conf) {
+      if (this.newState !== '') {
         this.schools[this.newState.trim()] = [];
         this.states = Object.keys(this.schools);
         this.newState = '';
       }
-      for(let j = 0; j < this.newSchool.length; j++){
-        if(this.newSchool[j] !== ''){
+      for (let j = 0; j < this.newSchool.length; j++) {
+        if (this.newSchool[j] !== '') {
           this.schools[this.states[j]].push(this.newSchool[j].trim());
           this.newSchool[j] = '';
         }
       }
-  
-      for(let i = 0; i < this.states.length; i++){
-        this.schools[this.states[i]] = this.schools[this.states[i]].filter((str) => str !== '');
+
+      for (let i = 0; i < this.states.length; i++) {
+        this.schools[this.states[i]] = this.schools[this.states[i]].filter(
+          (str) => str !== '',
+        );
       }
       this.submitToDatabase(this.schools);
     }
@@ -60,15 +60,18 @@ export class SchoolsInputComponent {
     this.confirmationModal = false;
   }
 
-  submitToDatabase(schools: any){
-    this.dta.patchData({
-      schools: schools
-    }, 'Admin')
+  submitToDatabase(schools: any) {
+    this.dta.patchData(
+      {
+        schools: schools,
+      },
+      'Admin',
+    );
     this.dta.setAllSchools(schools);
   }
 
   trackByFn(index: any, item: any) {
     return index;
   }
-  constructor(private dta: DataService){}
+  constructor(private dta: DataService) {}
 }

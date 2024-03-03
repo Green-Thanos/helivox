@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, OnInit } from '@angular/core'
+import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { take, exhaustMap } from 'rxjs/operators';
@@ -19,13 +19,13 @@ import { User } from '../templates/user';
 //     appId: "1:582156179729:web:f8bdbbdc06d3e92f94d4b0",
 //     measurementId: "G-NWGYBGTEWH"
 //   };
-  
+
 //   // Initialize Firebase
 //    app = initializeApp(this.firebaseConfig);
 //    db = getFirestore(this.app);
 
 // tempReroute(){
-        
+
 //     let ref = collection(this.db, 'Courses');
 //     getDocs(ref).then((d) => {
 //         let f = [];
@@ -37,301 +37,415 @@ import { User } from '../templates/user';
 //     })
 // }
 
+@Injectable({ providedIn: 'root' })
+export class DataService {
+  init() {
+    this.getData('About').subscribe((res) => {
+      this.aboutUs = res;
+    });
+    this.getData('Achievements').subscribe((res) => {
+      this.achievements = res;
+    });
+    this.getData('Articles').subscribe((res) => {
+      this.articles = res;
+    });
 
-@Injectable({providedIn: 'root'})
-export class DataService{
-
-
-    init(){
-        this.getData('About').subscribe((res) => {
-            this.aboutUs = res;
-        })
-        this.getData('Achievements').subscribe((res) => {
-            this.achievements = res;
-        })
-        this.getData('Articles').subscribe((res) => {
-            this.articles = res;
-        })
-
-
-        return this.getData('Admin').toPromise().then((data: {
-            catalogs: string[],
-            carouselImages: string[],
-            schools: any,
-            tags: any
+    return this.getData('Admin')
+      .toPromise()
+      .then(
+        (data: {
+          catalogs: string[];
+          carouselImages: string[];
+          schools: any;
+          tags: any;
         }) => {
-            this.catalogs = data.catalogs;
-            this.carouselImages = data.carouselImages;
-            this.schools = data.schools;
-            this.tags = data.tags;
-            this.isActive = true;
+          this.catalogs = data.catalogs;
+          this.carouselImages = data.carouselImages;
+          this.schools = data.schools;
+          this.tags = data.tags;
+          this.isActive = true;
 
-            for(let i = 0; i < this.catalogs.length; i++){
-                this.catalogs[i] = this.catalogs[i].replace("_", " ")
-            }
+          for (let i = 0; i < this.catalogs.length; i++) {
+            this.catalogs[i] = this.catalogs[i].replace('_', ' ');
+          }
 
-            this.defaultTags = Object.keys(this.filtrationData);
-            this.types = Object.keys(this.tags);
-        }).catch(()=>{
-            this.catalogs = ["Courses", "Clubs"];
-            this.schools = {
-                "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
-                "Georgia": ["John's Creek High School"]
-            };
-            this.tags = {
-                "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing"],
-                "SPORTS": ["Boys", "Girls", "Winter", "Spring", "Fall", "Dance", "Swim", "Personal Fitness", "Self Defense"],
-                "ARTS": ["Art", "Lit", "Pub. Speaking", "Lang/Culture", "Drama", "Music", "Film"],
-                "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
-            }
+          /** articles */
 
-            this.isActive = false;
-        })
+          this.defaultTags = Object.keys(this.filtrationData);
+          this.types = Object.keys(this.tags);
+        },
+      )
+      .catch(() => {
+        this.catalogs = ['Courses', 'Clubs'];
+        this.schools = {
+          Michigan: [
+            'Troy High School',
+            'International Academy High School',
+            'Cranbrook High School',
+          ],
+          Georgia: ["John's Creek High School"],
+        };
+        this.tags = {
+          STEM: [
+            'Science',
+            'Med',
+            'Math',
+            'CS',
+            'Technology',
+            'Standardized Testing',
+          ],
+          SPORTS: [
+            'Boys',
+            'Girls',
+            'Winter',
+            'Spring',
+            'Fall',
+            'Dance',
+            'Swim',
+            'Personal Fitness',
+            'Self Defense',
+          ],
+          ARTS: [
+            'Art',
+            'Lit',
+            'Pub. Speaking',
+            'Lang/Culture',
+            'Drama',
+            'Music',
+            'Film',
+          ],
+          MISC: [
+            'Business',
+            'Volunteering',
+            'Religion',
+            'Social Studies',
+            'Life Skills',
+            'Trade-Specific',
+            'Trivia',
+          ],
+        };
 
-    }
+        this.isActive = false;
+      });
+  }
 
+  user = new User('', '', '', new Date(), -1, '', '', '', 0);
+  editMode = false;
+  isActive = false;
+  // Alert auxilary variables
 
-    user = new User("", "", "", new Date(), -1, "", "", "", 0);
-    editMode = false;
-    isActive = false;
-    // Alert auxilary variables
+  alertText = '';
+  alertIsOpen = false;
+  alertColor = '';
 
-    alertText = '';
-    alertIsOpen = false;
-    alertColor = ''
+  aboutUs = null;
+  achievements = null;
 
-    aboutUs = null;
-    achievements = null;
+  articles = null;
 
-    articles = null;
+  // Catalogs Page
+  catalogs = ['Courses', 'Clubs'];
+  schools = {
+    Michigan: [
+      'Troy High School',
+      'International Academy High School',
+      'Cranbrook High School',
+    ],
+    Georgia: ["John's Creek High School"],
+  };
+  tags = {
+    STEM: [
+      'Science',
+      'Med',
+      'Math',
+      'CS',
+      'Technology',
+      'Standardized Testing',
+    ],
+    SPORTS: [
+      'Boys',
+      'Girls',
+      'Winter',
+      'Spring',
+      'Fall',
+      'Dance',
+      'Swim',
+      'Personal Fitness',
+      'Self Defense',
+    ],
+    ARTS: [
+      'Art',
+      'Lit',
+      'Pub. Speaking',
+      'Lang/Culture',
+      'Drama',
+      'Music',
+      'Film',
+    ],
+    MISC: [
+      'Business',
+      'Volunteering',
+      'Religion',
+      'Social Studies',
+      'Life Skills',
+      'Trade-Specific',
+      'Trivia',
+    ],
+  };
 
-    // Catalogs Page
-    catalogs = ["Courses", "Clubs"];
-    schools = {
-        "Michigan": ["Troy High School", "International Academy High School", "Cranbrook High School"],
-        "Georgia": ["John's Creek High School"]
-    };
-    tags = {
-        "STEM": ["Science", "Med", "Math", "CS", "Technology", "Standardized Testing"],
-        "SPORTS": ["Boys", "Girls", "Winter", "Spring", "Fall", "Dance", "Swim", "Personal Fitness", "Self Defense"],
-        "ARTS": ["Art", "Lit", "Pub. Speaking", "Lang/Culture", "Drama", "Music", "Film"],
-        "MISC": ["Business", "Volunteering", "Religion", "Social Studies", "Life Skills", "Trade-Specific", "Trivia"]
-    }
+  // Referenced by default tags
+  filtrationData = {
+    Hours: ['0', '1-5', '6-10', '10+'],
+    Cost: ['$0', '$1-20', '$20-50', '$50+'],
+    Tags: this.getTags('STEM'),
+    Rating: ['Superior', 'Outstanding'],
+  };
 
-    // Referenced by default tags
-    filtrationData = {
-        "Hours": ["0", "1-5", "6-10", "10+"],
-        "Cost": ["$0", "$1-20", "$20-50", "$50+"],
-        "Tags": this.getTags("STEM"),
-        "Rating": ['Superior', 'Outstanding']
-      }
-    
-    defaultTags = Object.keys(this.filtrationData);
-    types = Object.keys(this.tags);
+  defaultTags = Object.keys(this.filtrationData);
+  types = Object.keys(this.tags);
 
-    userRatingOptions = ['Unacceptable', 'Subpar', 'Standard', 'Superior', 'Outstanding'];
+  userRatingOptions = [
+    'Unacceptable',
+    'Subpar',
+    'Standard',
+    'Superior',
+    'Outstanding',
+  ];
 
-    checkIfUserResubmitRating = [];
+  checkIfUserResubmitRating = [];
 
-    volQuests = [];
+  volQuests = [];
 
-    // Front page
+  // Front page
 
-    statVal = ['83', '75', '69', '21', '95' ];
-    statText = ['of teens identify school as a major stress factor - 2017 APA Stress Survey', 
+  statVal = ['83', '75', '69', '21', '95'];
+  statText = [
+    'of teens identify school as a major stress factor - 2017 APA Stress Survey',
     "of high school graduates do not feel adequately prepared to make college and career decisions - YouScience 'Post Graduation Readiness Report'",
-    'of teens say getting into a good college is a major stress factor - 2017 APA Stress Survey', 
+    'of teens say getting into a good college is a major stress factor - 2017 APA Stress Survey',
     'was the percentage increase in college applications between the 2019-2020 and the 2021-2022 school year - Department of Education, NCES College Enrollment Rates',
     'of Americans support US High School Students having more academic opportunities and choices - State of the Skills Gap: Perceptions of the role high school plays in preparing students for success in career - 2023 Edge Research and K12 Inc',
-    ];
+  ];
 
-    carouselImages = [];
+  carouselImages = [];
 
-    // Getters for all variables
-    
-    get editorMode(){
-        return this.editMode;
+  // Getters for all variables
+
+  get editorMode() {
+    return this.editMode;
+  }
+
+  getAbout() {
+    return this.aboutUs;
+  }
+
+  getAchievements() {
+    return this.achievements;
+  }
+
+  getArticles() {
+    return this.articles;
+  }
+
+  addArticle(articles: any) {
+    this.articles.push(articles);
+  }
+  setArticles() {
+    this.http
+      .put(
+        'https://helivox-2-default-rtdb.firebaseio.com/' + 'Articles' + '.json',
+        JSON.stringify(this.articles),
+      )
+      .subscribe(() => {});
+  }
+
+  setAbout(e: any) {
+    this.aboutUs = e;
+  }
+
+  setVolQuests(e: any) {
+    if (e !== null && e !== undefined) {
+      this.volQuests = e;
+      localStorage.setItem('volData', JSON.stringify(this.volQuests));
     }
+  }
 
-    getAbout(){
-        return this.aboutUs;
+  getVolQuests() {
+    if (this.volQuests === null) {
+      return [];
     }
-
-    getAchievements() {
-        return this.achievements;
+    if (this.volQuests.length === 0) {
+      return [];
     }
+    return this.volQuests.slice();
+  }
 
-    getArticles() {
-        return this.articles;
-    }
+  setEditMode(editMode: boolean) {
+    this.editMode = editMode;
+  }
 
-    setAbout(e: any){
-        this.aboutUs = e;
-    }
+  setUser(user: User) {
+    this.user = user;
+    localStorage.setItem('userData', JSON.stringify(this.user));
+  }
 
-    setVolQuests(e: any){
-        if(e !== null && e !== undefined){
-            this.volQuests = e;
-            localStorage.setItem('volData', JSON.stringify(this.volQuests));
+  getUser() {
+    return this.user;
+  }
 
-        }
-    }
+  getAlertText() {
+    return this.alertText;
+  }
 
-    getVolQuests(){
-        if(this.volQuests === null){
-            return [];
-        }
-        if(this.volQuests.length === 0){
-            return []
-        }
-        return this.volQuests.slice();
-    }
+  setAlertData(text: string, status: boolean, color: string) {
+    this.alertText = text;
+    this.alertColor = color;
+    this.alertIsOpen = status;
+    setTimeout(() => {
+      this.alertText = '';
+      this.alertColor = color;
+      this.alertIsOpen = false;
+    }, 2000);
+  }
 
-    setEditMode(editMode: boolean){
-        this.editMode = editMode;
-    }
+  getAlertStatus() {
+    return this.alertIsOpen;
+  }
 
-    setUser(user: User){
-        this.user = user;
-        localStorage.setItem('userData', JSON.stringify(this.user));
+  getAlertColor() {
+    return this.alertColor;
+  }
 
-    }
+  getCarousel() {
+    return this.carouselImages.slice();
+  }
 
-    getUser(){
-        return this.user;
-    }
+  setCarousel(carouselImages: any) {
+    this.carouselImages = carouselImages;
+  }
 
-    getAlertText(){
-        return this.alertText;
-    }
+  addCarousel(img: string) {
+    this.carouselImages.push(img);
 
-    setAlertData(text: string, status: boolean, color: string){
-        this.alertText = text;
-        this.alertColor = color;
-        this.alertIsOpen = status;
-        setTimeout(() => {
-            this.alertText = "";
-            this.alertColor = color;
-            this.alertIsOpen = false;
-        }, 2000)
-    }
+    // send to backend
+  }
 
-    getAlertStatus(){
-        return this.alertIsOpen;
-    }
+  getUserRatingOptions() {
+    return this.userRatingOptions.slice();
+  }
 
-    getAlertColor(){
-        return this.alertColor;
-    }
+  addUserRatingLog(index: number) {
+    this.checkIfUserResubmitRating.push(index);
+  }
 
+  checkIfResubmit(index: number) {
+    return this.checkIfUserResubmitRating.includes(index);
+  }
 
+  getStatVal() {
+    return this.statVal.slice();
+  }
 
-    getCarousel(){
-        return this.carouselImages.slice();
-    }
+  getStatText() {
+    return this.statText.slice();
+  }
 
-    setCarousel(carouselImages: any){
-        this.carouselImages = carouselImages;
-    }
+  getCatalogs() {
+    return this.catalogs.slice();
+  }
+  setCatalogs(catalogs: any) {
+    this.catalogs = catalogs;
+  }
+  getStates() {
+    return Object.keys(this.schools);
+  }
 
-    addCarousel(img: string){
-        this.carouselImages.push(img);
+  getSchools(state: any) {
+    return this.schools[state];
+  }
+  getAllSchools() {
+    return this.schools;
+  }
+  setAllSchools(schools: any) {
+    this.schools = schools;
+  }
+  getTags(desc: string) {
+    return this.tags[desc];
+  }
 
-        // send to backend
-    }
+  getAllTags() {
+    return this.tags;
+  }
 
-    getUserRatingOptions(){
-        return this.userRatingOptions.slice();
-    }
+  setAllTags(tags: any) {
+    this.tags = tags;
+  }
 
-    addUserRatingLog(index: number){
-        this.checkIfUserResubmitRating.push(index);
-    }
-    
-    checkIfResubmit(index: number){
-        return this.checkIfUserResubmitRating.includes(index);
-    }
+  getDefaultTags() {
+    return this.defaultTags.slice();
+  }
 
-    getStatVal(){
-        return this.statVal.slice();
-    }
+  getTypes() {
+    return this.types.slice();
+  }
 
-    getStatText(){
-        return this.statText.slice();
-    }
+  // Http Request Methods
 
-    getCatalogs(){
-        return this.catalogs.slice();
-    }
-    setCatalogs(catalogs: any){
-        this.catalogs = catalogs;
-    }
-    getStates(){
-        return Object.keys(this.schools)
-    }
+  postData(newDta: any, fileName: String) {
+    this.http
+      .put(
+        'https://helivox-2-default-rtdb.firebaseio.com/' +
+          fileName +
+          '.json?auth=' +
+          this.user.token,
+        JSON.stringify(newDta),
+      )
+      .subscribe(() => {});
 
-    getSchools(state: any){
-        return this.schools[state];
+    // this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
+  }
 
-    }
-    getAllSchools(){
-        return this.schools;
-    }
-    setAllSchools(schools: any){
-        this.schools = schools;
-    }   
-    getTags(desc: string) {
-        return this.tags[desc]
-    }
+  getData(filename: String) {
+    return this.http.get(
+      'https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json',
+    );
+  }
 
-    getAllTags(){
-        return this.tags;
-    }
+  patchData(newDta: any, fileName: String) {
+    this.http
+      .patch(
+        'https://helivox-2-default-rtdb.firebaseio.com/' +
+          fileName +
+          '.json?auth=' +
+          this.user.token,
+        JSON.stringify(newDta),
+      )
+      .subscribe(() => {});
+  }
 
-    setAllTags(tags: any){
-        this.tags = tags;
-    }
+  deleteData(name: string, filename: string) {
+    this.http
+      .delete(
+        'https://helivox-2-default-rtdb.firebaseio.com/' +
+          filename +
+          '/' +
+          name +
+          '.json?auth=' +
+          this.user.token,
+      )
+      .subscribe(() => {});
+  }
+  deleteFile(filename: string) {
+    this.http
+      .delete(
+        'https://helivox-2-default-rtdb.firebaseio.com/' +
+          filename +
+          '/' +
+          '.json?auth=' +
+          this.user.token,
+      )
+      .subscribe(() => {});
+  }
 
-    getDefaultTags(){
-        return this.defaultTags.slice();
-    }
-
-    getTypes() {
-        return this.types.slice()
-    }
-
-    // Http Request Methods
-
-
-
-    postData(newDta: any, fileName: String){
-        
-        this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json?auth=' + this.user.token, JSON.stringify(newDta)).subscribe(() => {});
-        
-
-        // this.http.put('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json', JSON.stringify(newDta)).subscribe(() => {});
-
-    }
-
-    getData(filename: String){
-        return this.http.get('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '.json');
-    }
-
-    patchData(newDta: any, fileName: String){
-            this.http.patch('https://helivox-2-default-rtdb.firebaseio.com/' + fileName + '.json?auth=' + this.user.token, JSON.stringify(newDta)).subscribe(() => {});
-    }
-
-    deleteData(name: string, filename: string){
-            this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + name + '.json?auth=' + this.user.token).subscribe(() => {})
-    }
-    deleteFile(filename: string){
-        this.http.delete('https://helivox-2-default-rtdb.firebaseio.com/' + filename + '/' + '.json?auth=' + this.user.token).subscribe(() => {})
-    }
-
-
-
- 
-    constructor(private http: HttpClient){}
-
-
+  constructor(private http: HttpClient) {}
 }

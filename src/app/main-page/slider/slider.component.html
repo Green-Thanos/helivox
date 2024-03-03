@@ -1,11 +1,13 @@
 <div style="position: relative">
-    <div class="container">
-      <div class="row">
-        <div class="imageHold">
-          <img [src]="images[i]" alt="" class="img img-responsive">
-        </div>
-        <p class="big" style="margin-right: 10%" (click)="changeImg(true)">&lt;</p>
-        <p class="big" (click)="changeImg(false)">&gt;</p>
+  <div class="container">
+    <div class="row">
+      <div class="imageHold">
+        <img [src]="images[i]" alt="" class="img img-responsive" />
       </div>
+      <p class="big" style="margin-right: 10%" (click)="changeImg(true)">
+        &lt;
+      </p>
+      <p class="big" (click)="changeImg(false)">&gt;</p>
     </div>
   </div>
+</div>
