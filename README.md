@@ -10,7 +10,8 @@ The official website for Helivox
 - Speed up image loading, especially on the achievements page
 - When uploading images, do so in their own commit and remember that the images directory is in the .gitignore, or just give me the pictures
 - Fix the UI for articles
-- Delete and Edit functionality for articles
+- Delete and Edit functionality for articles (Need to add userID of person who made article entry for perms to edit and delete their own articles, admin can modify everything)
+  change the placeholder for category to say (Highschool or College) and the note above to say that those are the only 2, but writing team can decide if they want more
 
 ## Steps to Deploy
 
