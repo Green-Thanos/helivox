@@ -4,7 +4,7 @@ The official website for Helivox
 
 ## Development Notes
 
-- Contributing Members should submit pull requests with changes they've made. To learn more, go to documentation
+- Contributing Members should submit [pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) with changes they've made. To learn more, go to the [github documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=webui)
 
 **Todo:**
 - Speed up image loading, especially on the achievements page
