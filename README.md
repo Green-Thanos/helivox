@@ -2,6 +2,16 @@
 
 The official website for Helivox
 
+## Development Notes
+
+- Contributing Members should submit pull requests with changes they've made. To learn more, go to documentation
+
+**Todo:**
+- Speed up image loading, especially on the achievements page
+- When uploading images, do so in their own commit and remember that the images directory is in the .gitignore, or just give me the pictures
+- Fix the UI for articles
+- Delete and Edit functionality for articles
+
 ## Steps to Deploy
 
 ```
