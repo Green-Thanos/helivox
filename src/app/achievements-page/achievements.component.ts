@@ -15,6 +15,7 @@ export class AchievementsPageComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.events = this.dta.getAchievements().Events;
+      this.events.reverse();
       //  this.reorder();
     }, 200);
   }
@@ -24,6 +25,7 @@ export class AchievementsPageComponent implements OnInit {
     this.events.push(this.events[4]);
     this.events.splice(4, 1);
     this.events.splice(0, 1);
+    this.events.reverse();
   }
 
   constructor(private dta: DataService) {}

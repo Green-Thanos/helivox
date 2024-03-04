@@ -48,7 +48,8 @@
       />
     </div>
     <p class="articleAuthor">
-      by {{ selectedArticle.author }} on {{ selectedArticle.date }}
+      By {{ selectedArticle.author }} Lasted Edited on
+      {{ formatDate(selectedArticle.date) }}
     </p>
     <img [src]="selectedArticle.content" alt="Blank" />
   </div>
