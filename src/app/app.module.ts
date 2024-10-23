@@ -9,7 +9,7 @@ import { DropdownComponent } from './header/dropdown/dropdown.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { CatalogsPageComponent } from './catalogs-page/catalogs-page.component';
 import { ArticlesPageComponent } from './articles-page/articles-page.component';
-import { AboutUsPageComponent } from './about-us-page/about-us-page.component';
+// import { AboutUsPageComponent } from './about-us-page/about-us-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DropdownDirective } from './shared/dropdown.directive';
@@ -42,7 +42,7 @@ import { CatalogsInputComponent } from './profile-page/admin-panel/admin-feature
 import { SchoolsInputComponent } from './profile-page/admin-panel/admin-features/schools-input/schools-input.component';
 import { TagsInputComponent } from './profile-page/admin-panel/admin-features/tags-input/tags-input.component';
 import { ArticlesInputComponent } from './profile-page/admin-panel/admin-features/articles-input/articles-input.component';
-import { ProfileCardComponent } from './about-us-page/profile-card/profile-card.component';
+// import { ProfileCardComponent } from './about-us-page/profile-card/profile-card.component';
 import { AboutSubmissionComponent } from './profile-page/admin-panel/admin-features/about-submission/about-submission.component';
 import { ArticlesContentComponent } from './articles-page/articles-content/articles-content.component';
 import { ArticlesBannerComponent } from './articles-page/articles-banner/articles-banner.component';
@@ -60,7 +60,7 @@ export function serviceLoader(dta: DataService) {
     DropdownComponent,
     MainPageComponent,
     CatalogsPageComponent,
-    AboutUsPageComponent,
+    // AboutUsPageComponent,
     LoginPageComponent,
     DropdownDirective,
     PhoneViewComponent,
@@ -89,7 +89,7 @@ export function serviceLoader(dta: DataService) {
     CatalogsInputComponent,
     SchoolsInputComponent,
     TagsInputComponent,
-    ProfileCardComponent,
+    // ProfileCardComponent,
     AboutSubmissionComponent,
     ArticlesContentComponent,
     ArticlesBannerComponent,
